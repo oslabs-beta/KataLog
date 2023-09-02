@@ -1,0 +1,13 @@
+import * as React from 'react';
+type CalendarPickerSkeletonComponent = ((props: CalendarPickerSkeletonProps & React.RefAttributes<HTMLDivElement>) => JSX.Element) & {
+    propTypes?: any;
+};
+/**
+ * @ignore - do not document.
+ */
+declare const CalendarPickerSkeleton: CalendarPickerSkeletonComponent;
+export default CalendarPickerSkeleton;
+export declare const calendarPickerSkeletonClasses: {};
+export declare const getCalendarPickerSkeletonUtilityClass: (slot: string) => string;
+export type CalendarPickerSkeletonProps = Record<any, any>;
+export type CalendarPickerSkeletonClassKey = any;

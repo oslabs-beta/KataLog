@@ -1,0 +1,10 @@
+import * as React from 'react';
+type StaticDatePickerComponent = (<TDate>(props: StaticDatePickerProps<TDate> & React.RefAttributes<HTMLDivElement>) => JSX.Element) & {
+    propTypes?: any;
+};
+/**
+ * @ignore - do not document.
+ */
+declare const StaticDatePicker: StaticDatePickerComponent;
+export default StaticDatePicker;
+export type StaticDatePickerProps<TDate> = Record<any, any>;

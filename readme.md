@@ -13,7 +13,10 @@ Tech Stack:
 - Node.js
 - Express
 - MongoDB
--
+- Open Telemetry
+- Docker
+- Kubernetes
+- FluentD --> look into what fluentD does regards
 
 
 MVP Features:

@@ -1,0 +1,2 @@
+import { FieldSection, UseFieldParams, UseFieldResponse, UseFieldForwardedProps, UseFieldInternalProps } from './useField.interfaces';
+export declare const useField: <TInputValue, TValue, TDate, TSection extends FieldSection, TForwardedProps extends UseFieldForwardedProps, TInternalProps extends UseFieldInternalProps<any, any, any>>(params: UseFieldParams<TInputValue, TValue, TDate, TSection, TForwardedProps, TInternalProps>) => UseFieldResponse<TForwardedProps>;

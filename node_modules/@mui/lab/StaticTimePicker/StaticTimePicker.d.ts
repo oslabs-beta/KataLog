@@ -1,0 +1,10 @@
+import * as React from 'react';
+type StaticTimePickerComponent = (<TDate>(props: StaticTimePickerProps<TDate> & React.RefAttributes<HTMLDivElement>) => JSX.Element) & {
+    propTypes?: any;
+};
+/**
+ * @ignore - do not document.
+ */
+declare const StaticTimePicker: StaticTimePickerComponent;
+export default StaticTimePicker;
+export type StaticTimePickerProps<TDate> = Record<any, any>;

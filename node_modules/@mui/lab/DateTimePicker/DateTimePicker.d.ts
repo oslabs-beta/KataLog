@@ -1,0 +1,10 @@
+import * as React from 'react';
+type DateTimePickerComponent = (<TDate>(props: DateTimePickerProps<TDate> & React.RefAttributes<HTMLDivElement>) => JSX.Element) & {
+    propTypes?: any;
+};
+/**
+ * @ignore - do not document.
+ */
+declare const DateTimePicker: DateTimePickerComponent;
+export default DateTimePicker;
+export type DateTimePickerProps<TDate> = Record<any, any>;
