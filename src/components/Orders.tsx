@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,87 +8,69 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 
-// Generate Order Data
-function createData(
-  id: number,
-  date: string,
-  name: string,
-  shipTo: string,
-  paymentMethod: string,
-  amount: number,
-) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
-
-const rows = [
-  createData(
-    0,
-    '16 Mar, 2019',
-    'Elvis Presley',
-    'Tupelo, MS',
-    'VISA ⠀•••• 3719',
-    312.44,
-  ),
-  createData(
-    1,
-    '16 Mar, 2019',
-    'Paul McCartney',
-    'London, UK',
-    'VISA ⠀•••• 2574',
-    866.99,
-  ),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
-  createData(
-    3,
-    '16 Mar, 2019',
-    'Michael Jackson',
-    'Gary, IN',
-    'AMEX ⠀•••• 2000',
-    654.39,
-  ),
-  createData(
-    4,
-    '15 Mar, 2019',
-    'Bruce Springsteen',
-    'Long Branch, NJ',
-    'VISA ⠀•••• 5919',
-    212.79,
-  ),
-];
 
 function preventDefault(event: React.MouseEvent) {
   event.preventDefault();
 }
 
 export default function Orders() {
+
+  // assign a key id?
+  interface Log {
+    timestamp: string;
+    sourceInfo: string;
+    logObject: LogObject;
+  }
+  
+  interface LogObject {
+    log: string;
+    stream: string;
+  }
+  
+  const initialLogData: Log[] = [];
+  
+    const [logData, setLogData] = useState<Log[]>(initialLogData);
+  
+    useEffect(() => {
+      fetch('/api/logs')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json() as Promise<Log[]>; // Specify the response type as an array of Log
+        })
+        .then((data) => {
+          const newData = data.slice(0, data.length - 1);
+          setLogData(newData); // Use data directly if it's an array
+        })
+        .catch((err) => console.error('An error occurred in getting logs: ', err));
+    }, []);
+
+
+
   return (
     <React.Fragment>
-      <Title>Recent Orders</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Ship To</TableCell>
-            <TableCell>Payment Method</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{`$${row.amount}`}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
-      </Link>
-    </React.Fragment>
-  );
-}
+  <Title>Your Centralized Kubernetes Logs:</Title>
+  <Table size="small">
+    <TableHead>
+      <TableRow>
+        <TableCell>Time Stamp</TableCell>
+        <TableCell>Source</TableCell>
+        <TableCell align="left">Log</TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {logData.map((row) => (
+        <TableRow key={row.timestamp}>
+          <TableCell>{row.timestamp}</TableCell>
+          <TableCell>{row.sourceInfo}</TableCell>
+          <TableCell align="left" >{row.logObject.log}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
+  <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+    See more Logs
+  </Link>
+</React.Fragment>
+  )}

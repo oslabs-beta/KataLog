@@ -28,7 +28,7 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "formik": "2.2.9",
-    "fs": "^0.0.1-security",
+    "fs": "0.0.1-security",
     "mongodb": "^5.7.0",
     "mongoose": "^7.4.3",
     "next": "13.1.6",
