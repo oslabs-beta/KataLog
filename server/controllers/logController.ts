@@ -3,7 +3,7 @@ const fs = require('fs');
 const logController : any = {};
 
 logController.parseLogs = (req, res, next) => {
-  fs.readFile('/Users/charlesfrancofranco/Documents/logs/my-app-copy.19700101.log.txt_26.log', 'utf-8', (err, readData) => {
+  fs.readFile('/Users/tkpaps/CodeSmithPTRI/OSP/Katalog/logs/my-app-copy.19700101.log.txt_26.log', 'utf-8', (err, readData) => {
     if (err) {
         return res.status(500).json({ error: 'Failed to read log file' });
     }
