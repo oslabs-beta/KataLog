@@ -95,7 +95,8 @@ export default function Orders() {
     } 
   
   const handleClearFilter = () => {
-    setFilteredLogs([]);
+    setFilteredLogs(initialLogData);
+    setFilterTypes([]);
   };
 
   useEffect(() => {
