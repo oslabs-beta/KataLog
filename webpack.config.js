@@ -2,18 +2,18 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  entry: './src/App.tsx',
+  mode: "development",
+  entry: "./src/App.tsx",
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: ['ts-loader'],
+        use: ["ts-loader"],
       },
       {
         test: /\.(css)$/, // Add this rule for CSS files
@@ -30,14 +30,16 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: './index.html',
+      template: "./src/index.html",
+      filename: "./index.html",
     }),
   ],
   devServer: {
     static: {
-      directory: path.join(__dirname, './dist'),
+      directory: path.join(__dirname, "./dist"),
     },
+    client: { webSocketTransport: "sockjs" },
+    webSocketServer: "sockjs",
     proxy: {
       '/api': 'http://localhost:3000',
       secure: false,
