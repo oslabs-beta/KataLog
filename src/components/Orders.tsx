@@ -69,36 +69,34 @@ export default function Orders() {
       for (let i = 0; i < logsToSearch.length; i++) {
         const currentObj = logsToSearch[i];
         for (let key in currentObj) {
-          // console.log(key);
           if (key === 'logObject') {
             if (currentObj.logObject.log.includes(searchTerm) || currentObj.logObject.stream.includes(searchTerm)){
               temp.push(currentObj);
-              // break;
+              break;
             }
-          } else if (key === 'podInfo') {
-            // if (currentObj.podInfo.podName.includes(searchTerm) || currentObj.podInfo.containerName.includes(searchTerm) || currentObj.podInfo.namespace.includes(searchTerm)){
+          } else if (key === 'podInfo' && currentObj.type === 'pod') {
+            if (currentObj.podInfo.podName.includes(searchTerm) || currentObj.podInfo.containerName.includes(searchTerm) || currentObj.podInfo.namespace.includes(searchTerm)) {
               temp.push(currentObj);
-              // console.log('currentObj', currentObj);
-              // console.log('errthang', currentObj.podInfo.podName);
-              console.log('temp', temp);
-              console.log('currentObj', currentObj);
-              // break;
-            // }
-          // } else {
-          //   if (currentObj[key].includes(searchTerm))
-          //   temp.push(currentObj);
-          //   // break;
-          // }
+              break;
+            } 
+          } else {
+            if (key !== 'podInfo' ) {
+              if (currentObj[key].includes(searchTerm)) {
+                temp.push(currentObj);
+                break;
+              }
+            }
           }
         }
-      } 
-      // console.log('temp', temp);
+      }
       setSearchLogs(temp);
-      console.log(searchLogs);
-  };
+      console.log('temp', temp);
+      console.log('searchLogs', searchLogs);
+    } 
   
   const handleClearFilter = () => {
-    setFilteredLogs([]);
+    setFilteredLogs(initialLogData);
+    setFilterTypes([]);
   };
 
   useEffect(() => {
