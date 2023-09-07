@@ -5,11 +5,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import BuildIcon from '@mui/icons-material/Build';
+// import BuildIcon from '@mui/icons-material/Build';
 import ListItemButton from '@mui/material/ListItemButton';
 import MultipleSelectChip from './Chip';
+import TuneIcon from '@mui/icons-material/Tune';
 
-export default function ScrollDialog() {
+export default function ScrollDialog(props) {
 
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
@@ -33,11 +34,16 @@ export default function ScrollDialog() {
     }
   }, [open]);
 
+  const doBoth = () => {
+    props.handleFilterLogs();
+    handleClose();
+  }
+
   return (
     <div>
       {/* <Button onClick={handleClickOpen('paper')}>scroll=paper</Button> */}
       <ListItemButton onClick={handleClickOpen('paper')}>
-        <BuildIcon />
+        <TuneIcon />
       </ListItemButton>
       <Dialog
         open={open}
@@ -53,12 +59,12 @@ export default function ScrollDialog() {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            <MultipleSelectChip/>
+            <MultipleSelectChip setFilterTypes={props.setFilterTypes} filterTypes={props.filterTypes}/>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Submit</Button>
+          <Button onClick={doBoth}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>

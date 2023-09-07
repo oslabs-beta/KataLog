@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
+// import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Title from './Title';
 
 // Generate Sales Data
@@ -25,8 +25,8 @@ export default function Chart() {
 
   return (
     <React.Fragment>
-      <Title>Today</Title>
-      <ResponsiveContainer>
+      <Title>Your Future Kubernetes Cluster Shown Here:</Title>
+      {/* <ResponsiveContainer>
         <LineChart
           data={data}
           margin={{
@@ -64,8 +64,8 @@ export default function Chart() {
             stroke={theme.palette.primary.main}
             dot={false}
           />
-        </LineChart>
-      </ResponsiveContainer>
+        </LineChart> */}
+      {/* </ResponsiveContainer> */}
     </React.Fragment>
   );
 }
