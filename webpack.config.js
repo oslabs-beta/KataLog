@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -16,19 +15,20 @@ module.exports = {
         exclude: /node_modules/,
         use: ['ts-loader'],
       },
+      {
+        test: /\.(png|jp(e*)g|svg|gif)$/,
+        use: ['file-loader'],
+      },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.png'],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: './index.html',
     }),
-    // new CopyPlugin({
-    //   patterns: [{ from: './src/client/style.css' }],
-    // }),
   ],
   devServer: {
     static: {
@@ -36,7 +36,7 @@ module.exports = {
     },
     proxy: {
       '/api': 'http://localhost:3000',
-      secure: false
-    }
+      secure: false,
+    },
   },
-}
+};
