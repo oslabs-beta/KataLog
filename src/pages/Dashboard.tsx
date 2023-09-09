@@ -123,7 +123,7 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Katalog
+              KataLog
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={0} color="secondary">
@@ -165,7 +165,7 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, display: "flex", flexDirection: "column" }}>
             {/* <Grid container spacing={3}> */}
               {/* Chart */}
               <Grid spacing={3} item xs={12} md={8} lg={9}>
@@ -174,11 +174,13 @@ export default function Dashboard() {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: 600,
+                    marginBottom: "20px"
                   }}
-                >
+                  >
                   <Chart />
                 </Paper>
+                  <Container></Container>
               {/* </Grid> */}
               {/* Recent Deposits */}
               {/* <Grid item xs={12} md={4} lg={3}>
