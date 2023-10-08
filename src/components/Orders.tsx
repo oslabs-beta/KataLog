@@ -24,7 +24,7 @@ function preventDefault(event: React.MouseEvent) {
   event.preventDefault();
 }
 
-export default function Orders() {
+export default function Orders(props) {
 
   interface Log {
     timestamp: string;
@@ -47,7 +47,7 @@ export default function Orders() {
   
   const initialLogData: Log[] = [];
   
-  const [logData, setLogData] = useState<Log[]>(initialLogData);
+  // const [logData, setLogData] = useState<Log[]>(initialLogData);
   const [filteredLogs, setFilteredLogs] = useState<Log[]>(initialLogData);
   const [searchLogs, setSearchLogs] = useState<Log[]>(initialLogData);
   const [filterTypes, setFilterTypes] = useState<string[]>([]);
@@ -64,7 +64,7 @@ export default function Orders() {
       // on each iteration, check to see if the type of the current index matches anything within filterTypes
         // if yes, then push to filteredLogs (don't actually push, just update state at the end)
         // if logdata includes filtertypes
-    setFilteredLogs(logData.filter((log) => filterTypes.includes(log.type)));
+    setFilteredLogs(props.logData.filter((log) => filterTypes.includes(log.type)));
   };
 
   const handleSearchLogs = (e) => {
@@ -72,7 +72,7 @@ export default function Orders() {
     const searchTerm : string = e.target.value;
 
     const temp : Log[] = [];
-    const logsToSearch = filteredLogs.length ? filteredLogs : logData;
+    const logsToSearch = filteredLogs.length ? filteredLogs : props.logData;
 
       for (let i = 0; i < logsToSearch.length; i++) {
         const currentObj = logsToSearch[i];
@@ -108,36 +108,57 @@ export default function Orders() {
     text.value = '';
   };
 
-  useEffect(() => {
-    fetch('/api/logs')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json() as Promise<Log[]>; // Specify the response type as an array of Log
-      })
-      .then((data) => {
-        // console.log(data);
-        const newData = data.slice(0, data.length - 1);
-        console.log(newData);
-        setLogData(newData); // Use data directly if it's an array
-      })
-      .catch((err) => console.error('An error occurred in getting logs: ', err));
-  }, []);
+  // useEffect(() => {
+  //   fetch('/api/logs')
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       return response.json() as Promise<Log[]>; // Specify the response type as an array of Log
+  //     })
+  //     .then((data) => {
+  //       // console.log(data);
+  //       const newData = data.slice(0, data.length - 1);
+  //       console.log(newData);
+  //       setLogData(newData); // Use data directly if it's an array
+  //     })
+  //     .catch((err) => console.error('An error occurred in getting logs: ', err));
+  // }, []);
 
   return (
     <React.Fragment>
       <Box display="flex" alignItems="center">
         {/* <Typography variant="h6">Your Centralized Kubernetes Logs:</Typography> */}
-        <Title>Your Centralized Kubernetes Logs: </Title>
+        <Typography variant="h6" color="white" fontWeight="bold" marginBottom={3}>
+          Your Centralized Kubernetes Logs:
+        </Typography>
         <Grid container alignItems="center" justifyContent="flex-end">
           <Grid item>
-            <TextField id="standard-basic" onChange={handleSearchLogs} label="Search" variant="standard" sx={{ width: '300px' }}/>
+            <TextField id="standard-basic"
+              onChange={handleSearchLogs}
+              label="Search"
+              variant="standard"
+              sx={{
+                width: '300px',
+                '& .MuiInputBase-root': {
+                  color: 'white',          // Text color
+                  borderColor: 'white',   // Border color
+                  '&:focus': {
+                    borderColor: 'white', // Border color when focused
+                  },
+                },
+                '& .MuiInputLabel-root': {
+                  color: 'white',          // Label color
+                  '&.Mui-focused': {
+                    color: 'white',        // Label color when focused
+                  },
+                },
+              }}/>
           </Grid>
         </Grid>
         <Grid>
         <ListItemButton >
-          <FilterAltOffIcon onClick={handleClearFilter}/>
+          <FilterAltOffIcon style={{ color: 'white' }}onClick={handleClearFilter}/>
         </ListItemButton>
         </Grid>
           <Grid item>
@@ -147,16 +168,16 @@ export default function Orders() {
     <Table size="small">
       <TableHead>
         <TableRow >
-          <TableCell sx={{ fontWeight: 'bold' }}>Time Stamp</TableCell>
-          <TableCell sx={{ fontWeight: 'bold' }}>Type</TableCell>
-          <TableCell sx={{ fontWeight: 'bold' }}>Log</TableCell>
-          <TableCell sx={{ fontWeight: 'bold' }}>Show More Info</TableCell>
+          <TableCell sx={{ fontWeight: 'bold', color: 'white' }}>Time Stamp</TableCell>
+          <TableCell sx={{ fontWeight: 'bold', color: 'white' }}>Type</TableCell>
+          <TableCell sx={{ fontWeight: 'bold', color: 'white' }}>Log</TableCell>
+          <TableCell sx={{ fontWeight: 'bold', color: 'white' }}>Show More Info</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
       {!filteredLogs.length && !searchLogs.length && (
         <>
-        {logData.map((row, index) => (
+        {props.logData.map((row, index) => (
           <NestedRowData row={row} />
         ))}
         </>
