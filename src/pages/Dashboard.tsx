@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -21,6 +22,8 @@ import { mainListItems, secondaryListItems } from '../components/listItems';
 import Chart from '../components/Chart';
 // import Deposits from '../components/Deposits';
 import Orders from '../components/Orders';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Metrics from '../components/Metrics';
 
 function Copyright(props: any) {
   return (
@@ -89,10 +92,57 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  interface Log {
+    timestamp: string;
+    sourceInfo: string;
+    logObject: LogObject;
+    podInfo: PodObject;
+    type: string;
+  }
+  
+  interface LogObject {
+    log: string;
+    stream: string;
+  }
+
+  interface PodObject {
+    containerName: string;
+    namespace: string;
+    podName: string;
+  }
+  
+  const initialLogData: Log[] = [];
+  
+  const [logData, setLogData] = useState<Log[]>(initialLogData);
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpanded = () => {
+    setExpanded(!expanded);
+    console.log(expanded);
+  }
+
+  useEffect(() => {
+    fetch('/api/logs')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json() as Promise<Log[]>; // Specify the response type as an array of Log
+      })
+      .then((data) => {
+        const newData = data.slice(0, data.length - 1);
+        setLogData(newData); // Use data directly if it's an array
+      })
+      .catch((err) => console.error('An error occurred in getting logs: ', err));
+  }, []);
+
+  
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -102,6 +152,7 @@ export default function Dashboard() {
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
+              backgroundColor: '#316CE6',
             }}
           >
             <IconButton
@@ -118,7 +169,7 @@ export default function Dashboard() {
             </IconButton>
             <Typography
               component="h1"
-              variant="h6"
+              variant="h4"
               color="inherit"
               noWrap
               sx={{ flexGrow: 1 }}
@@ -130,9 +181,12 @@ export default function Dashboard() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <IconButton color="inherit">
+              <LogoutIcon></LogoutIcon>
+            </IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={open} >
           <Toolbar
             sx={{
               display: 'flex',
@@ -141,22 +195,23 @@ export default function Dashboard() {
               px: [1],
             }}
           >
+            {/* <Typography style={{ textAlign: 'left' }}>Main Menu</Typography> */}
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">
+          <List component="nav" sx={{}}>
             {mainListItems}
-            <Divider sx={{ my: 1 }} />
+            <Divider sx={{ my: 1,  }} />
             {secondaryListItems}
           </List>
-        </Drawer>
+        </Drawer >
         <Box
           component="main"
           sx={{
             backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
+              theme.palette.mode === 'dark'
                 ? theme.palette.grey[100]
                 : theme.palette.grey[900],
             flexGrow: 1,
@@ -165,40 +220,46 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, display: "flex", flexDirection: "column" }}>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, display: "flex", flexDirection: "column", color: 'white', }}>
             {/* <Grid container spacing={3}> */}
-              {/* Chart */}
+              {/* *** NODE VISUALIZATION SHOW HERE *** */}
               <Grid spacing={3} item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 600,
-                    marginBottom: "20px"
+                    height: 800,
+                    marginBottom: "20px",
+                    backgroundColor: '#424242',
+                    overflowX: 'auto',
                   }}
                   >
-                  <Chart />
+                    
+                  <Chart logData={logData}/>
                 </Paper>
                   <Container></Container>
               {/* </Grid> */}
-              {/* Recent Deposits */}
-              {/* <Grid item xs={12} md={4} lg={3}>
+              {/* ***** METRICS ***** */}
+              <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: 600,
+                    marginBottom: "20px",
+                    backgroundColor: '#424242',
                   }}
                 >
-                  <Deposits />
+                  {/* add component here */}
+                  <Metrics></Metrics>
                 </Paper>
-              </Grid> */}
-              {/* Recent Orders */}
+              </Grid>
+              {/* *** CENTRALIZED LOGS SHOW HERE *** */}
               <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#424242' }}>
+                  <Orders logData={logData} setLogData={setLogData}/>
                 </Paper>
               </Grid>
             </Grid>

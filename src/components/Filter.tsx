@@ -43,7 +43,7 @@ export default function ScrollDialog(props) {
     <div>
       {/* <Button onClick={handleClickOpen('paper')}>scroll=paper</Button> */}
       <ListItemButton onClick={handleClickOpen('paper')}>
-        <TuneIcon />
+        <TuneIcon style={{ color: 'white' }}/>
       </ListItemButton>
       <Dialog
         open={open}
