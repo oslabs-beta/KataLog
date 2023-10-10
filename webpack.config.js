@@ -22,6 +22,10 @@ module.exports = {
         use: ["ts-loader"],
       },
       {
+        test: /\.(css)$/, // Add this rule for CSS files
+        use: ['style-loader', 'css-loader'],
+      },
+      {
         test: /\.(png|jp(e*)g|svg|gif)$/,
         use: ['file-loader'],
       },

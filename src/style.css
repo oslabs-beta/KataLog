@@ -1,0 +1,26 @@
+.hexagon {
+    width: 150px;
+    height: 173.21px; /* Adjusted to create a hexagon shape */
+    background-color: #3498db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 10px;
+    color: white;
+    margin: 10px; /* Add margin around each hexagon */
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+  
+  .node-container {
+    display: flex;
+  }
+
+  .centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+ 
+  

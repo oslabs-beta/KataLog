@@ -12,31 +12,43 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 export const mainListItems = (
-  <React.Fragment>
+  <React.Fragment >
     <ListItemButton>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <GitHubIcon />
-      </ListItemIcon>
-      <ListItemText primary="Git Hub" />
-    </ListItemButton>
+    <a href="https://github.com/oslabs-beta/Katalog"
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{
+    textDecoration: 'none', // Remove underline
+    color: 'black',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s',
+  }}
+  >
+  <ListItemButton>
+    <ListItemIcon>
+      <GitHubIcon />
+    </ListItemIcon>
+    <ListItemText primary="GitHub" />
+  </ListItemButton>
+</a>
+
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Team" />
     </ListItemButton>
-    <ListItemButton>
+    {/* <ListItemButton>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Reports" />
-    </ListItemButton>
+    </ListItemButton> */}
     <ListItemButton>
       <ListItemIcon>
         <LayersIcon />
@@ -48,7 +60,7 @@ export const mainListItems = (
 
 export const secondaryListItems = (
   <React.Fragment>
-    <ListSubheader component="div" inset>
+    {/* <ListSubheader component="div" inset>
       Saved reports
     </ListSubheader>
     <ListItemButton>
@@ -62,7 +74,7 @@ export const secondaryListItems = (
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Last report" />
-    </ListItemButton>
+    </ListItemButton> */}
     {/* <ListItemButton>
       <ListItemIcon>
         <AssignmentIcon />
