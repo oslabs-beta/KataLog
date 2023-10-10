@@ -16,6 +16,8 @@ import ScrollDialog from './Filter';
 import { TextField, Box, Grid, Typography } from '@mui/material';
 // import ClearIcon from '@mui/icons-material/Clear';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import NestedRowData from './NestedRowData';
 
 
 function preventDefault(event: React.MouseEvent) {
@@ -49,6 +51,12 @@ export default function Orders() {
   const [filteredLogs, setFilteredLogs] = useState<Log[]>(initialLogData);
   const [searchLogs, setSearchLogs] = useState<Log[]>(initialLogData);
   const [filterTypes, setFilterTypes] = useState<string[]>([]);
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpanded = () => {
+    setExpanded(!expanded);
+    console.log(expanded);
+  }
 
   // function to handle the logic of filtering logs
   const handleFilterLogs = () => {
@@ -90,13 +98,14 @@ export default function Orders() {
         }
       }
       setSearchLogs(temp);
-      console.log('temp', temp);
-      console.log('searchLogs', searchLogs);
     } 
   
   const handleClearFilter = () => {
-    setFilteredLogs(initialLogData);
+    setFilteredLogs([]);
     setFilterTypes([]);
+    setSearchLogs([]);
+    let text : any = document.getElementById("standard-basic");
+    text.value = '';
   };
 
   useEffect(() => {
@@ -137,31 +146,18 @@ export default function Orders() {
       </Box>
     <Table size="small">
       <TableHead>
-        <TableRow>
-          <TableCell>Time Stamp</TableCell>
-          <TableCell>Type</TableCell>
-          <TableCell>Source</TableCell>
-          <TableCell>Namespace</TableCell>
-          <TableCell>Container</TableCell>
-          <TableCell>Pod</TableCell>
-          <TableCell>Log</TableCell>
-          <TableCell align="left">Stream</TableCell>
+        <TableRow >
+          <TableCell sx={{ fontWeight: 'bold' }}>Time Stamp</TableCell>
+          <TableCell sx={{ fontWeight: 'bold' }}>Type</TableCell>
+          <TableCell sx={{ fontWeight: 'bold' }}>Log</TableCell>
+          <TableCell sx={{ fontWeight: 'bold' }}>Show More Info</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
       {!filteredLogs.length && !searchLogs.length && (
         <>
         {logData.map((row, index) => (
-          <TableRow key={index}>
-            <TableCell>{row.timestamp}</TableCell>
-            <TableCell>{row.type}</TableCell>
-            <TableCell>{row.sourceInfo}</TableCell>
-            <TableCell>{row.podInfo.namespace}</TableCell>
-            <TableCell>{row.podInfo.containerName}</TableCell>
-            <TableCell>{row.podInfo.podName}</TableCell>
-            <TableCell>{row.logObject.log}</TableCell>
-            <TableCell align="left" >{row.logObject.stream}</TableCell>
-          </TableRow>
+          <NestedRowData row={row} />
         ))}
         </>
       )}
@@ -170,16 +166,7 @@ export default function Orders() {
       {filteredLogs.length && !searchLogs.length && (
         <>
         {filteredLogs.map((row, index) => (
-          <TableRow key={index}>
-            <TableCell>{row.timestamp}</TableCell>
-            <TableCell>{row.type}</TableCell>
-            <TableCell>{row.sourceInfo}</TableCell>
-            <TableCell>{row.podInfo.namespace}</TableCell>
-            <TableCell>{row.podInfo.containerName}</TableCell>
-            <TableCell>{row.podInfo.podName}</TableCell>
-            <TableCell>{row.logObject.log}</TableCell>
-            <TableCell align="left" >{row.logObject.stream}</TableCell>
-          </TableRow>
+          <NestedRowData row={row} />
         ))}
         </>
       )}
@@ -188,16 +175,7 @@ export default function Orders() {
       {searchLogs.length && (
         <>
         {searchLogs.map((row, index) => (
-          <TableRow key={index}>
-            <TableCell>{row.timestamp}</TableCell>
-            <TableCell>{row.type}</TableCell>
-            <TableCell>{row.sourceInfo}</TableCell>
-            <TableCell>{row.podInfo.namespace}</TableCell>
-            <TableCell>{row.podInfo.containerName}</TableCell>
-            <TableCell>{row.podInfo.podName}</TableCell>
-            <TableCell>{row.logObject.log}</TableCell>
-            <TableCell align="left" >{row.logObject.stream}</TableCell>
-          </TableRow>
+           <NestedRowData row={row} />
         ))}
         </>
       )}
