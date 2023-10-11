@@ -1,21 +1,12 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-// import ListSubheader from '@mui/material/ListSubheader';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
-// import AssignmentIcon from '@mui/icons-material/Assignment';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import { Dashboard, People, BarChart, Layers, GitHub } from '@mui/icons-material';
+import { Link } from 'react-router-dom'
 
 // Define a shared style object
 const linkStyle = {
   textDecoration: 'none',
-  color: 'your-color-here',
+  color: 'black',
 };
 
 export const mainListItems = (
@@ -25,7 +16,7 @@ export const mainListItems = (
     <Link to='/' style={linkStyle}>
       <ListItemButton>
         <ListItemIcon>
-          <DashboardIcon />
+          <Dashboard />
         </ListItemIcon>
           <ListItemText primary="Dashboard" />
       </ListItemButton>
@@ -44,7 +35,7 @@ export const mainListItems = (
   >
   <ListItemButton>
     <ListItemIcon>
-      <GitHubIcon />
+      <GitHub />
     </ListItemIcon>
     <ListItemText primary="GitHub" />
   </ListItemButton>
@@ -53,7 +44,7 @@ export const mainListItems = (
     {/* Team Link */}
     <ListItemButton>
       <ListItemIcon>
-        <PeopleIcon />
+        <People />
       </ListItemIcon>
       <ListItemText primary="Team" />
     </ListItemButton>
@@ -62,7 +53,7 @@ export const mainListItems = (
     <Link to='/api/logs' style={linkStyle}>
       <ListItemButton>
         <ListItemIcon>
-          <BarChartIcon />
+          <BarChart />
         </ListItemIcon>
           <ListItemText primary="Logs" />
       </ListItemButton>
@@ -71,7 +62,7 @@ export const mainListItems = (
     {/* Integration Link */}
     <ListItemButton>
       <ListItemIcon>
-        <LayersIcon />
+        <Layers />
       </ListItemIcon>
       <ListItemText primary="Integrations" />
     </ListItemButton>
