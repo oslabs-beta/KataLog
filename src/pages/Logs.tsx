@@ -92,7 +92,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+export default function Logs() {
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -258,58 +258,6 @@ export default function Dashboard() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, display: "flex", flexDirection: "column", color: 'white', }}>
             <Grid container spacing={3}>
-              {/* *** NODE VISUALIZATION SHOW HERE *** */}
-              <Grid spacing={3} item xs={12} md={8} lg={9}>
-                <Paper sx={paperStyle}>
-                  {/* <div style={lineStyle}></div>
-                  <div style={lineStyle2}></div>
-                  <div style={lineStyle3}></div> */}
-                  <Chart logData={logData}/>
-                </Paper>
-                  <Container></Container>
-              </Grid>
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 500,
-                    backgroundColor: '#424242',
-                    marginBottom: '30px'
-                  }}
-                >
-                  <Deposits numberOfLogs={numberOfLogs}/>
-                </Paper>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 270,
-                    backgroundColor: '#424242',
-                  }}
-                >
-                  <Health></Health>
-                </Paper>
-              </Grid>
-
-              {/* ***** METRICS ***** */}
-              <Grid item xs={12} >
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 600,
-                    marginBottom: "20px",
-                    backgroundColor: '#424242',
-                  }}
-                >
-                  {/* add component here */}
-                  <Metrics></Metrics>
-                </Paper>
-              </Grid>
               {/* *** CENTRALIZED LOGS SHOW HERE *** */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#424242' }}>

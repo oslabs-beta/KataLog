@@ -2,14 +2,15 @@ import * as React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
+// import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 // import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+// import AssignmentIcon from '@mui/icons-material/Assignment';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { Link } from 'react-router-dom'
 
 export const mainListItems = (
   <React.Fragment >
@@ -17,17 +18,20 @@ export const mainListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <Link to='/'>
+        <ListItemText primary="Dashboard" />
+      </Link>
     </ListItemButton>
+
     <a href="https://github.com/oslabs-beta/Katalog"
-  target="_blank"
-  rel="noopener noreferrer"
-  style={{
-    textDecoration: 'none', // Remove underline
-    color: 'black',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s',
-  }}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        textDecoration: 'none', // Remove underline
+        color: 'black',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s',
+      }}
   >
   <ListItemButton>
     <ListItemIcon>
@@ -35,7 +39,7 @@ export const mainListItems = (
     </ListItemIcon>
     <ListItemText primary="GitHub" />
   </ListItemButton>
-</a>
+    </a>
 
     <ListItemButton>
       <ListItemIcon>
@@ -43,12 +47,16 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Team" />
     </ListItemButton>
-    {/* <ListItemButton>
+
+    <ListItemButton>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItemButton> */}
+      <Link to='/api/logs'>
+        <ListItemText primary="Logs" />
+      </Link>
+    </ListItemButton>
+
     <ListItemButton>
       <ListItemIcon>
         <LayersIcon />
