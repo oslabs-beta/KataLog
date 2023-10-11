@@ -12,11 +12,17 @@ import LayersIcon from '@mui/icons-material/Layers';
 // import AssignmentIcon from '@mui/icons-material/Assignment';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
+// Define a shared style object
+const linkStyle = {
+  textDecoration: 'none',
+  color: 'your-color-here',
+};
+
 export const mainListItems = (
   <React.Fragment >
 
     {/* Dashboard Link */}
-    <Link to='/' style={{ textDecoration: 'none', color: 'black' }}>
+    <Link to='/' style={linkStyle}>
       <ListItemButton>
         <ListItemIcon>
           <DashboardIcon />
@@ -53,7 +59,7 @@ export const mainListItems = (
     </ListItemButton>
 
     {/* Logs Link */}
-    <Link to='/api/logs' style={{ textDecoration: 'none', color: 'black' }}>
+    <Link to='/api/logs' style={linkStyle}>
       <ListItemButton>
         <ListItemIcon>
           <BarChartIcon />
