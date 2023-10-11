@@ -108,7 +108,7 @@ export default function ControlPlaneDialog(props) {
     },
   }}>
     <div style={{ position: 'relative', color: '#316CE6', fontSize: '15px' }}>
-    <HexagonIcon style={{ fontSize: '200px' }} />
+    <HexagonIcon style={{ fontSize: '200px',  }} />
     <span style={{ color: 'white', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textTransform: 'none', fontFamily: 'inherit', fontWeight: 'bold',}}>{props.name}</span>
     </div>
       </Button>
