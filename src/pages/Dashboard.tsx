@@ -104,7 +104,7 @@ export default function Dashboard() {
     podInfo: PodObject;
     type: string;
   }
-  
+
   interface LogObject {
     log: string;
     stream: string;
@@ -115,9 +115,9 @@ export default function Dashboard() {
     namespace: string;
     podName: string;
   }
-  
+
   const initialLogData: Log[] = [];
-  
+
   const [logData, setLogData] = useState<Log[]>(initialLogData);
   const [expanded, setExpanded] = useState(false);
 
@@ -141,7 +141,7 @@ export default function Dashboard() {
       .catch((err) => console.error('An error occurred in getting logs: ', err));
   }, []);
 
-  
+
 
 
   return (
@@ -235,7 +235,7 @@ export default function Dashboard() {
                     overflowX: 'auto',
                   }}
                   >
-                    
+
                   <Chart logData={logData}/>
                 </Paper>
                   <Container></Container>
