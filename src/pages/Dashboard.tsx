@@ -105,7 +105,7 @@ export default function Dashboard() {
     podInfo: PodObject;
     type: string;
   }
-  
+
   interface LogObject {
     log: string;
     stream: string;
@@ -116,9 +116,9 @@ export default function Dashboard() {
     namespace: string;
     podName: string;
   }
-  
+
   const initialLogData: Log[] = [];
-  
+
   const [logData, setLogData] = useState<Log[]>(initialLogData);
   const [expanded, setExpanded] = useState(false);
   const [numberOfLogs, setNumberOfLogs] = useState(0)
@@ -144,16 +144,6 @@ export default function Dashboard() {
       .catch((err) => console.error('An error occurred in getting logs: ', err));
   }, []);
 
-  const paperStyle = {
-    p: 2,
-    display: 'flex',
-    flexDirection: 'column',
-    height: 800,
-    marginBottom: '20px',
-    backgroundColor: '#424242',
-    overflowX: 'auto',
-    position: 'relative',
-  };
 
   const lineStyle = {
     borderBottom: '10px solid white',
@@ -278,8 +268,9 @@ export default function Dashboard() {
                     backgroundColor: '#424242',
                     marginBottom: '30px'
                   }}
-                >
-                  <Deposits numberOfLogs={numberOfLogs}/>
+                  >
+
+                  <Chart logData={logData}/>
                 </Paper>
                 <Paper
                   sx={{
