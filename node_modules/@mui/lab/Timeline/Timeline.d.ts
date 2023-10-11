@@ -1,0 +1,59 @@
+import * as React from 'react';
+import { SxProps } from '@mui/system';
+import { InternalStandardProps as StandardProps } from '@mui/material';
+import { Theme } from '@mui/material/styles';
+export type TimelineClassKey = keyof NonNullable<TimelineProps['classes']>;
+export interface TimelineProps extends StandardProps<React.HTMLAttributes<HTMLUListElement>> {
+    /**
+     * The position where the TimelineContent should appear relative to the time axis.
+     * @default 'right'
+     */
+    position?: 'left' | 'right' | 'alternate';
+    /**
+     * The content of the component.
+     */
+    children?: React.ReactNode;
+    /**
+     * Override or extend the styles applied to the component.
+     */
+    classes?: {
+        /** Styles applied to the root element. */
+        root?: string;
+        /** Styles applied to the root element if `position="left"`. */
+        positionLeft?: string;
+        /** Styles applied to the root element if `position="right"`. */
+        positionRight?: string;
+        /** Styles applied to the root element if `position="alternate"`. */
+        positionAlternate?: string;
+    };
+    /**
+     * className applied to the root element.
+     */
+    className?: string;
+    /**
+     * The system prop that allows defining system overrides as well as additional CSS styles.
+     */
+    sx?: SxProps<Theme>;
+}
+/**
+ *
+ * Demos:
+ *
+ * - [Timeline](https://mui.com/material-ui/react-timeline/)
+ *
+ * API:
+ *
+ * - [Timeline API](https://mui.com/material-ui/api/timeline/)
+ */
+declare const Timeline: React.ForwardRefExoticComponent<TimelineProps & React.RefAttributes<HTMLUListElement>>;
+/**
+ *
+ * Demos:
+ *
+ * - [Timeline](https://mui.com/components/timeline/)
+ *
+ * API:
+ *
+ * - [Timeline API](https://mui.com/api/timeline/)
+ */
+export default Timeline;
