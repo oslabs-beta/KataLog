@@ -14,32 +14,37 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 export const mainListItems = (
   <React.Fragment >
-    <ListItemButton>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <Link to='/'>
-        <ListItemText primary="Dashboard" />
-      </Link>
-    </ListItemButton>
 
-  <a href="https://github.com/oslabs-beta/Katalog"
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-    textDecoration: 'none', // Remove underline
-    color: 'black',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s',
-    }}>
-    <ListItemButton>
-      <ListItemIcon>
-        <GitHubIcon />
-      </ListItemIcon>
-      <ListItemText primary="GitHub" />
-    </ListItemButton>
-  </a>
+    {/* Dashboard Link */}
+    <Link to='/' style={{ textDecoration: 'none', color: 'black' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+      </ListItemButton>
+    </Link>
 
+    {/* GitHub Link */}
+    <a href="https://github.com/oslabs-beta/Katalog"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        textDecoration: 'none', // Remove underline
+        color: 'black',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s',
+      }}
+  >
+  <ListItemButton>
+    <ListItemIcon>
+      <GitHubIcon />
+    </ListItemIcon>
+    <ListItemText primary="GitHub" />
+  </ListItemButton>
+    </a>
+
+    {/* Team Link */}
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
@@ -47,15 +52,17 @@ export const mainListItems = (
       <ListItemText primary="Team" />
     </ListItemButton>
 
-    <Link to="/configuration" style={{ textDecoration: 'none', color: 'inherit' }}>
+    {/* Logs Link */}
+    <Link to='/api/logs' style={{ textDecoration: 'none', color: 'black' }}>
       <ListItemButton>
         <ListItemIcon>
           <BarChartIcon />
         </ListItemIcon>
-        <ListItemText primary="Configuration" />
+          <ListItemText primary="Logs" />
       </ListItemButton>
     </Link>
 
+    {/* Integration Link */}
     <ListItemButton>
       <ListItemIcon>
         <LayersIcon />
