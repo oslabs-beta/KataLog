@@ -20,10 +20,11 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from '../components/listItems';
 import Chart from '../components/Chart';
-// import Deposits from '../components/Deposits';
+import Deposits from '../components/Deposits';
 import Orders from '../components/Orders';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Metrics from '../components/Metrics';
+import Health from '../components/Health';
 
 function Copyright(props: any) {
   return (
@@ -120,6 +121,7 @@ export default function Dashboard() {
 
   const [logData, setLogData] = useState<Log[]>(initialLogData);
   const [expanded, setExpanded] = useState(false);
+  const [numberOfLogs, setNumberOfLogs] = useState(0)
 
   const toggleExpanded = () => {
     setExpanded(!expanded);
@@ -137,12 +139,46 @@ export default function Dashboard() {
       .then((data) => {
         const newData = data.slice(0, data.length - 1);
         setLogData(newData); // Use data directly if it's an array
+        setNumberOfLogs(newData.length);
       })
       .catch((err) => console.error('An error occurred in getting logs: ', err));
   }, []);
 
+  const paperStyle = {
+    p: 2,
+    display: 'flex',
+    flexDirection: 'column',
+    height: 800,
+    marginBottom: '20px',
+    backgroundColor: '#424242',
+    overflowX: 'auto',
+    position: 'relative',
+  };
 
-
+  const lineStyle = {
+    borderBottom: '10px solid white',
+    width: '60%', // Stretch the line to the full width
+    position: 'absolute' as 'absolute',
+    top: '36%', // Position it in the middle vertically
+    left: '75%', // Position it to the right
+    transform: 'translate(-100%, -50%) rotate(25deg)', // Rotate the line by -45 degrees
+  };
+  const lineStyle2 = {
+    borderBottom: '10px solid white',
+    width: '60%', // Stretch the line to the full width
+    position: 'absolute' as 'absolute',
+    top: '66%', // Position it in the middle vertically
+    left: '75%', // Position it to the right
+    transform: 'translate(-100%, -50%) rotate(-25deg)', // Rotate the line by -45 degrees
+  };
+  const lineStyle3 = {
+    borderBottom: '10px solid white',
+    width: '60%', // Stretch the line to the full width
+    position: 'absolute' as 'absolute',
+    top: '55%', // Position it in the middle vertically
+    left: '105.5%', // Position it to the right
+    transform: 'translate(-100%, -50%) rotate(90deg)', // Rotate the line by -45 degrees
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -221,27 +257,45 @@ export default function Dashboard() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, display: "flex", flexDirection: "column", color: 'white', }}>
-            {/* <Grid container spacing={3}> */}
+            <Grid container spacing={3}>
               {/* *** NODE VISUALIZATION SHOW HERE *** */}
               <Grid spacing={3} item xs={12} md={8} lg={9}>
+                <Paper sx={paperStyle}>
+                  {/* <div style={lineStyle}></div>
+                  <div style={lineStyle2}></div>
+                  <div style={lineStyle3}></div> */}
+                  <Chart logData={logData}/>
+                </Paper>
+                  <Container></Container>
+              </Grid>
+              <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 800,
-                    marginBottom: "20px",
+                    height: 500,
                     backgroundColor: '#424242',
-                    overflowX: 'auto',
+                    marginBottom: '30px'
                   }}
-                  >
-
-                  <Chart logData={logData}/>
+                >
+                  <Deposits numberOfLogs={numberOfLogs}/>
                 </Paper>
-                  <Container></Container>
-              {/* </Grid> */}
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 270,
+                    backgroundColor: '#424242',
+                  }}
+                >
+                  <Health></Health>
+                </Paper>
+              </Grid>
+
               {/* ***** METRICS ***** */}
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12} >
                 <Paper
                   sx={{
                     p: 2,
