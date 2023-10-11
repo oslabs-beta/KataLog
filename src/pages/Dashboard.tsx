@@ -21,7 +21,6 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from '../components/listItems';
 import Chart from '../components/Chart';
 import Deposits from '../components/Deposits';
-import Orders from '../components/Orders';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Metrics from '../components/Metrics';
 import Health from '../components/Health';
@@ -302,11 +301,6 @@ export default function Dashboard() {
                 </Paper>
               </Grid>
               {/* *** CENTRALIZED LOGS SHOW HERE *** */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#424242' }}>
-                  <Orders logData={logData} setLogData={setLogData}/>
-                </Paper>
-              </Grid>
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
