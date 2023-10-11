@@ -14,15 +14,18 @@ import { Link } from 'react-router-dom'
 
 export const mainListItems = (
   <React.Fragment >
-    <ListItemButton>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <Link to='/'>
-        <ListItemText primary="Dashboard" />
-      </Link>
-    </ListItemButton>
 
+    {/* Dashboard Link */}
+    <Link to='/' style={{ textDecoration: 'none', color: 'black' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+      </ListItemButton>
+    </Link>
+
+    {/* GitHub Link */}
     <a href="https://github.com/oslabs-beta/Katalog"
       target="_blank"
       rel="noopener noreferrer"
@@ -41,6 +44,7 @@ export const mainListItems = (
   </ListItemButton>
     </a>
 
+    {/* Team Link */}
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
@@ -48,15 +52,17 @@ export const mainListItems = (
       <ListItemText primary="Team" />
     </ListItemButton>
 
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <Link to='/api/logs'>
-        <ListItemText primary="Logs" />
-      </Link>
-    </ListItemButton>
+    {/* Logs Link */}
+    <Link to='/api/logs' style={{ textDecoration: 'none', color: 'black' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <BarChartIcon />
+        </ListItemIcon>
+          <ListItemText primary="Logs" />
+      </ListItemButton>
+    </Link>
 
+    {/* Integration Link */}
     <ListItemButton>
       <ListItemIcon>
         <LayersIcon />
