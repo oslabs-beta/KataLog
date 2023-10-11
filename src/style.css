@@ -21,6 +21,63 @@
     align-items: center;
     justify-content: center;
   }
+
+
+/* YourStyles.css */
+
+/* Add styles for the lines connecting the quadrants */
+.line {
+  position: absolute;
+  background-color: white;
+  width: 1px; /* Adjust the width of the lines as needed */
+}
+
+/* Styles for the top-left quadrant line */
+.line-top-left {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 50%;
+}
+
+/* Styles for the top-right quadrant line */
+.line-top-right {
+  top: 0;
+  right: 0;
+  height: 50%;
+}
+
+/* Styles for the middle-left quadrant line */
+.line-middle-left {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 50%;
+}
+
+/* Styles for the middle-right quadrant line */
+.line-middle-right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 50%;
+}
+
+/* Styles for the bottom-left quadrant line */
+.line-bottom-left {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 50%;
+}
+
+/* Styles for the bottom-right quadrant line */
+.line-bottom-right {
+  bottom: 0;
+  right: 0;
+  height: 50%;
+}
+
   
  
   
