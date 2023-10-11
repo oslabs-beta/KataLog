@@ -19,12 +19,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from '../components/listItems';
-import Chart from '../components/Chart';
-import Deposits from '../components/Deposits';
 import Orders from '../components/Orders';
 import LogoutIcon from '@mui/icons-material/Logout';
-import Metrics from '../components/Metrics';
-import Health from '../components/Health';
 
 function Copyright(props: any) {
   return (
@@ -120,13 +116,7 @@ export default function Logs() {
   const initialLogData: Log[] = [];
 
   const [logData, setLogData] = useState<Log[]>(initialLogData);
-  // const [expanded, setExpanded] = useState(false);
-  const [numberOfLogs, setNumberOfLogs] = useState(0)
-
-  // const toggleExpanded = () => {
-  //   setExpanded(!expanded);
-  //   console.log(expanded);
-  // }
+  const [,setNumberOfLogs] = useState(0)
 
   useEffect(() => {
     fetch('/api/logs')
@@ -143,42 +133,6 @@ export default function Logs() {
       })
       .catch((err) => console.error('An error occurred in getting logs: ', err));
   }, []);
-
-  const paperStyle = {
-    p: 2,
-    display: 'flex',
-    flexDirection: 'column',
-    height: 800,
-    marginBottom: '20px',
-    backgroundColor: '#424242',
-    overflowX: 'auto',
-    position: 'relative',
-  };
-
-  // const lineStyle = {
-  //   borderBottom: '10px solid white',
-  //   width: '60%', // Stretch the line to the full width
-  //   position: 'absolute' as 'absolute',
-  //   top: '36%', // Position it in the middle vertically
-  //   left: '75%', // Position it to the right
-  //   transform: 'translate(-100%, -50%) rotate(25deg)', // Rotate the line by -45 degrees
-  // };
-  // const lineStyle2 = {
-  //   borderBottom: '10px solid white',
-  //   width: '60%', // Stretch the line to the full width
-  //   position: 'absolute' as 'absolute',
-  //   top: '66%', // Position it in the middle vertically
-  //   left: '75%', // Position it to the right
-  //   transform: 'translate(-100%, -50%) rotate(-25deg)', // Rotate the line by -45 degrees
-  // };
-  // const lineStyle3 = {
-  //   borderBottom: '10px solid white',
-  //   width: '60%', // Stretch the line to the full width
-  //   position: 'absolute' as 'absolute',
-  //   top: '55%', // Position it in the middle vertically
-  //   left: '105.5%', // Position it to the right
-  //   transform: 'translate(-100%, -50%) rotate(90deg)', // Rotate the line by -45 degrees
-  // };
 
   return (
     <ThemeProvider theme={defaultTheme}>
