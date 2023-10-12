@@ -1,22 +1,15 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-// import BuildIcon from '@mui/icons-material/Build';
 import ListItemButton from '@mui/material/ListItemButton';
-// import ListItemIcon from '@mui/material/ListItemIcon';
-// import ListItemText from '@mui/material/ListItemText';
-// import ListSubheader from '@mui/material/ListSubheader';
-import Title from './Title';
 import ScrollDialog from './Filter';
 import { TextField, Box, Grid, Typography } from '@mui/material';
-// import ClearIcon from '@mui/icons-material/Clear';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NestedRowData from './NestedRowData';
 
 
@@ -33,7 +26,7 @@ export default function Orders(props) {
     podInfo: PodObject;
     type: string;
   }
-  
+
   interface LogObject {
     log: string;
     stream: string;
@@ -44,19 +37,19 @@ export default function Orders(props) {
     namespace: string;
     podName: string;
   }
-  
+
   const initialLogData: Log[] = [];
-  
+
   // const [logData, setLogData] = useState<Log[]>(initialLogData);
   const [filteredLogs, setFilteredLogs] = useState<Log[]>(initialLogData);
   const [searchLogs, setSearchLogs] = useState<Log[]>(initialLogData);
   const [filterTypes, setFilterTypes] = useState<string[]>([]);
-  const [expanded, setExpanded] = useState(false);
+  // const [expanded, setExpanded] = useState(false);
 
-  const toggleExpanded = () => {
-    setExpanded(!expanded);
-    console.log(expanded);
-  }
+  // const toggleExpanded = () => {
+  //   setExpanded(!expanded);
+  //   console.log(expanded);
+  // }
 
   // function to handle the logic of filtering logs
   const handleFilterLogs = () => {
@@ -86,7 +79,7 @@ export default function Orders(props) {
             if (currentObj.podInfo.podName.includes(searchTerm) || currentObj.podInfo.containerName.includes(searchTerm) || currentObj.podInfo.namespace.includes(searchTerm)) {
               temp.push(currentObj);
               break;
-            } 
+            }
           } else {
             if (key !== 'podInfo' ) {
               if (currentObj[key].includes(searchTerm)) {
@@ -98,8 +91,8 @@ export default function Orders(props) {
         }
       }
       setSearchLogs(temp);
-    } 
-  
+    }
+
   const handleClearFilter = () => {
     setFilteredLogs([]);
     setFilterTypes([]);
@@ -191,7 +184,7 @@ export default function Orders(props) {
         ))}
         </>
       )}
-      </TableBody>  
+      </TableBody>
       <TableBody>
       {searchLogs.length && (
         <>

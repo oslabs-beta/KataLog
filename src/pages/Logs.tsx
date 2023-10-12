@@ -110,7 +110,7 @@ export default function Logs() {
 
     const initialLogData: Log[] = [];
     const [logData, setLogData] = useState<Log[]>(initialLogData);
-    const [numberOfLogs, setNumberOfLogs] = useState(0)
+    const [, setNumberOfLogs] = useState(0)
 
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -215,9 +215,6 @@ export default function Logs() {
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#424242' }}>
                   <Orders logData={displayedItems} setLogData={setLogData}/>
-                </Paper>
-              </Grid>
-            </Grid>
             <Stack spacing={2} sx={{ justifyContent: 'center' }}>
               <Pagination
                 count={Math.ceil(logData.length / itemsPerPage)}
@@ -226,6 +223,9 @@ export default function Logs() {
                 color="primary"
               />
             </Stack>
+                </Paper>
+              </Grid>
+            </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
