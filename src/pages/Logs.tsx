@@ -6,7 +6,10 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { mainListItems, secondaryListItems } from '../components/listItems';
 import Orders from '../components/Orders';
 import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, Notifications as NotificationsIcon, Logout as LogoutIcon } from '@mui/icons-material'
+import { Pagination, Stack } from '@mui/material';
 
+
+const itemsPerPage = 15; // Number of items to display per page
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -74,50 +77,61 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Logs() {
-  const [open, setOpen] = React.useState(false);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+    const [open, setOpen] = React.useState(false);
+    const toggleDrawer = () => {
+        setOpen(!open);
+    };
 
-  interface Log {
-    timestamp: string;
-    sourceInfo: string;
-    logObject: LogObject;
-    podInfo: PodObject;
-    type: string;
-  }
+    const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+}
 
-  interface LogObject {
-    log: string;
-    stream: string;
-  }
 
-  interface PodObject {
-    containerName: string;
-    namespace: string;
-    podName: string;
-  }
+    interface Log {
+        timestamp: string;
+        sourceInfo: string;
+        logObject: LogObject;
+        podInfo: PodObject;
+        type: string;
+    }
 
-  const initialLogData: Log[] = [];
+    interface LogObject {
+        log: string;
+        stream: string;
+    }
 
-  const [logData, setLogData] = useState<Log[]>(initialLogData);
-  const [,setNumberOfLogs] = useState(0)
+    interface PodObject {
+        containerName: string;
+        namespace: string;
+        podName: string;
+    }
 
-  useEffect(() => {
-    fetch('/api/logs')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json() as Promise<Log[]>; // Specify the response type as an array of Log
-      })
-      .then((data) => {
-        const newData = data.slice(0, data.length - 1);
-        setLogData(newData); // Use data directly if it's an array
-        setNumberOfLogs(newData.length);
-      })
-      .catch((err) => console.error('An error occurred in getting logs: ', err));
-  }, []);
+    const [page, setPage] = useState(1);
+
+    const initialLogData: Log[] = [];
+    const [logData, setLogData] = useState<Log[]>(initialLogData);
+    const [numberOfLogs, setNumberOfLogs] = useState(0)
+
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedItems = logData.slice(startIndex, endIndex);
+
+
+    useEffect(() => {
+        fetch('/api/logs')
+            .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json() as Promise<Log[]>; // Specify the response type as an array of Log
+            })
+            .then((data) => {
+            const newData = data.slice(0, data.length - 1);
+            setLogData(newData); // Use data directly if it's an array
+            setNumberOfLogs(newData.length);
+            })
+            .catch((err) => console.error('An error occurred in getting logs: ', err));
+    }, [page]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -200,10 +214,18 @@ export default function Logs() {
               {/* *** CENTRALIZED LOGS SHOW HERE *** */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#424242' }}>
-                  <Orders logData={logData} setLogData={setLogData}/>
+                  <Orders logData={displayedItems} setLogData={setLogData}/>
                 </Paper>
               </Grid>
             </Grid>
+            <Stack spacing={2} sx={{ justifyContent: 'center' }}>
+              <Pagination
+                count={Math.ceil(logData.length / itemsPerPage)}
+                page={page}
+                onChange={handleChangePage}
+                color="primary"
+              />
+            </Stack>
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
