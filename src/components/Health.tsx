@@ -11,7 +11,7 @@ export default function Health() {
   return (
     <React.Fragment>
      <Typography variant="h6" color="white" fontWeight="bold" marginBottom={3}>Your Cluster Health Status is: </Typography>
-     {/* <Typography variant="h4" style={{ textAlign: 'center', fontWeight: 'bold', color: '#00FF00', textTransform: 'uppercase', marginTop: '20px' }}>
+     <Typography variant="h4" style={{ textAlign: 'center', fontWeight: 'bold', color: '#00FF00', textTransform: 'uppercase', marginTop: '20px' }}>
         good
       </Typography>
       <CheckIcon
@@ -23,7 +23,7 @@ export default function Health() {
           margin: '0 auto', // Centered horizontally
         }}
       >
-      </CheckIcon> */}
+      </CheckIcon>
 
       {/* <Typography variant="h4" style={{ textAlign: 'center', fontWeight: 'bold', color: 'yellow', textTransform: 'uppercase', marginTop: '20px' }}>
         Neutral
@@ -39,7 +39,7 @@ export default function Health() {
       >
       </WarningIcon> */}
 
-      <Typography variant="h4" style={{ textAlign: 'center', fontWeight: 'bold', color: 'red', textTransform: 'uppercase', marginTop: '20px' }}>
+      {/* <Typography variant="h4" style={{ textAlign: 'center', fontWeight: 'bold', color: 'red', textTransform: 'uppercase', marginTop: '20px' }}>
         Poor
       </Typography>
       <DangerousIcon
@@ -51,7 +51,7 @@ export default function Health() {
           margin: '0 auto', // Centered horizontally
         }}
       >
-      </DangerousIcon>
+      </DangerousIcon> */}
       
 
     </React.Fragment>
