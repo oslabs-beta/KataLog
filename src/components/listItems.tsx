@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -19,23 +20,23 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <a href="https://github.com/oslabs-beta/Katalog"
-  target="_blank"
-  rel="noopener noreferrer"
-  style={{
+
+  <a href="https://github.com/oslabs-beta/Katalog"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{
     textDecoration: 'none', // Remove underline
     color: 'black',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
-  }}
-  >
-  <ListItemButton>
-    <ListItemIcon>
-      <GitHubIcon />
-    </ListItemIcon>
-    <ListItemText primary="GitHub" />
-  </ListItemButton>
-</a>
+    }}>
+    <ListItemButton>
+      <ListItemIcon>
+        <GitHubIcon />
+      </ListItemIcon>
+      <ListItemText primary="GitHub" />
+    </ListItemButton>
+  </a>
 
     <ListItemButton>
       <ListItemIcon>
@@ -43,12 +44,16 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Team" />
     </ListItemButton>
-    {/* <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItemButton> */}
+
+    <Link to="/configuration" style={{ textDecoration: 'none', color: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <BarChartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Configuration" />
+      </ListItemButton>
+    </Link>
+
     <ListItemButton>
       <ListItemIcon>
         <LayersIcon />
