@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import Login from './pages/Login.jsx';
 // import Signup from './pages/Signup.jsx';
 import Dashboard from './pages/Dashboard';
+import FluentdConfigGenerator from './pages/FluentdConfigGenerator';
 import Logs from './pages/Logs';
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
     <BrowserRouter>
         <Routes>
           <Route path='/' element={<Dashboard/>}></Route>
+          <Route path='/configuration' element={<FluentdConfigGenerator/>}></Route>
           <Route path='/api/logs' element={<Logs/>}></Route>
           {/* <Route exact path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />

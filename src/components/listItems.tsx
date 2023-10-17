@@ -59,13 +59,14 @@ export const mainListItems = (
       </ListItemButton>
     </Link>
 
-    {/* Integration Link */}
-    <ListItemButton>
-      <ListItemIcon>
-        <Layers />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItemButton>
+    <Link to="/configuration" style={{ textDecoration: 'none', color: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <Layers />
+        </ListItemIcon>
+        <ListItemText primary="Configuration" />
+      </ListItemButton>
+    </Link>
   </React.Fragment>
 );
 

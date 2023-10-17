@@ -7,8 +7,8 @@ const logController : any = { sourceTypes: sourceTypes };
 
 logController.parseLogs = (req, res, next) => {
   const pods = {};
-  const derrick =  "/Users/derrickdevairakkam/Documents/I'm an AE & CS/Codesmith/Katalog/logs/Example.log"
-  fs.readFile(derrick, 'utf-8', (err, readData) => {
+
+  fs.readFile('/Users/charlesfrancofranco/Codesmith/OSP/KataLog/logs/Example.log', 'utf-8', (err, readData) => {
     if (err) {
         return res.status(500).json({ error: 'Failed to read log file' });
     }
