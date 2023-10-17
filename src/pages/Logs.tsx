@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Drawer as MuiDrawer, Box, Toolbar, List, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link, } from '@mui/material'
+import { CssBaseline, Drawer as MuiDrawer, Box, Toolbar, List, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { mainListItems, secondaryListItems } from '../components/listItems';
 import Orders from '../components/Orders';
 import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, Notifications as NotificationsIcon, Logout as LogoutIcon } from '@mui/icons-material'
-import { Pagination, Stack } from '@mui/material';
 
 
-const itemsPerPage = 15; // Number of items to display per page
+
+
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -82,9 +82,9 @@ export default function Logs() {
         setOpen(!open);
     };
 
-    const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-}
+    // const handleChangePage = (event, newPage) => {
+    // setPage(newPage);
+    // }
 
 
     interface Log {
@@ -106,15 +106,13 @@ export default function Logs() {
         podName: string;
     }
 
-    const [page, setPage] = useState(1);
+    // const [page, setPage] = useState(1);
 
     const initialLogData: Log[] = [];
     const [logData, setLogData] = useState<Log[]>(initialLogData);
     const [, setNumberOfLogs] = useState(0)
 
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const displayedItems = logData.slice(startIndex, endIndex);
+
 
 
     useEffect(() => {
@@ -131,7 +129,7 @@ export default function Logs() {
             setNumberOfLogs(newData.length);
             })
             .catch((err) => console.error('An error occurred in getting logs: ', err));
-    }, [page]);
+    }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -214,15 +212,15 @@ export default function Logs() {
               {/* *** CENTRALIZED LOGS SHOW HERE *** */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#424242' }}>
-                  <Orders logData={displayedItems} setLogData={setLogData}/>
-            <Stack spacing={2} sx={{ justifyContent: 'center' }}>
+                  <Orders logData={logData} setLogData={setLogData}/>
+            {/* <Stack spacing={2} sx={{ justifyContent: 'center' }}>
               <Pagination
                 count={Math.ceil(logData.length / itemsPerPage)}
                 page={page}
                 onChange={handleChangePage}
                 color="primary"
               />
-            </Stack>
+            </Stack> */}
                 </Paper>
               </Grid>
             </Grid>
