@@ -1,62 +1,68 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import { Dashboard, People, BarChart, Layers, GitHub } from '@mui/icons-material';
+import { Link } from 'react-router-dom'
+
+// Define a shared style object
+const linkStyle = {
+  textDecoration: 'none',
+  color: 'black',
+};
 
 export const mainListItems = (
   <React.Fragment >
-    <ListItemButton>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItemButton>
 
-  <a href="https://github.com/oslabs-beta/Katalog"
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-    textDecoration: 'none', // Remove underline
-    color: 'black',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s',
-    }}>
-    <ListItemButton>
-      <ListItemIcon>
-        <GitHubIcon />
-      </ListItemIcon>
-      <ListItemText primary="GitHub" />
-    </ListItemButton>
-  </a>
+    {/* Dashboard Link */}
+    <Link to='/' style={linkStyle}>
+      <ListItemButton>
+        <ListItemIcon>
+          <Dashboard />
+        </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+      </ListItemButton>
+    </Link>
 
+    {/* GitHub Link */}
+    <a href="https://github.com/oslabs-beta/Katalog"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        textDecoration: 'none', // Remove underline
+        color: 'black',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s',
+      }}
+  >
+  <ListItemButton>
+    <ListItemIcon>
+      <GitHub />
+    </ListItemIcon>
+    <ListItemText primary="GitHub" />
+  </ListItemButton>
+    </a>
+
+    {/* Team Link */}
     <ListItemButton>
       <ListItemIcon>
-        <PeopleIcon />
+        <People />
       </ListItemIcon>
       <ListItemText primary="Team" />
     </ListItemButton>
 
-    <Link to="/configuration" style={{ textDecoration: 'none', color: 'inherit' }}>
+    {/* Logs Link */}
+    <Link to='/api/logs' style={linkStyle}>
       <ListItemButton>
         <ListItemIcon>
-          <BarChartIcon />
+          <BarChart />
         </ListItemIcon>
-        <ListItemText primary="Configuration" />
+          <ListItemText primary="Logs" />
       </ListItemButton>
     </Link>
 
+    {/* Integration Link */}
     <ListItemButton>
       <ListItemIcon>
-        <LayersIcon />
+        <Layers />
       </ListItemIcon>
       <ListItemText primary="Integrations" />
     </ListItemButton>

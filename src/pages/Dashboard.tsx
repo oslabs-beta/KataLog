@@ -21,7 +21,6 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from '../components/listItems';
 import Chart from '../components/Chart';
 import Deposits from '../components/Deposits';
-import Orders from '../components/Orders';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Metrics from '../components/Metrics';
 import Health from '../components/Health';
@@ -105,7 +104,7 @@ export default function Dashboard() {
     podInfo: PodObject;
     type: string;
   }
-  
+
   interface LogObject {
     log: string;
     stream: string;
@@ -116,17 +115,17 @@ export default function Dashboard() {
     namespace: string;
     podName: string;
   }
-  
+
   const initialLogData: Log[] = [];
-  
+
   const [logData, setLogData] = useState<Log[]>(initialLogData);
-  const [expanded, setExpanded] = useState(false);
+  // const [expanded, setExpanded] = useState(false);
   const [numberOfLogs, setNumberOfLogs] = useState(0)
 
-  const toggleExpanded = () => {
-    setExpanded(!expanded);
-    console.log(expanded);
-  }
+  // const toggleExpanded = () => {
+  //   setExpanded(!expanded);
+  //   console.log(expanded);
+  // }
 
   useEffect(() => {
     fetch('/api/logs')
@@ -155,30 +154,30 @@ export default function Dashboard() {
     position: 'relative',
   };
 
-  const lineStyle = {
-    borderBottom: '10px solid white',
-    width: '60%', // Stretch the line to the full width
-    position: 'absolute' as 'absolute',
-    top: '36%', // Position it in the middle vertically
-    left: '75%', // Position it to the right
-    transform: 'translate(-100%, -50%) rotate(25deg)', // Rotate the line by -45 degrees
-  };
-  const lineStyle2 = {
-    borderBottom: '10px solid white',
-    width: '60%', // Stretch the line to the full width
-    position: 'absolute' as 'absolute',
-    top: '66%', // Position it in the middle vertically
-    left: '75%', // Position it to the right
-    transform: 'translate(-100%, -50%) rotate(-25deg)', // Rotate the line by -45 degrees
-  };
-  const lineStyle3 = {
-    borderBottom: '10px solid white',
-    width: '60%', // Stretch the line to the full width
-    position: 'absolute' as 'absolute',
-    top: '55%', // Position it in the middle vertically
-    left: '105.5%', // Position it to the right
-    transform: 'translate(-100%, -50%) rotate(90deg)', // Rotate the line by -45 degrees
-  };
+  // const lineStyle = {
+  //   borderBottom: '10px solid white',
+  //   width: '60%', // Stretch the line to the full width
+  //   position: 'absolute' as 'absolute',
+  //   top: '36%', // Position it in the middle vertically
+  //   left: '75%', // Position it to the right
+  //   transform: 'translate(-100%, -50%) rotate(25deg)', // Rotate the line by -45 degrees
+  // };
+  // const lineStyle2 = {
+  //   borderBottom: '10px solid white',
+  //   width: '60%', // Stretch the line to the full width
+  //   position: 'absolute' as 'absolute',
+  //   top: '66%', // Position it in the middle vertically
+  //   left: '75%', // Position it to the right
+  //   transform: 'translate(-100%, -50%) rotate(-25deg)', // Rotate the line by -45 degrees
+  // };
+  // const lineStyle3 = {
+  //   borderBottom: '10px solid white',
+  //   width: '60%', // Stretch the line to the full width
+  //   position: 'absolute' as 'absolute',
+  //   top: '55%', // Position it in the middle vertically
+  //   left: '105.5%', // Position it to the right
+  //   transform: 'translate(-100%, -50%) rotate(90deg)', // Rotate the line by -45 degrees
+  // };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -293,7 +292,7 @@ export default function Dashboard() {
                   <Health></Health>
                 </Paper>
               </Grid>
-              
+
               {/* ***** METRICS ***** */}
               <Grid item xs={12} >
                 <Paper
@@ -311,11 +310,6 @@ export default function Dashboard() {
                 </Paper>
               </Grid>
               {/* *** CENTRALIZED LOGS SHOW HERE *** */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#424242' }}>
-                  <Orders logData={logData} setLogData={setLogData}/>
-                </Paper>
-              </Grid>
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>

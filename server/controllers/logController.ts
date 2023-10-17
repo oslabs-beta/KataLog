@@ -14,12 +14,12 @@ logController.parseLogs = (req, res, next) => {
     }
     // split readData into indivdual lines
     let logData = readData.split('\n');
-  
+
     const logEntries = logData.map(line => {
       // Define a regular expression pattern to match the components
       const logEntryPattern = /^(\S+)\s+(\S+)\s+(.*$)/;
       const match = line.match(logEntryPattern);
-  
+
       if (match) {
         const timestamp = match[1];
         const sourceInfo = match[2];
@@ -33,17 +33,17 @@ logController.parseLogs = (req, res, next) => {
           if (sourceInfo.includes(logController.sourceTypes[i])) {
             type = logController.sourceTypes[i];
             break;
-          } 
-        } 
-        
+          }
+        }
+
         if (!type) {
           type = "pod";
           const sourceInfoPattern = /kubernetes\.var\.log\.containers\.([^_]+)_([^_]+)_([^\.]+)\.log/;
           const match = sourceInfo.match(sourceInfoPattern);
-      
+
           if (match) {
             podInfo.podName = match[1];
-            
+
             // Populates pods obj with the podName, which might need to be converted to a count down the road of functionality calls for it
             if (!pods.hasOwnProperty(match[1])){
               pods[match[1]] = match[1];
