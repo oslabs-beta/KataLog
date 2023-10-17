@@ -12,7 +12,7 @@ logController.parseLogs = (req, res, next) => {
   let parsedUsername;
   let parsedProjectName;
 
-  fs.readFile('/Users/charlesfrancofranco/Codesmith/OSP/KataLog/logs/my-app-copy.19700101.log.txt_26.log', 'utf-8', (err, readData) => {
+  fs.readFile('/Users/charlesfrancofranco/Codesmith/OSP/KataLog/logs/Example.log', 'utf-8', (err, readData) => {
     if (err) {
         return res.status(500).json({ error: 'Failed to read log file' });
     }
