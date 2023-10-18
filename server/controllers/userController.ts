@@ -22,20 +22,4 @@ userController.createUser = async (req, res, next) => {
     return next(error);
   };
 };
-
-// userController.verifyUser = async (req, res, next) => {
-
-//   const { username, password } = req.body;
-
-//   try {
-//     const user = await models.User.findOne({username: username, password: password})
-//     if (user) {
-//       res.locals.user_id = user._id;
-//       return next();
-//     } else res.redirect('/signup');
-//   } catch (error) {
-//     return next(error);
-//   };
-// };
-
 export default userController;

@@ -22,7 +22,7 @@ import '../style.css';
 
 export default function Chart(props): JSX.Element {
   const theme = useTheme();
-  
+  console.log('props in chart', props.logData[1]);
   // initializing example nodes
   const [myNodes, setMyNodes] = useState<string[]>(['1', '2', '3', '4', '5',]);
   const [cluster, showCluster] = useState(true);

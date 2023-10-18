@@ -12,13 +12,16 @@ export default function NestedRowData(props) {
     setExpanded(!expanded);
   }
 
+
+  console.log('props', props);
+
   return (
     <>
       <TableRow>
-        <TableCell>{props.row.timestamp}</TableCell>
-        <TableCell>{props.row.type}</TableCell>
-        <TableCell sx={{ maxWidth: "400px", wordWrap: 'break-word', overflowWrap: "break-word" }}>
-          {props.row.logObject.log}
+        <TableCell sx={{ color: 'white' }}>{props.row.logDataObject.timestamp}</TableCell>
+        <TableCell sx={{ color: 'white' }}>{props.row.logDataObject.type}</TableCell>
+        <TableCell sx={{ color: 'white', maxWidth: "400px", wordWrap: 'break-word', overflowWrap: "break-word" }}>
+          {props.row.logDataObject.logObject.log}
         </TableCell>
         <TableCell>
           <ExpandMoreIcon onClick={toggleExpanded} />
@@ -28,10 +31,10 @@ export default function NestedRowData(props) {
         <TableRow>
           <TableCell colSpan={4}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Typography variant="body1">Namespace: {props.row.podInfo.namespace}</Typography>
-              <Typography variant="body1">Source Info: {props.row.sourceInfo}</Typography>
-              <Typography variant="body1">Container Name: {props.row.podInfo.containerName}</Typography>
-              <Typography variant="body1">Stream: {props.row.logObject.stream}</Typography>
+              <Typography sx={{ color: 'white' }} variant="body1">Namespace: {props.row.logDataObject.podInfo.namespace}</Typography>
+              <Typography sx={{ color: 'white' }} variant="body1">Source Info: {props.row.logDataObject.sourceInfo}</Typography>
+              <Typography sx={{ color: 'white' }} variant="body1">Container Name: {props.row.logDataObject.podInfo.containerName}</Typography>
+              <Typography sx={{ color: 'white' }} variant="body1">Stream: {props.row.logDataObject.logObject.stream}</Typography>
             </Box>
           </TableCell>
         </TableRow>
