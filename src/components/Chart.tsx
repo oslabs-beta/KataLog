@@ -33,7 +33,7 @@ export default function Chart(props): JSX.Element {
   const [schedulerLogs, setSchedulerLogs] = useState<string[]>([]);
   const [cloudControllerLogs, setCloudControllerLogs] = useState<string[]>([]);
   const [proxyLogs, setProxyLogs] = useState<string[]>([]);
-  const [nodeSearch, setNodeSearch] = useState<string>('')
+  const [nodeSearch] = useState<string>('')
 
   useEffect(() => {
     const controllerManagerLogs= props.logData.filter(log => log.type === 'controller-manager');

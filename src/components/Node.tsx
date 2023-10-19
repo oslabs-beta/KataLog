@@ -7,7 +7,7 @@ import ControlPlaneDialog from './ControlPlaneDialog';
 
 export default function Node(props) {
 
-    const [name, setName] = useState('K-Proxy');
+    const [name] = useState('K-Proxy');
     const [logs, setLogs] = useState([]);
 
     useEffect(() => {
