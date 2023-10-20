@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.0.15](https://github.com/es-shims/iterator-helpers/compare/v1.0.14...v1.0.15) - 2023-09-13
+
+### Commits
+
+- [New] add `Iterator.prototype` shim [`c4a6203`](https://github.com/es-shims/iterator-helpers/commit/c4a6203a0ac87bf0a33835e775c207ff1911225d)
+- [Tests] add passing tests for native generators [`57bae8c`](https://github.com/es-shims/iterator-helpers/commit/57bae8ccbeb27ed0e6c449f35cddbda6cf6757e8)
+- [Deps] update `define-properties`, `iterator.prototype`, `safe-array-concat` [`56ca087`](https://github.com/es-shims/iterator-helpers/commit/56ca087f924dbefee47f0a1cb3b8468de76cd234)
+
 ## [v1.0.14](https://github.com/es-shims/iterator-helpers/compare/v1.0.13...v1.0.14) - 2023-08-26
 
 ### Commits

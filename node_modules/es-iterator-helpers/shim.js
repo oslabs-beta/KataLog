@@ -2,6 +2,7 @@
 
 var shimIterator = require('./Iterator/shim');
 var shimIteratorFrom = require('./Iterator.from/shim');
+var shimIteratorProto = require('./Iterator.prototype/shim');
 var shimIteratorCtor = require('./Iterator.prototype.constructor/shim');
 var shimIteratorDrop = require('./Iterator.prototype.drop/shim');
 var shimIteratorEvery = require('./Iterator.prototype.every/shim');
@@ -18,6 +19,7 @@ var shimIteratorToArray = require('./Iterator.prototype.toArray/shim');
 module.exports = function shimIteratorHelpers() {
 	shimIterator();
 	shimIteratorFrom();
+	shimIteratorProto();
 	shimIteratorCtor();
 	shimIteratorDrop();
 	shimIteratorEvery();

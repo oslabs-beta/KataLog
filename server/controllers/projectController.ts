@@ -2,15 +2,50 @@ import Project from '../models/projectModel';
 
 const projectController : any = {};
 
-projectController.addProject = async (req, res, next) => {
-  const { projectName, user_id } = req.body;
-  try {
-    const project = await Project.create({ projectName, user_id });
-    res.locals.project = project;
-    return next();
-  } catch (error) {
-    return next(error);
+// getProjects middleware - view all projects a user can view logs for
+projectController.getProjects = async (req, res, next) => {
+  // grab existing user projects, searching using user id from jwt token
+  const projects = await Project.find({ user_id: req.user.id });
+  // return status of 200 and user projects
+  return res.status(200).json(projects);
+}
+
+// createProject middleware - create a new project to view logs for
+projectController.createProject = async (req, res, next) => {
+  // deconstuct request body
+  const { projectName } = req.body;
+  // if projectName not provided
+  if (!projectName){
+    // invoke global error handler
+    return next({
+      log: 'projectController.addProject',
+      // ask user to provide project name
+      message: { err: 'Please provide project name' }, 
+    });
   }
+
+  // create project in database, using user id from jwt token as user_id field
+  const newProject = await Project.create({ projectName, user_id: req.user.id});
+  // return status of 200 and new project
+  return res.status(200).json(newProject);
+};
+
+// deleteProject middleware - delete a project
+projectController.deleteProject = async (req, res, next) => {
+  console.log('req.params.id', req.params.id);
+  // delete project in database - search using req.params (to match project id) and req.user (to match user id)
+  const deletedProject = await Project.findOneAndDelete({_id: req.params.id, user_id: req.user.id });
+  // if project to delete is not in database or doesn't match user info(i.e. deletedProject is null)
+  if (!deletedProject){
+    // invoke global error handler
+    return next({
+      log: 'projectController.deleteProject',
+      // project unable to be deleted
+      message: { err: 'Project unable to be deleted' }, 
+    });
+  }
+  // return status of 200 and deleted project
+  return res.status(200).json(deletedProject);
 };
 
 export default projectController;
