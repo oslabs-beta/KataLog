@@ -10,7 +10,7 @@ var GetMethod = require('es-abstract/2023/GetMethod');
 var Type = require('es-abstract/2023/Type');
 
 var SLOT = require('internal-slot');
-var iterProto = require('iterator.prototype');
+var iterProto = require('../Iterator.prototype/implementation');
 
 // https://tc39.es/proposal-iterator-helpers/#sec-wrapforvaliditeratorprototype-object
 

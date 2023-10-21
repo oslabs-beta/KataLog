@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v4.0.10](https://github.com/ljharb/String.prototype.matchAll/compare/v4.0.9...v4.0.10) - 2023-09-12
+
+### Commits
+
+- [Refactor] use `set-function-name` [`a851cbb`](https://github.com/ljharb/String.prototype.matchAll/commit/a851cbb5f2ca6708adf4ad90526c70e7d4b34390)
+
 ## [v4.0.9](https://github.com/ljharb/String.prototype.matchAll/compare/v4.0.8...v4.0.9) - 2023-08-28
 
 ### Commits

@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.2](https://github.com/ljharb/Iterator.prototype/compare/v1.1.1...v1.1.2) - 2023-09-13
+
+### Commits
+
+- [Fix] properly name `Iterator.prototype[Symbol.iterator]` method [`42ddaf7`](https://github.com/ljharb/Iterator.prototype/commit/42ddaf757d941ab3e5baf341ccb2598b8b86a1a1)
+- [Deps] update `define-properties`, `reflect.getprototypeof` [`8b06aec`](https://github.com/ljharb/Iterator.prototype/commit/8b06aec1a6e79c14806a4ba1e783a2dc79de5e5d)
+
 ## [v1.1.1](https://github.com/ljharb/Iterator.prototype/compare/v1.1.0...v1.1.1) - 2023-08-30
 
 ### Commits
