@@ -18,7 +18,7 @@ logController.parseLogs = (req, res, next) => {
     if (err) {
         return res.status(500).json({ error: 'Failed to read log file' });
     }
-    // split readData into indivdual lines
+    // split readData into individual lines
     let logData = readData.split('\n');
   
     const logEntries = logData.map(line => {
