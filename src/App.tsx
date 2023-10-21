@@ -14,11 +14,11 @@ const App = () => {
   return (
     <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Homepage/>}></Route>
+          <Route path='/' element={<Dashboard/>}></Route>
           <Route path='/login' element={<Login/>}></Route>
           <Route path='/signup' element={<Signup/>}></Route>
           <Route path='/projects' element={<Projects/>}></Route>
-          <Route path='/dashboard' element={<Dashboard/>}></Route>
+          <Route path='/homepage' element={<Homepage/>}></Route>
           <Route path='/configuration' element={<FluentdConfigGenerator/>}></Route>
           <Route path='/api/logs' element={<Logs/>}></Route>
         </Routes>
