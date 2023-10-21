@@ -1,6 +1,7 @@
 [
 	"Iterator",
 	"Iterator.from",
+	"Iterator.prototype",
 	"Iterator.prototype.constructor",
 	"Iterator.prototype.drop",
 	"Iterator.prototype.every",

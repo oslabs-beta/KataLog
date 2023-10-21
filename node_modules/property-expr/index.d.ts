@@ -28,4 +28,4 @@ export interface Expr {
 }
 
 declare const expr: Expr
-export = expr
+export default expr

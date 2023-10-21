@@ -18,6 +18,7 @@ The main export of the package itself is simply an array of the available direct
 ## Supported things
 
  - [`Iterator` constructor](https://tc39.es/proposal-iterator-helpers/#sec-iterator-constructor)
+ - [`Iterator.prototype`](https://tc39.es/proposal-iterator-helpers/#sec-iterator.prototype)
  - [`Iterator.from`](https://tc39.es/proposal-iterator-helpers/#sec-iterator.from)
  - [`Iterator.prototype.constructor`](https://tc39.es/proposal-iterator-helpers/#sec-iteratorprototype.constructor)
  - [`Iterator.prototype.drop`](https://tc39.es/proposal-iterator-helpers/#sec-iteratorprototype.drop)

@@ -2,10 +2,10 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-
-// import Homepage from './pages/Homepage.jsx';
-// import Login from './pages/Login.jsx';
-// import Signup from './pages/Signup.jsx';
+import Homepage from './pages/Homepage';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Projects from './pages/Projects';
 import Dashboard from './pages/Dashboard';
 import FluentdConfigGenerator from './pages/FluentdConfigGenerator';
 import Logs from './pages/Logs';
@@ -15,12 +15,12 @@ const App = () => {
     <BrowserRouter>
         <Routes>
           <Route path='/' element={<Dashboard/>}></Route>
+          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/signup' element={<Signup/>}></Route>
+          <Route path='/projects' element={<Projects/>}></Route>
+          <Route path='/homepage' element={<Homepage/>}></Route>
           <Route path='/configuration' element={<FluentdConfigGenerator/>}></Route>
           <Route path='/api/logs' element={<Logs/>}></Route>
-          {/* <Route exact path="/" element={<Homepage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />} /> */}
         </Routes>
     </BrowserRouter>
   );

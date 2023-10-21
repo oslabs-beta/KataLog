@@ -16,7 +16,10 @@ const app = express();
 // let filePointer = 0;
 
 app.use(cors()); // Enable CORS for all routes
+// parse body requests from JSON to JS
 app.use(express.json());
+// parse URL encoded data requests into req.body
+app.use(express.urlencoded({ extended: true }));
 
 const mongoURI : any = process.env.MONGO_URI;
 
@@ -25,7 +28,7 @@ mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
 
-app.use('/', router);
+app.use('/api', router);
 
 
 chokidar.watch('/Users/charlesfrancofranco/Downloads/logs').on('add', path => {

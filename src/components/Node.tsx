@@ -7,7 +7,7 @@ import ControlPlaneDialog from './ControlPlaneDialog';
 
 export default function Node(props) {
 
-    const [name, setName] = useState('K-Proxy');
+    const [name] = useState('K-Proxy');
     const [logs, setLogs] = useState([]);
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function Node(props) {
                 marginRight: '10px',
             }}
                 onClick={props.hexagonClick}>
-                    <Typography variant="h6" color="white" fontWeight="bold" textAlign={'center'} marginTop={1}>Node {props.index + 1}</Typography>
+                    <Typography variant="h6" color="white" fontWeight="bold" textAlign={'center'} marginTop={1}>{props.element}</Typography>
             <Kubelet/>
             <ControlPlaneDialog logs={logs} name={name}></ControlPlaneDialog>
             </Box>

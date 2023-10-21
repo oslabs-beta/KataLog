@@ -10,6 +10,7 @@ forEach(shims, function (shim) {
 	try {
 		shimTests = require('./' + shim); // eslint-disable-line global-require
 	} catch (e) {
+		console.error(e);
 		test(shim + ': index', { todo: true });
 	}
 	if (shimTests) {
