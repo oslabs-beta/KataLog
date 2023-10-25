@@ -269,4 +269,139 @@ logController.parseLogData = (logDataStr) => {
   return parsedLogs;
 }
 
+logController.parseLogDirectory = (filePath, req, res, next) => {
+  const pods = {};
+  let parsedUsername;
+  let parsedProjectName;
+  console.log('path ', filePath);
+
+  fs.readFile(filePath, 'utf-8', (err, readData) => {
+    if (err) {
+        return res.status(500).json({ error: 'Failed to read log file' });
+    }
+    // split readData into individual lines
+    let logData = readData.split('\n');
+
+    // iterate over logData array and store output in a new array
+    const logEntries = logData.map(line => {
+      // Define a regular expression pattern to match the components
+      const logEntryPattern = /^(\S+)\s+(\S+)\s+(.*$)/;
+      const match = line.match(logEntryPattern);
+  
+      if (match) {
+        const timestamp = match[1];
+        const sourceInfo = match[2];
+        const logData = match[3];
+
+        let type;
+        const podInfo : any = {};
+
+        // see if type is not a pod log
+        for (let i = 0; i < logController.sourceTypes.length; i++) {
+          if (sourceInfo.includes(logController.sourceTypes[i])) {
+            type = logController.sourceTypes[i];
+            break;
+          } 
+        }
+        
+        // Define a regular expression pattern to match the username and project name
+        const usernameProjectPattern = /\.username\.(\w+)\.projectName\.(\w+)/;
+        const userProjectMatch = sourceInfo.match(usernameProjectPattern);
+        
+        
+        // Store the username and project name in order to store logs in the database later on
+        if (userProjectMatch) {
+            parsedUsername = userProjectMatch[1];
+            parsedProjectName = userProjectMatch[2];
+        };
+        
+        if (!type) {
+          type = "pod";
+          const sourceInfoPattern = /kubernetes\.var\.log\.containers\.([^_]+)_([^_]+)_([^\.]+)\.log/;
+          const match = sourceInfo.match(sourceInfoPattern);
+      
+          if (match) {
+            podInfo.podName = match[1];
+            
+            // Populates pods obj with the podName, which might need to be converted to a count down the road of functionality calls for it
+            if (!pods.hasOwnProperty(match[1])){
+              pods[match[1]] = match[1];
+            }
+
+            podInfo.namespace = match[2];
+            podInfo.containerName = match[3];
+          };
+        };
+
+        const logDataObject = {
+          timestamp,
+          sourceInfo,
+          type,
+          podInfo: {
+              podName: podInfo.podName || null,
+              namespace: podInfo.namespace || null,
+              containerName: podInfo.containerName || null
+          },
+          username: parsedUsername, 
+          projectName: parsedProjectName,
+          logObject: null  // This will be populated later
+      };
+
+        try {
+            logDataObject.logObject = JSON.parse(logData);
+            
+            return {
+              logDataObject
+            };
+        } catch (e) {
+            console.error('Error parsing log JSON:', e);
+            return null;
+        }
+      } else {
+        // Handle lines that don't match the expected format
+        return null;
+      }
+    });
+    // assign res.locals.data to logEntries
+    // res.locals.data = logEntries;
+    // res.locals.username = parsedUsername;
+    // res.locals.projectName = parsedProjectName;
+    // return invocation of next
+    // console.log('logEntries: ', logEntries);
+    console.log('parsedProjectName: ', parsedProjectName);
+    return logController.addLogsToDatabase(logEntries, parsedProjectName);
+  });
+};
+
+logController.addLogsToDatabase = async (logEntries, parsedProjectName, req, res, next) => {
+  try {
+    const project = await Project.findOne({ projectName: parsedProjectName });
+
+    if (!project) {
+      return res.status(400).json({ error: `Project with name ${res.locals.projectName} not found` });
+    }
+
+    const project_id = project._id;  // Assuming _id is the name of the field holding the project's ID
+
+    for (const outerLogEntry of logEntries) {
+      // Skip null entries
+      if (!outerLogEntry) continue;
+      
+      // Extract the inner logDataObject
+      const logEntry = outerLogEntry.logDataObject;
+  
+      // Now, extract data from the logEntry
+      const { timestamp, sourceInfo, type, podInfo, logObject } = logEntry;
+      const log = await Log.create({ timestamp, sourceInfo, type, podInfo, logObject, project_id });
+      res.locals.log = log;
+      console.log('log saved: ', log);
+    }
+
+    return console.log('logs saved to db');
+
+  } catch (error) {
+    return error;
+  }
+};
+
 export default logController;

@@ -5,6 +5,7 @@ import router from './routes/routes'
 import dotenv from 'dotenv';
 import chokidar from 'chokidar';
 import fs from 'fs';
+import path from 'path';
 import logController from './controllers/logController';
 
 
@@ -30,9 +31,17 @@ mongoose.connection.once('open', () => {
 
 app.use('/api', router);
 
+const watcher = chokidar.watch('/Users/charlesfrancofranco/Downloads/logs/', {
+  ignored: /(^|[\/\\])\..|buffer|%Y%m%d/,
+  persistent: true
+});
 
-chokidar.watch('/Users/charlesfrancofranco/Downloads/logs').on('add', path => {
-  console.log('found new file located at ', path);
+watcher.on('all', (event, filePath) => {
+  if (fs.statSync(filePath).isFile() && path.extname(filePath) === '.log') {
+  // console.log('found new file located at ', filePath);
+  // console.log(typeof filePath);
+  logController.parseLogDirectory(filePath);
+  }
 });
 
 app.listen(3000, () => {
