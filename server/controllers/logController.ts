@@ -14,7 +14,7 @@ logController.parseLogs = (req, res, next) => {
 
   const LOG_DIR = "/fluentd/logs";
 
-  fs.readFile('/Users/charlesfrancofranco/Codesmith/OSP/KataLog/logs/Example.log', 'utf-8', (err, readData) => {
+  fs.readFile('/Users/charlesfrancofranco/Downloads/logs/example.log', 'utf-8', (err, readData) => {
     if (err) {
         return res.status(500).json({ error: 'Failed to read log file' });
     }
@@ -109,6 +109,15 @@ logController.parseLogs = (req, res, next) => {
   });
 };
 
+logController.getLogs = async (req, res, next) => {
+
+  const logs = await Log.find({project_id: req.params.selectedProject});
+
+  res.locals.logs = logs;
+
+  return next();
+};
+
 logController.addLog = async (req, res, next) => {
   try {
     const project = await Project.findOne({ projectName: req.body.projectName });
@@ -117,20 +126,25 @@ logController.addLog = async (req, res, next) => {
       return res.status(400).json({ error: `Project with name ${res.locals.projectName} not found` });
     }
 
-    const project_id = project._id;  // Assuming _id is the name of the field holding the project's ID
+    const {timestamp, sourceInfo, type, podInfo, logObject } = req.body;
 
-    for (const outerLogEntry of res.locals.data) {
-      // Skip null entries
-      if (!outerLogEntry) continue;
+    // const project_id = project._id;  // Assuming _id is the name of the field holding the project's ID
+
+    // for (const outerLogEntry of res.locals.data) {
+    //   // Skip null entries
+    //   if (!outerLogEntry) continue;
       
-      // Extract the inner logDataObject
-      const logEntry = outerLogEntry.logDataObject;
+    //   // Extract the inner logDataObject
+    //   const logEntry = outerLogEntry.logDataObject;
   
-      // Now, extract data from the logEntry
-      const { timestamp, sourceInfo, type, podInfo, logObject } = logEntry;
-      const log = await Log.create({ timestamp, sourceInfo, type, podInfo, logObject, project_id });
+    //   // Now, extract data from the logEntry
+    //   const { timestamp, sourceInfo, type, podInfo, logObject } = logEntry;
+    //   const log = await Log.create({ timestamp, sourceInfo, type, podInfo, logObject, project_id });
+    //   res.locals.log = log;
+    // }
+
+      const log = await Log.create({ timestamp, sourceInfo, type, podInfo, logObject, project_id: project._id });
       res.locals.log = log;
-    }
 
     return next();
 
@@ -273,7 +287,6 @@ logController.parseLogDirectory = (filePath, req, res, next) => {
   const pods = {};
   let parsedUsername;
   let parsedProjectName;
-  console.log('path ', filePath);
 
   fs.readFile(filePath, 'utf-8', (err, readData) => {
     if (err) {
@@ -368,7 +381,7 @@ logController.parseLogDirectory = (filePath, req, res, next) => {
     // res.locals.projectName = parsedProjectName;
     // return invocation of next
     // console.log('logEntries: ', logEntries);
-    console.log('parsedProjectName: ', parsedProjectName);
+
     return logController.addLogsToDatabase(logEntries, parsedProjectName);
   });
 };

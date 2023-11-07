@@ -1,11 +1,21 @@
 import Project from '../models/projectModel';
+import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
+
+// const crypto = require('crypto');
+
+function generateToken(length = 32) {
+  return crypto.randomBytes(length).toString('hex');
+}
 
 const projectController : any = {};
 
 // getProjects middleware - view all projects a user can view logs for
 projectController.getProjects = async (req, res, next) => {
   // grab existing user projects, searching using user id from jwt token
+  console.log('inside project controller', req.user.id);
   const projects = await Project.find({ user_id: req.user.id });
+  console.log('projects within controller ', projects)
   // return status of 200 and user projects
   return res.status(200).json(projects);
 }
@@ -24,8 +34,14 @@ projectController.createProject = async (req, res, next) => {
     });
   }
 
+  const token = generateToken();
+  const SALT_WORK_FACTOR: number = 10;
+  const hashedToken = await bcrypt.hash(token, SALT_WORK_FACTOR);
+
   // create project in database, using user id from jwt token as user_id field
-  const newProject = await Project.create({ projectName, user_id: req.user.id});
+  console.log('req user id ', req.user.id);
+  // !! authToken not currently being sent !!
+  const newProject = await Project.create({ projectName, user_id: req.user.id });
   // return status of 200 and new project
   return res.status(200).json(newProject);
 };

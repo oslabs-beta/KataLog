@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
-import { Dashboard, People, BarChart, Layers, GitHub } from '@mui/icons-material';
+import { Check, Dashboard, People, BarChart, Layers, GitHub, Login, WebStories, Coffee } from '@mui/icons-material';
 import { Link } from 'react-router-dom'
 
 // Define a shared style object
@@ -67,6 +67,34 @@ export const mainListItems = (
         <ListItemText primary="Configuration" />
       </ListItemButton>
     </Link>
+
+    <Link to="/login" style={{ textDecoration: 'none', color: 'inherit'}}>
+      <ListItemButton>
+        <ListItemIcon>
+          <Login />
+        </ListItemIcon>
+        <ListItemText primary="Login" />
+      </ListItemButton>
+    </Link>
+
+    <Link to="/signup" style={{ textDecoration: 'none', color: 'inherit'}}>
+      <ListItemButton>
+        <ListItemIcon>
+          <Coffee />
+        </ListItemIcon>
+        <ListItemText primary="Sign Up" />
+      </ListItemButton>
+    </Link>
+
+    <Link to="/projects" style={{ textDecoration: 'none', color: 'inherit'}}>
+      <ListItemButton>
+        <ListItemIcon>
+          <Check />
+        </ListItemIcon>
+        <ListItemText primary="Projects" />
+      </ListItemButton>
+    </Link>
+
   </React.Fragment>
 );
 

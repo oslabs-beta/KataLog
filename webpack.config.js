@@ -1,9 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const isDockerBuild = process.env.DOCKER_BUILD === 'true';
 
 module.exports = {
   mode: "development",
-  entry: "./src/App.tsx",
+  entry: isDockerBuild ? "./App.tsx" : "./src/App.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
@@ -30,7 +31,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: isDockerBuild ? "./index.html" : "./src/index.html",
       filename: "./index.html",
     }),
   ],

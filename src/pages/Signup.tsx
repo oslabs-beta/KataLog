@@ -42,6 +42,9 @@ const Signup = () => {
       const data = await response.json();
 
       if (response.ok) {
+
+        localStorage.setItem('token', data.token);
+
         // Signup successful, clear the form and display success message
         setFormData({
           username: '',
@@ -51,7 +54,7 @@ const Signup = () => {
         setSuccessMessage(data.message);
         setErrorMessage('');
         // render Login page after 1.5 seconds
-        setTimeout(() => {navigate('/projects')}, 1500); // Navigate to the Login page
+        setTimeout(() => {navigate('/')}, 1500); // Navigate to the Login page
       } else if (data && data.err) {
         // Error message in the expected format
         setErrorMessage(data.err);
@@ -136,5 +139,6 @@ return (
   </Box>
 );
 };
+
 
 export default Signup;

@@ -12,6 +12,7 @@ authController.protect = async (req, res, next) => {
     try {
       // reassign token variable to token value from header (split by spaces, as auth header format is 'Bearer token')
       token = req.headers.authorization.split(' ')[1];
+      console.log('token', token);
       // verify token using verify method native to jwt - pass in token and jwt secret
       const decoded = jwt.verify(token, process.env.JWT_SECRET)
       // grab user id from decoded token (token has user id as payload), assign to req.user

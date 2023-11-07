@@ -1,15 +1,15 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import router from './routes/routes'
-import dotenv from 'dotenv';
 import chokidar from 'chokidar';
 import fs from 'fs';
 import path from 'path';
 import logController from './controllers/logController';
 
-
 dotenv.config();
+
 const app = express();
 // const APP_NAME = Update/Based/On/User/Input;
 // const LOG_DIR = Update/Based/On/User/Input;
@@ -31,17 +31,28 @@ mongoose.connection.once('open', () => {
 
 app.use('/api', router);
 
-const watcher = chokidar.watch('/Users/charlesfrancofranco/Downloads/logs/', {
-  ignored: /(^|[\/\\])\..|buffer|%Y%m%d/,
-  persistent: true
-});
+// const watcher = chokidar.watch('/Users/charlesfrancofranco/Downloads/logs/', {
+//   ignored: /(^|[\/\\])\..|buffer|%Y%m%d/,
+//   persistent: true
+// });
 
-watcher.on('all', (event, filePath) => {
-  if (fs.statSync(filePath).isFile() && path.extname(filePath) === '.log') {
-  // console.log('found new file located at ', filePath);
-  // console.log(typeof filePath);
-  logController.parseLogDirectory(filePath);
-  }
+// watcher.on('all', (event, filePath) => {
+//   if (fs.statSync(filePath).isFile() && path.extname(filePath) === '.log') {
+//   // console.log('found new file located at ', filePath);
+//   // console.log(typeof filePath);
+//   logController.parseLogDirectory(filePath);
+//   }
+// });
+
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 400,
+    message: { err: 'An error occurred' }, 
+  };
+  const errorObj = Object.assign(defaultErr, err);
+  console.log(errorObj);
+  return res.status(errorObj.status).send(errorObj.message);
 });
 
 app.listen(3000, () => {
