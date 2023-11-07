@@ -122,49 +122,137 @@ const FluentdConfigGenerator: React.FC = () => {
     const [projectName, setProjectName] = useState<string>('');
     const [path, setPath] = useState<string>('');
     const [configMap, setConfigMap] = useState<string>('');
-
+    const [confFile, setConfFile] = useState<string>('');
+    const [daemonset, setDaemonset] = useState<string>('');
     const [open, setOpen] = React.useState(false);
     const toggleDrawer = () => {
         setOpen(!open);
     };
 
     const handleGenerateConfigMap = () => {
-        const newConfigMap = `
-          apiVersion: v1
-          kind: ConfigMap
-          metadata:
-            name: fluentd-config
-          data:
-            fluent.conf: |
+      const newConfigMap = `
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: fluentd-config
+        data:
+          fluent.conf: |
+  
+            <source>
+              @type tail
+              path "/var/log/containers/*.log"
+              exclude_path "/var/log/containers/*fluentd*.log"
+              pos_file "/var/log/fluentd-containers.log.pos"
+              tag "kubernetes.*.username.${username}.projectName.${projectName}"
+              format json
+              read_from_head true
+            </source>
+  
+            <filter **>
+              @type record_transformer
+              enable_ruby
+              <record>
+                tag \${tag}
+                combined_log \${Time.now.strftime('%Y-%m-%dT%H:%M:%S%z')} \${tag} \${record.to_json}
+              </record>
+            </filter>
+  
+            <match **>
+                @type http
+                endpoint http://44.194.156.154/logs
+                open_timeout 2
+                <buffer>
+                  flush_interval 10s
+                  chunk_limit_size 1m
+                  total_limit_size 10m
+                </buffer>
+            </match>`;
+      setConfigMap(newConfigMap);
+  };
+  
+    const handleGenerateConfFile = () => {
+      const newConfFile = `
+      <source>
+        @type tail
+        path "/var/log/containers/*.log"
+        exclude_path "/var/log/containers/*fluentd*.log"
+        pos_file "/var/log/fluentd-containers.log.pos"
+        tag "kubernetes.*.username.${username}.projectName.${projectName}"
+        format json
+        read_from_head true
+      </source>
 
-              <source>
-                @type tail
-                path /var/log/containers/*.log
-                pos_file /var/log/fluentd-containers.log.pos
-                time_format %Y-%m-%dT%H:%M:%S.%NZ
-                tag kubernetes.*.username.${username}.projectName.${projectName}
-                format json
-                read_from_head true
-              </source>
+      <filter **>
+        @type record_transformer
+        enable_ruby
+        <record>
+          tag \${tag}
+          combined_log \${Time.now.strftime('%Y-%m-%dT%H:%M:%S%z')} \${tag} \${record.to_json}
+        </record>
+      </filter>
 
-              <filter kubernetes.**>
-                @type record_transformer
-                enable_ruby
-                <record>
-                  log \${record.to_json}
-                </record>
-              </filter>
-
-              <match **>
-                @type file
-                path ${path}
-                time_slice_format %Y%m%d
-                time_slice_wait 10m
-                time_format %Y%m%dT%H%M%S%z
-                utc
-              </match>`;
-        setConfigMap(newConfigMap);
+      <match **>
+          @type http
+          endpoint http://44.194.156.154/logs
+          open_timeout 2
+          <buffer>
+            flush_interval 10s
+            chunk_limit_size 1m
+            total_limit_size 10m
+          </buffer>
+      </match>`;
+      setConfFile(newConfFile);
     };
+
+    const handleGenerateDaemonset = () => {
+      const newDaemonset = `
+      apiVersion: apps/v1
+      kind: DaemonSet
+      metadata:
+        name: fluentd
+        labels:
+          k8s-app: fluentd-logging
+      spec:
+        selector:
+          matchLabels:
+            k8s-app: fluentd-logging
+        template:
+          metadata:
+            labels:
+              k8s-app: fluentd-logging
+          spec:
+            containers:
+            - name: fluentd
+              image: fluent/fluentd:v1.16.2-debian-arm64-1.0
+              imagePullPolicy: Always
+              securityContext:
+                runAsUser: 0
+              volumeMounts:
+              - name: varlog
+                mountPath: /var/log
+              - name: config-volume
+                mountPath: /fluentd/etc
+              - name: plugin-volume
+                mountPath: /fluentd/plugins
+            terminationGracePeriodSeconds: 30
+            volumes:
+            - name: varlog
+              hostPath:
+                path: /var/log
+            - name: config-volume
+              configMap:
+                name: fluentd-config
+            - name: plugin-volume
+              emptyDir: {}
+            `
+      setDaemonset(newDaemonset);
+    }
+
+    const generateFiles = () => {
+      handleGenerateConfigMap();
+      handleGenerateConfFile();
+      handleGenerateDaemonset();
+    }
 
     return (
       <ThemeProvider theme={defaultTheme}>
@@ -245,7 +333,6 @@ const FluentdConfigGenerator: React.FC = () => {
 
           </Box>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4, display: "flex", flexDirection: "column", color: 'white', }}>
-              {/* ***** METRICS ***** */}
               <Grid item xs={12} >
                 <Paper
                   sx={{
@@ -257,7 +344,6 @@ const FluentdConfigGenerator: React.FC = () => {
                     backgroundColor: '#424242',
                   }}
                   >
-                  {/* add component here */}
                     <div>
                         <label>
                             Username:   
@@ -269,16 +355,35 @@ const FluentdConfigGenerator: React.FC = () => {
                             <input type="text" value={projectName} onChange={e => setProjectName(e.target.value)} />
                         </label>
                         <br />
-                        <label>
-                            Path: 
-                            <input type="text" value={path} onChange={e => setPath(e.target.value)} />
-                        </label>
-                        <br />
-                        <button onClick={handleGenerateConfigMap}>Generate ConfigMap</button>
+                        <button onClick={generateFiles}>Generate ConfigMap</button>
                         <AceEditor
                             mode="yaml"
                             theme="monokai"
+                            value={confFile}
+                            readOnly={true}
+                            height="300px"
+                            width="100%"
+                            setOptions={{
+                              showLineNumbers: true,
+                              tabSize: 4
+                            }}
+                            />
+                            <AceEditor
+                            mode="yaml"
+                            theme="monokai"
                             value={configMap}
+                            readOnly={true}
+                            height="300px"
+                            width="100%"
+                            setOptions={{
+                              showLineNumbers: true,
+                              tabSize: 4
+                            }}
+                            />
+                            <AceEditor
+                            mode="yaml"
+                            theme="monokai"
+                            value={daemonset}
                             readOnly={true}
                             height="300px"
                             width="100%"
