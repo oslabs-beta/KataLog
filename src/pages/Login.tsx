@@ -39,9 +39,12 @@ const Login = () => {
       });
 
       const data = await response.json();
-      console.log(data);
+      console.log('data', data);
 
       if (response.ok) {
+
+        localStorage.setItem('token', data.token);
+
         // Login successful, clear the form and display success message
         setFormData({
           username: '',

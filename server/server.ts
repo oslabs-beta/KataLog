@@ -1,16 +1,19 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import router from './routes/routes'
-import dotenv from 'dotenv';
-// import fs from 'fs';
-// import logController from './controllers/logController';
+import chokidar from 'chokidar';
+import fs from 'fs';
+import path from 'path';
+import logController from './controllers/logController';
 
 dotenv.config();
+
 const app = express();
-// const APP_NAME = 'my-app-copy';
-// const LOG_DIR = "/Users/charlesfrancofranco/Downloads/logs";
-// let currentFilePath = `${LOG_DIR}/${APP_NAME}.log.txt`; // initial file.
+// const APP_NAME = Update/Based/On/User/Input;
+// const LOG_DIR = Update/Based/On/User/Input;
+// let currentFilePath = `${LOG_DIR}/${APP_NAME}.log.txt`; // initial file reliant on user input
 // let filePointer = 0;
 
 app.use(cors()); // Enable CORS for all routes
@@ -28,18 +31,19 @@ mongoose.connection.once('open', () => {
 
 app.use('/api', router);
 
-// Start file watching as soon as the server starts
-// fs.watch(LOG_DIR, (eventType, filename) => {
-//     if (eventType === 'rename' && filename.includes(APP_NAME)) {
-//         logController.processRemainingEntriesInCurrentFile(currentFilePath, filePointer);
-//         currentFilePath = `${LOG_DIR}/${filename}`;
-//         filePointer = 0;
-//         console.log('found logs!');
-//     }
-//     filePointer = logController.processNewLogEntries(currentFilePath, filePointer);
+// const watcher = chokidar.watch('/Users/charlesfrancofranco/Downloads/logs/', {
+//   ignored: /(^|[\/\\])\..|buffer|%Y%m%d/,
+//   persistent: true
 // });
 
-// global error handler
+// watcher.on('all', (event, filePath) => {
+//   if (fs.statSync(filePath).isFile() && path.extname(filePath) === '.log') {
+//   // console.log('found new file located at ', filePath);
+//   // console.log(typeof filePath);
+//   logController.parseLogDirectory(filePath);
+//   }
+// });
+
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
