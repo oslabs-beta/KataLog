@@ -23,9 +23,6 @@ import CloseIcon from '@mui/icons-material/Close';
 
 
 export default function ControlPlaneDialog(props) {
-  
-
-  console.log('props in control plane', props);
 
     interface Log {
         timestamp: string;

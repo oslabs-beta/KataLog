@@ -22,9 +22,6 @@ import '../style.css';
 // for the search functionality I need to make it so that the nodes get reset if there is no search term. Also figure out why the search term only updates 1 search term later.
 export default function Chart(props): JSX.Element {
 
-  // const theme = useTheme();
-
-  console.log('props', props);
 
   // initializing example nodes
   const exampleNodes = ['Node 1', 'Node 2', 'Node 3', 'Node 4', 'Node 5',];
@@ -70,7 +67,7 @@ export default function Chart(props): JSX.Element {
   }
   const handleSearchLogs = (e: { target: { value: string; }; }) => {
 
-    console.log('my nodes: ', nodeSearch)
+    // console.log('my nodes: ', nodeSearch)
     let search = e.target.value
     let filteredNodes: string[] = [];
     if (search === "") {setMyNodes(exampleNodes)
@@ -83,7 +80,7 @@ export default function Chart(props): JSX.Element {
 
 
 
-      console.log('my nodes: ', myNodes, search)
+      // console.log('my nodes: ', myNodes, search)
   }
 
   const lineStyle = {
