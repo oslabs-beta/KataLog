@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import { mainListItems, secondaryListItems } from './listItems';
 import { CssBaseline, Drawer as MuiDrawer, Box, Toolbar, List, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link } from '@mui/material';
-import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, Notifications as NotificationsIcon, Logout as LogoutIcon } from '@mui/icons-material';
+import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, Notifications as NotificationsIcon, Logout as LogoutIcon, DisabledByDefault } from '@mui/icons-material';
 
 interface Project {
   projectName: string;
@@ -29,9 +30,11 @@ interface PodObject {
   podName: string;
 }
 
+interface HeaderAndSidebarProps {
+  onProjectSelect: (projectName: string) => void;
+}
+
 const token = localStorage.getItem('token');
-
-
 
 const drawerWidth: number = 240;
 
@@ -96,11 +99,30 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
   
   
-const SidebarAndHeader: React.FC = () => { 
+const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) => { 
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState("");
   const [logs, setLogs] = useState<Log[]>([]);
+
+  // logout functionality:
+  const navigate = useNavigate();
+  // define a function handleLogout, no params
+  const handleLogout = () => {
+    // grab JWT token from local storage
+    const token = localStorage.getItem('token');
+    // if JWT token exists in local storage
+    if (token) {
+      // remove token from local storage
+      localStorage.removeItem('token');
+      // navigate to login page after 1.5 seconds
+      setTimeout(() => {navigate('/login')}, 1500);
+    // else (i.e. JWT token does not exist)
+    } else {
+      // no token in local storage
+      console.log('No token found in local storage');
+    }
+  }
 
   useEffect(() => {
     fetch('/api/projects', {
@@ -112,7 +134,6 @@ const SidebarAndHeader: React.FC = () => {
     })
     .then(response => response.json())
     .then(data => setProjects(data))
-    .then(data => console.log('projects', projects))
     .catch(err => console.error('An error occurred in getting logs: ', err));
   }, []);
 
@@ -121,12 +142,11 @@ const SidebarAndHeader: React.FC = () => {
       fetch(`/api/logs/${selectedProject}`, {
           headers: {
               'Content-Type': 'application/json',
-              // 'Authorization': `Bearer ${token}`
           }
       })
       .then(response => response.json())
-      // .then(response => console.log('response,', response))
-      .then(data => setLogs(data))
+      // .then(data => onProjectSelect(data))
+      // .then(data => setLogs(data))
       .catch(err => console.error('An error occurred in getting logs: ', err));
   }
   }, [selectedProject]);
@@ -134,7 +154,9 @@ const SidebarAndHeader: React.FC = () => {
 
   
   const handleProjectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  setSelectedProject(event.target.value);
+    const projectName = event.target.value;
+    setSelectedProject(event.target.value);
+    onProjectSelect(projectName);
   }
 
 
@@ -179,8 +201,8 @@ const SidebarAndHeader: React.FC = () => {
               <Grid item xs={12}>
                 <Paper sx={{ width: '100%', p: 2, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent'}}>
                   <select onChange={handleProjectChange}>
-                    <option value="" disabled selected>Select a project</option>
-                    {projects.map(project => (
+                    <option value="" >Select a project</option>
+                    {projects?.map(project => (
                       <option key={project._id} value={project._id}>{project.projectName}</option>
                     ))}
                   </select>
@@ -192,7 +214,7 @@ const SidebarAndHeader: React.FC = () => {
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
-              <IconButton color="inherit">
+              <IconButton color="inherit" onClick={handleLogout}>
                 <LogoutIcon></LogoutIcon>
               </IconButton> 
             </Toolbar>
@@ -236,4 +258,4 @@ const SidebarAndHeader: React.FC = () => {
   )
 }
 
-export default SidebarAndHeader
+export default HeaderAndSidebar;

@@ -38,22 +38,10 @@ router.delete('/projects/:id', authController.protect, projectController.deleteP
 //     res.status(200).json(res.locals.data);
 // });
 
-router.get('/getProjectLogs', logController.getLogs, (req, res) => {
-  console.log('getProjectLogs has fired');
-  res.status(200).json(res.locals.projectLogs);
-});
-
 router.get('/logs/:selectedProject', logController.getLogs, (req, res) => {
   console.log('getting logs...');
   res.status(200).json(res.locals.logs);
 });
 
-// router.post('/createlog', logController.parseLogs, logController.addLog, (req, res) => {
-//   res.status(200).json(res.locals.log);
-// });
-
-router.post('/createlog', logController.addLog, (req, res) => {
-  res.status(200).json(res.locals.log);
-});
 
 export default router;

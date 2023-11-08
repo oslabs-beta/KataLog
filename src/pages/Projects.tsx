@@ -4,8 +4,8 @@ import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Drawer as MuiDrawer, Box, Toolbar, List, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { mainListItems, secondaryListItems } from '../components/listItems';
-import DashboardAsComponent from '../components/DashboardAsComponent';
-import LogsAsComponent from '../components/LogsAsComponent';
+// import DashboardAsComponent from '../components/DashboardAsComponent';
+// import LogsAsComponent from '../components/LogsAsComponent';
 import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, Notifications as NotificationsIcon, Logout as LogoutIcon } from '@mui/icons-material'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, TextField } from '@mui/material';
 
@@ -209,44 +209,44 @@ export default function Projects() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-          <AppBar position="absolute" open={open}>
-            <Toolbar
+        <AppBar position="absolute" open={open}>
+          <Toolbar
+            sx={{
+              pr: '24px', // keep right padding when drawer closed
+              backgroundColor: '#316CE6',
+            }}
+          >
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer}
               sx={{
-                pr: '24px', // keep right padding when drawer closed
-                backgroundColor: '#316CE6',
+                marginRight: '36px',
+                ...(open && { display: 'none' }),
               }}
             >
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                onClick={toggleDrawer}
-                sx={{
-                  marginRight: '36px',
-                  ...(open && { display: 'none' }),
-                }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography
-                component="h1"
-                variant="h4"
-                color="inherit"
-                noWrap
-                sx={{ flexGrow: 1 }}
-              >
-                KataLog
-              </Typography>
-              <IconButton color="inherit">
-                <Badge badgeContent={0} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <IconButton color="inherit">
-                <LogoutIcon></LogoutIcon>
-              </IconButton>
-            </Toolbar>
-          </AppBar>
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component="h1"
+              variant="h4"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1 }}
+            >
+              KataLog
+            </Typography>
+            <IconButton color="inherit">
+              <Badge badgeContent={0} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton color="inherit">
+              <LogoutIcon></LogoutIcon>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
         <Drawer variant="permanent" open={open} >
           <Toolbar
             sx={{
@@ -256,6 +256,7 @@ export default function Projects() {
               px: [1],
             }}
           >
+            {/* <Typography style={{ textAlign: 'left' }}>Main Menu</Typography> */}
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
@@ -279,7 +280,8 @@ export default function Projects() {
             overflow: 'auto',
           }}
         >
-        <Toolbar />  
+          <Toolbar />
+          
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, display: "flex", flexDirection: "column", color: 'white', }}>
           
           <Grid item xs={12}>
@@ -305,7 +307,7 @@ export default function Projects() {
               width: '100%'
             }}
           >
-            {logs.length > 0 && <LogsAsComponent logs={logs} />}
+            {/* {logs.length > 0 && <LogsAsComponent logs={logs} />} */}
           </Box>
 
           <Box
@@ -319,7 +321,7 @@ export default function Projects() {
               width: '100%'
             }}
           >
-            {logs.length > 0 && <DashboardAsComponent logs={logs} />}
+            {/* {logs.length > 0 && <DashboardAsComponent logs={logs} />} */}
           </Box>
 
 

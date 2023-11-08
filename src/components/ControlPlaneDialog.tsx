@@ -21,7 +21,11 @@ import NestedRowData from './NestedRowData';
 import HexagonIcon from '@mui/icons-material/Hexagon';
 import CloseIcon from '@mui/icons-material/Close';
 
+
 export default function ControlPlaneDialog(props) {
+  
+
+  console.log('props in control plane', props);
 
     interface Log {
         timestamp: string;
@@ -57,7 +61,7 @@ export default function ControlPlaneDialog(props) {
         const currentObj = logsToSearch[i];
         for (let key in currentObj) {
           if (key === 'logObject') {
-            if (currentObj.logObject.log.includes(searchTerm) || currentObj.logObject.stream.includes(searchTerm)){
+            if (currentObj.logObject.log.log.includes(searchTerm) || currentObj.logObject.stream.includes(searchTerm)){
               temp.push(currentObj);
               break;
             }
