@@ -2,19 +2,12 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import router from './routes/routes'
-import chokidar from 'chokidar';
-import fs from 'fs';
-import path from 'path';
-import logController from './controllers/logController';
+import router from './routes/routes';
 
 dotenv.config();
 
 const app = express();
-// const APP_NAME = Update/Based/On/User/Input;
-// const LOG_DIR = Update/Based/On/User/Input;
-// let currentFilePath = `${LOG_DIR}/${APP_NAME}.log.txt`; // initial file reliant on user input
-// let filePointer = 0;
+
 
 app.use(cors()); // Enable CORS for all routes
 // parse body requests from JSON to JS
@@ -30,19 +23,6 @@ mongoose.connection.once('open', () => {
 });
 
 app.use('/api', router);
-
-// const watcher = chokidar.watch('/Users/charlesfrancofranco/Downloads/logs/', {
-//   ignored: /(^|[\/\\])\..|buffer|%Y%m%d/,
-//   persistent: true
-// });
-
-// watcher.on('all', (event, filePath) => {
-//   if (fs.statSync(filePath).isFile() && path.extname(filePath) === '.log') {
-//   // console.log('found new file located at ', filePath);
-//   // console.log(typeof filePath);
-//   logController.parseLogDirectory(filePath);
-//   }
-// });
 
 app.use((err, req, res, next) => {
   const defaultErr = {

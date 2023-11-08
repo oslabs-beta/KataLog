@@ -20,6 +20,8 @@ function preventDefault(event: React.MouseEvent) {
 
 export default function Orders(props) {
 
+  console.log('props in orders', props);
+
   interface Log {
     timestamp: string;
     sourceInfo: string;
@@ -50,12 +52,6 @@ export default function Orders(props) {
   const [filterTypes, setFilterTypes] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  // const [expanded, setExpanded] = useState(false);
-
-  // const toggleExpanded = () => {
-  //   setExpanded(!expanded);
-  //   console.log(expanded);
-  // }
 
   // function to handle the logic of filtering logs
   const handleFilterLogs = () => {
@@ -113,23 +109,6 @@ export default function Orders(props) {
     text.value = '';
   };
 
-  // useEffect(() => {
-  //   fetch('/api/logs')
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       return response.json() as Promise<Log[]>; // Specify the response type as an array of Log
-  //     })
-  //     .then((data) => {
-    //       // console.log(data);
-    //       const newData = data.slice(0, data.length - 1);
-    //       console.log(newData);
-    //       setLogData(newData); // Use data directly if it's an array
-    //     })
-    //     .catch((err) => console.error('An error occurred in getting logs: ', err));
-    // }, []);
-
     // if there is search text, set returned logs to be search logs.
     // if there is a filter and no search logs, set returned logs to be filtered logs.
     // if theres neither, set returned logs to be all logs.
@@ -137,6 +116,7 @@ export default function Orders(props) {
                           filterTypes.length > 0 && !searchTerm ? filteredLogs : props.logData;
                           // filterTypes.length === 0 && text ? searchLogs : props.logData;
     const displayedLogs = returnedLogs.slice(startIndex, endIndex);
+
   return (
     <React.Fragment>
       <Box display="flex" alignItems="center">
@@ -188,29 +168,16 @@ export default function Orders(props) {
       </TableHead>
       <TableBody>
           <>
-          {displayedLogs.map((row, index) => (
-            <NestedRowData row={row} />
-          ))}
+          {displayedLogs?.map((row, index) => {
+              if (!row.logObject || typeof row.logObject.log.log !== 'string') {
+                console.error('Invalid logObject:', row.logObject);
+                return null; // Or some fallback component
+          }
+           return <NestedRowData row={row} />
+        })}
           </>
       </TableBody>
-      {/* <TableBody>
-      {searchLogs.length && (
-        <>
-        {searchLogs.map((row, index) => (
-           <NestedRowData row={row} />
-        ))}
-        </>
-      )}
-      </TableBody>
-      <TableBody>
-      {(
-        <>
-        {props.logData.map((row, index) => (
-          <NestedRowData row={row} />
-        ))}
-        </>
-      )}
-      </TableBody> */}
+   
     </Table>
     <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
       See more Logs

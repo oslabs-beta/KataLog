@@ -4,8 +4,8 @@ import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Drawer as MuiDrawer, Box, Toolbar, List, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { mainListItems, secondaryListItems } from '../components/listItems';
-import DashboardAsComponent from '../components/DashboardAsComponent';
-import LogsAsComponent from '../components/LogsAsComponent';
+// import DashboardAsComponent from '../components/DashboardAsComponent';
+// import LogsAsComponent from '../components/LogsAsComponent';
 import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, Notifications as NotificationsIcon, Logout as LogoutIcon } from '@mui/icons-material'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, TextField } from '@mui/material';
 
@@ -307,7 +307,7 @@ export default function Projects() {
               width: '100%'
             }}
           >
-            {logs.length > 0 && <LogsAsComponent logs={logs} />}
+            {/* {logs.length > 0 && <LogsAsComponent logs={logs} />} */}
           </Box>
 
           <Box
@@ -321,7 +321,7 @@ export default function Projects() {
               width: '100%'
             }}
           >
-            {logs.length > 0 && <DashboardAsComponent logs={logs} />}
+            {/* {logs.length > 0 && <DashboardAsComponent logs={logs} />} */}
           </Box>
 
 
