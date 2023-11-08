@@ -128,7 +128,7 @@ export default function ControlPlaneDialog(props) {
       >
         <DialogTitle
   sx={{
-    backgroundColor: '#303030',
+    backgroundColor: '#1A202C',
     display: 'flex',
     alignItems: 'center',
   }}
@@ -165,7 +165,7 @@ export default function ControlPlaneDialog(props) {
 
 
                 
-        <DialogContent dividers={scroll === 'paper'} sx={{backgroundColor: '#303030', }}>
+        <DialogContent dividers={scroll === 'paper'} sx={{backgroundColor: '#1A202C', }}>
           <DialogContentText
             id="scroll-dialog-description"
             ref={descriptionElementRef}
@@ -217,7 +217,7 @@ export default function ControlPlaneDialog(props) {
     </Table>
           </DialogContentText>
         </DialogContent>
-        <DialogActions sx={{backgroundColor: '#303030', }}>
+        <DialogActions sx={{backgroundColor: '#1A202C', }}>
           {/* <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleClose}>Subscribe</Button> */}
         </DialogActions>

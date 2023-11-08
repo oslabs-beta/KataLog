@@ -7,7 +7,7 @@ import HeaderAndSidebar from '../components/HeaderAndSidebar';
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+const defaultTheme = createTheme()
 
 export default function Logs() {
 
@@ -63,10 +63,11 @@ export default function Logs() {
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'dark'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+            // backgroundColor: (theme) =>
+            //   theme.palette.mode === 'dark'
+            //     ? theme.palette.grey[100]
+            //     : theme.palette.grey[900],
+            backgroundColor: '#1A202C',
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
@@ -76,7 +77,7 @@ export default function Logs() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, display: "flex", flexDirection: "column", color: 'white', }}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#424242' }}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#181923' }}>
                   <Orders logData={logData} setLogData={setLogData}/>
                 </Paper>
               </Grid>

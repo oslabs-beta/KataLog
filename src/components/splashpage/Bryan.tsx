@@ -53,7 +53,7 @@ export default function Bryan() {
             <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
               Bryan Luna
             </Heading>
-            <Text color={'gray.500'}>Backend Developer</Text>
+            <Text color={'gray.500'}>Software Engineer</Text>
           </Stack>
 
           <Stack direction={'row'} justify={'center'} spacing={6}>

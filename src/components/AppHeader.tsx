@@ -13,7 +13,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ open, toggleDrawer }) => {
       <Toolbar
         sx={{
           pr: '24px',
-          backgroundColor: '#316CE6',
+          backgroundColor: 'green',
         }}
       >
         <IconButton

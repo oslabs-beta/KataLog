@@ -52,7 +52,7 @@ export default function Chuck() {
             <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
               Chuck Franco
             </Heading>
-            <Text color={'gray.500'}>Backend Developer</Text>
+            <Text color={'gray.500'}>Software Engineer</Text>
           </Stack>
 
           <Stack direction={'row'} justify={'center'} spacing={6}>

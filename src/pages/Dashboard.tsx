@@ -81,7 +81,7 @@ export default function Dashboard() {
     flexDirection: 'column',
     height: 800,
     marginBottom: '20px',
-    backgroundColor: '#424242',
+    backgroundColor: '#181923',
     overflowX: 'auto',
     position: 'relative',
   };
@@ -94,10 +94,11 @@ export default function Dashboard() {
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'dark'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+            // backgroundColor: (theme) =>
+            //   theme.palette.mode === 'dark'
+            //     ? theme.palette.grey[100]
+            //     : theme.palette.grey[900],
+            backgroundColor: '#1A202C',
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
@@ -119,7 +120,7 @@ export default function Dashboard() {
                     display: 'flex',
                     flexDirection: 'column',
                     height: 500,
-                    backgroundColor: '#424242',
+                    backgroundColor: '#181923',
                     marginBottom: '30px'
                   }}
                 >
@@ -131,7 +132,7 @@ export default function Dashboard() {
                     display: 'flex',
                     flexDirection: 'column',
                     height: 270,
-                    backgroundColor: '#424242',
+                    backgroundColor: '#181923',
                   }}
                 >
                   <Health></Health>
@@ -145,7 +146,7 @@ export default function Dashboard() {
                     flexDirection: 'column',
                     height: 600,
                     marginBottom: "20px",
-                    backgroundColor: '#424242',
+                    backgroundColor: '#181923',
                   }}
                 >
                   <Metrics></Metrics>

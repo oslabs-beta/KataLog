@@ -52,7 +52,7 @@ export default function Derrick() {
             <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
               Derrick Devairakkam
             </Heading>
-            <Text color={'gray.500'}>Frontend Developer</Text>
+            <Text color={'gray.500'}>Software Engineer</Text>
           </Stack>
 
           <Stack direction={'row'} justify={'center'} spacing={6}>
