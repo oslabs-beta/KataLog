@@ -24,6 +24,8 @@ export default function Chart(props): JSX.Element {
 
   // const theme = useTheme();
 
+  console.log('props', props);
+
   // initializing example nodes
   const exampleNodes = ['Node 1', 'Node 2', 'Node 3', 'Node 4', 'Node 5',];
   const [myNodes, setMyNodes] = useState<string[]>(exampleNodes);
@@ -44,14 +46,6 @@ export default function Chart(props): JSX.Element {
     // Create a Set to store unique sourceInfo values
     const uniqueNodes = new Set(myNodes);
 
-    // const UniqueNodeParsing = props.logData.filter(log => {
-    //   if (log.type === 'proxy' && !uniqueNodes.has(log.sourceInfo)) {
-    //     uniqueNodes.add(log.sourceInfo);
-    //     return false;
-    //   }
-    //   return true;
-    // });
-
     // Convert the Set back to an array
     const updatedMyNodes = [...uniqueNodes];
 
@@ -61,7 +55,7 @@ export default function Chart(props): JSX.Element {
     setCloudControllerLogs(cloudControllerLogs);
     setProxyLogs(proxyLogs);
     setMyNodes(updatedMyNodes);
-  }, [props.logData]);
+  }, [props]);
 
 
 
