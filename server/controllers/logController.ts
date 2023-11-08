@@ -20,12 +20,12 @@ logController.parseLogs = (req, res, next) => {
     }
     // split readData into individual lines
     let logData = readData.split('\n');
-  
+
     const logEntries = logData.map(line => {
       // Define a regular expression pattern to match the components
       const logEntryPattern = /^(\S+)\s+(\S+)\s+(.*$)/;
       const match = line.match(logEntryPattern);
-  
+
       if (match) {
         const timestamp = match[1];
         const sourceInfo = match[2];
@@ -39,28 +39,28 @@ logController.parseLogs = (req, res, next) => {
           if (sourceInfo.includes(logController.sourceTypes[i])) {
             type = logController.sourceTypes[i];
             break;
-          } 
+          }
         }
-        
+
         // Define a regular expression pattern to match the username and project name
         const usernameProjectPattern = /\.username\.(\w+)\.projectName\.(\w+)/;
         const userProjectMatch = sourceInfo.match(usernameProjectPattern);
-        
-        
+
+
         // Store the username and project name in order to store logs in the database later on
         if (userProjectMatch) {
             parsedUsername = userProjectMatch[1];
             parsedProjectName = userProjectMatch[2];
         };
-        
+
         if (!type) {
           type = "pod";
           const sourceInfoPattern = /kubernetes\.var\.log\.containers\.([^_]+)_([^_]+)_([^\.]+)\.log/;
           const match = sourceInfo.match(sourceInfoPattern);
-      
+
           if (match) {
             podInfo.podName = match[1];
-            
+
             // Populates pods obj with the podName, which might need to be converted to a count down the road of functionality calls for it
             if (!pods.hasOwnProperty(match[1])){
               pods[match[1]] = match[1];
@@ -80,14 +80,14 @@ logController.parseLogs = (req, res, next) => {
               namespace: podInfo.namespace || null,
               containerName: podInfo.containerName || null
           },
-          username: parsedUsername, 
+          username: parsedUsername,
           projectName: parsedProjectName,
           logObject: null  // This will be populated later
       };
 
         try {
             logDataObject.logObject = JSON.parse(logData);
-            
+
             return {
               logDataObject
             };
@@ -114,6 +114,7 @@ logController.getLogs = async (req, res, next) => {
   const logs = await Log.find({project_id: req.params.selectedProject});
 
   res.locals.logs = logs;
+  console.log('logs: ', logs);
 
   return next();
 };
@@ -133,10 +134,10 @@ logController.addLog = async (req, res, next) => {
     // for (const outerLogEntry of res.locals.data) {
     //   // Skip null entries
     //   if (!outerLogEntry) continue;
-      
+
     //   // Extract the inner logDataObject
     //   const logEntry = outerLogEntry.logDataObject;
-  
+
     //   // Now, extract data from the logEntry
     //   const { timestamp, sourceInfo, type, podInfo, logObject } = logEntry;
     //   const log = await Log.create({ timestamp, sourceInfo, type, podInfo, logObject, project_id });
@@ -217,28 +218,28 @@ logController.parseLogData = (logDataStr) => {
         if (sourceInfo.includes(logController.sourceTypes[i])) {
           type = logController.sourceTypes[i];
           break;
-        } 
+        }
       }
-      
+
       // Define a regular expression pattern to match the username and project name
       const usernameProjectPattern = /\.username\.(\w+)\.projectName\.(\w+)/;
       const userProjectMatch = sourceInfo.match(usernameProjectPattern);
-      
-      
+
+
       // Store the username and project name in order to store logs in the database later on
       if (userProjectMatch) {
           parsedUsername = userProjectMatch[1];
           parsedProjectName = userProjectMatch[2];
       };
-      
+
       if (!type) {
         type = "pod";
         const sourceInfoPattern = /kubernetes\.var\.log\.containers\.([^_]+)_([^_]+)_([^\.]+)\.log/;
         const match = sourceInfo.match(sourceInfoPattern);
-    
+
         if (match) {
           podInfo.podName = match[1];
-          
+
           // Populates pods obj with the podName, which might need to be converted to a count down the road of functionality calls for it
           if (!pods.hasOwnProperty(match[1])){
             pods[match[1]] = match[1];
@@ -258,7 +259,7 @@ logController.parseLogData = (logDataStr) => {
             namespace: podInfo.namespace || null,
             containerName: podInfo.containerName || null
         },
-        username: parsedUsername, 
+        username: parsedUsername,
         projectName: parsedProjectName,
         logObject: null  // This will be populated later
     };
@@ -300,7 +301,7 @@ logController.parseLogDirectory = (filePath, req, res, next) => {
       // Define a regular expression pattern to match the components
       const logEntryPattern = /^(\S+)\s+(\S+)\s+(.*$)/;
       const match = line.match(logEntryPattern);
-  
+
       if (match) {
         const timestamp = match[1];
         const sourceInfo = match[2];
@@ -314,28 +315,28 @@ logController.parseLogDirectory = (filePath, req, res, next) => {
           if (sourceInfo.includes(logController.sourceTypes[i])) {
             type = logController.sourceTypes[i];
             break;
-          } 
+          }
         }
-        
+
         // Define a regular expression pattern to match the username and project name
         const usernameProjectPattern = /\.username\.(\w+)\.projectName\.(\w+)/;
         const userProjectMatch = sourceInfo.match(usernameProjectPattern);
-        
-        
+
+
         // Store the username and project name in order to store logs in the database later on
         if (userProjectMatch) {
             parsedUsername = userProjectMatch[1];
             parsedProjectName = userProjectMatch[2];
         };
-        
+
         if (!type) {
           type = "pod";
           const sourceInfoPattern = /kubernetes\.var\.log\.containers\.([^_]+)_([^_]+)_([^\.]+)\.log/;
           const match = sourceInfo.match(sourceInfoPattern);
-      
+
           if (match) {
             podInfo.podName = match[1];
-            
+
             // Populates pods obj with the podName, which might need to be converted to a count down the road of functionality calls for it
             if (!pods.hasOwnProperty(match[1])){
               pods[match[1]] = match[1];
@@ -355,14 +356,14 @@ logController.parseLogDirectory = (filePath, req, res, next) => {
               namespace: podInfo.namespace || null,
               containerName: podInfo.containerName || null
           },
-          username: parsedUsername, 
+          username: parsedUsername,
           projectName: parsedProjectName,
           logObject: null  // This will be populated later
       };
 
         try {
             logDataObject.logObject = JSON.parse(logData);
-            
+
             return {
               logDataObject
             };
@@ -399,10 +400,10 @@ logController.addLogsToDatabase = async (logEntries, parsedProjectName, req, res
     for (const outerLogEntry of logEntries) {
       // Skip null entries
       if (!outerLogEntry) continue;
-      
+
       // Extract the inner logDataObject
       const logEntry = outerLogEntry.logDataObject;
-  
+
       // Now, extract data from the logEntry
       const { timestamp, sourceInfo, type, podInfo, logObject } = logEntry;
       const log = await Log.create({ timestamp, sourceInfo, type, podInfo, logObject, project_id });

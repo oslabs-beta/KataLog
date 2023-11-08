@@ -116,7 +116,7 @@ export default function Logs() {
 
 
     useEffect(() => {
-        fetch('/api/logs')
+        fetch('/api/logs/653eb95527ecff42e7e81bcb')
             .then((response) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');

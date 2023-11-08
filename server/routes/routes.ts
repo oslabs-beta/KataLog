@@ -45,6 +45,7 @@ router.get('/getProjectLogs', logController.getLogs, (req, res) => {
 
 router.get('/logs/:selectedProject', logController.getLogs, (req, res) => {
   console.log('getting logs...');
+
   res.status(200).json(res.locals.logs);
 });
 
