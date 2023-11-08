@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 // import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -93,7 +94,27 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+  // logout functionality:
+  const navigate = useNavigate();
+  // define a function handleLogout, no params
+  const handleLogout = () => {
+    // grab JWT token from local storage
+    const token = localStorage.getItem('token');
+    // if JWT token exists in local storage
+    if (token) {
+      // remove token from local storage
+      localStorage.removeItem('token');
+      // navigate to login page after 1.5 seconds
+      setTimeout(() => {navigate('/login')}, 1500);
+    // else (i.e. JWT token does not exist)
+    } else {
+      // no token in local storage
+      console.log('No token found in local storage');
+    }
+  }
+
   const [open, setOpen] = React.useState(false);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -218,7 +239,7 @@ export default function Dashboard() {
               </Badge>
             </IconButton>
             <IconButton color="inherit">
-              <LogoutIcon></LogoutIcon>
+              <LogoutIcon onClick={handleLogout}></LogoutIcon>
             </IconButton>
           </Toolbar>
         </AppBar>

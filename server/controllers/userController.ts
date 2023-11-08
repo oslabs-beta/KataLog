@@ -94,8 +94,8 @@ userController.loginUser = async (req, res, next) => {
 
 // generate JWT - define a function generateToken that has 1 param - id
 const generateToken = id => {
-  // return invocation of jwt.sign, passing in id, JWT_SECRET, and expiresIn
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+  // return invocation of jwt.sign, passing in id, JWT_SECRET, and expiresIn (30 minutes)
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30m' });
 }
 
 export default userController;
