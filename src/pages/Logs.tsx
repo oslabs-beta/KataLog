@@ -46,7 +46,6 @@ export default function Logs() {
           return response.json() as Promise<Log[]>; // Specify the response type as an array of Log
         })
         .then((data) => {
-          // console.log('data 0', data[0].type);
           // const newData = data.slice(0, data.length - 1);
           setLogData(data); // Use data directly if it's an array
           setNumberOfLogs(data.length);
