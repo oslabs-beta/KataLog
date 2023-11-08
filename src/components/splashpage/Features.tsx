@@ -1,5 +1,6 @@
 'use client'
 import React from 'react';
+import { useRef } from 'react';
 
 import {
   Box,
@@ -20,6 +21,17 @@ import {
   FcDonate,
   FcManager,
 } from 'react-icons/fc'
+
+import { 
+    MdFilterAlt,
+    MdRemoveRedEye,
+    MdNotes,
+    MdSearch,
+    MdStackedBarChart,
+    MdHealthAndSafety
+
+
+} from "react-icons/md";
 
 interface CardProps {
   heading: string
@@ -45,7 +57,7 @@ const Card = ({ heading, description, icon, href }: CardProps) => {
           justify={'center'}
           color={'white'}
           rounded={'full'}
-          bg={useColorModeValue('gray.100', 'gray.700')}>
+          bg={useColorModeValue("#316CE6", "#316CE6")}>
           {icon}
         </Flex>
         <Box mt={2}>
@@ -54,22 +66,22 @@ const Card = ({ heading, description, icon, href }: CardProps) => {
             {description}
           </Text>
         </Box>
-        <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-          Learn more
-        </Button>
+        
       </Stack>
     </Box>
   )
 }
 
 export default function Features() {
+
+const featuresRef = useRef(null);
   return (
-    <Box p={4}>
+    <Box p={4} ref={featuresRef}>
       <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
         <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight={'bold'}>
           Key Features
         </Heading>
-        <Text color={'gray.600'} fontSize={{ base: 'sm', sm: 'lg' }}>
+        <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'lg' }}>
           Here are the highlights of some features that KataLog has to offer.
         </Text>
       </Stack>
@@ -77,39 +89,39 @@ export default function Features() {
       <Container maxW={'5xl'} mt={12}>
         <Flex flexWrap="wrap" gridGap={6} justify="center">
           <Card
-            heading={'Heading'}
-            icon={<Icon as={FcAssistant} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
+            heading={'Centralization'}
+            icon={<Icon as={MdNotes} w={10} h={10} />}
+            description={'All logs from all components in your Kubernetes Control Plane all in one place.'}
             href={'#'}
           />
           <Card
-            heading={'Heading'}
-            icon={<Icon as={FcCollaboration} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
+            heading={'Visualization'}
+            icon={<Icon as={MdRemoveRedEye} w={10} h={10} />}
+            description={'Visualization of logs appearing in a seemless user interface.'}
             href={'#'}
           />
           <Card
-            heading={'Heading'}
-            icon={<Icon as={FcDonate} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
+            heading={'Filtering'}
+            icon={<Icon as={MdFilterAlt} w={10} h={10} />}
+            description={'Ability to filter logs by source with integrated visualization.'}
             href={'#'}
           />
           <Card
-            heading={'Heading'}
-            icon={<Icon as={FcManager} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
+            heading={'Searching'}
+            icon={<Icon as={MdSearch} w={10} h={10} />}
+            description={'All rendered logs have search capability by key word.'}
             href={'#'}
           />
           <Card
-            heading={'Heading'}
-            icon={<Icon as={FcAbout} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
+            heading={'Metrics'}
+            icon={<Icon as={MdStackedBarChart} w={10} h={10} />}
+            description={'Graphs of error, warning, info, and okay logs that have been generated.'}
             href={'#'}
           />
           <Card
-            heading={'Heading'}
-            icon={<Icon as={FcAbout} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
+            heading={'Health'}
+            icon={<Icon as={MdHealthAndSafety} w={10} h={10} />}
+            description={'Basic notice of the state of health of the Kubernetes Cluster that is running.'}
             href={'#'}
           />
         </Flex>

@@ -1,5 +1,6 @@
 'use client'
 import React from 'react';
+import test from '../assets/Logo.png';
 
 import Head from 'next/head'
 import {
@@ -10,6 +11,7 @@ import {
   Button,
   Stack,
   Icon,
+  Image,
   useColorModeValue,
   createIcon,
 } from '@chakra-ui/react'
@@ -33,7 +35,7 @@ export default function Intro() {
             </Text>
           </Heading>
           <Text color={'gray.500'}>
-            Centralized and visualized logs straight from your Kubernetes Clusters. Automatic log updating and real-time metrics
+            Centralized and visualized logs straight from your Kubernetes Clusters. Automatic log updating and real-time metrics.
           </Text>
           <Stack
             direction={'column'}
@@ -47,10 +49,29 @@ export default function Intro() {
               rounded={'full'}
               px={6}
               _hover={{
-                bg: 'green.500',
+                bg: 'gray.500',
               }}>
               Get Started
             </Button>
+          {/* <Stack direction={'column'}
+            spacing={3}
+            align={'center'}
+            alignSelf={'center'}
+            position={'relative'}>
+
+          <Image
+                  w={700}
+                  h={700}
+                  rounded={'md'}
+                  align={'center'}
+                  alt={'feature image'}
+                  src={
+                    test
+                  }
+                  objectFit={'cover'}
+                />
+          </Stack> */}
+
             <Box>
             </Box>
           </Stack>
