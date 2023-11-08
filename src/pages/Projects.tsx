@@ -209,44 +209,44 @@ export default function Projects() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: '24px', // keep right padding when drawer closed
-              backgroundColor: '#316CE6',
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
+          <AppBar position="absolute" open={open}>
+            <Toolbar
               sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
+                pr: '24px', // keep right padding when drawer closed
+                backgroundColor: '#316CE6',
               }}
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h4"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              KataLog
-            </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={0} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton color="inherit">
-              <LogoutIcon></LogoutIcon>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={toggleDrawer}
+                sx={{
+                  marginRight: '36px',
+                  ...(open && { display: 'none' }),
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                component="h1"
+                variant="h4"
+                color="inherit"
+                noWrap
+                sx={{ flexGrow: 1 }}
+              >
+                KataLog
+              </Typography>
+              <IconButton color="inherit">
+                <Badge badgeContent={0} color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <IconButton color="inherit">
+                <LogoutIcon></LogoutIcon>
+              </IconButton>
+            </Toolbar>
+          </AppBar>
         <Drawer variant="permanent" open={open} >
           <Toolbar
             sx={{
@@ -256,7 +256,6 @@ export default function Projects() {
               px: [1],
             }}
           >
-            {/* <Typography style={{ textAlign: 'left' }}>Main Menu</Typography> */}
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
@@ -280,8 +279,7 @@ export default function Projects() {
             overflow: 'auto',
           }}
         >
-          <Toolbar />
-          
+        <Toolbar />  
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, display: "flex", flexDirection: "column", color: 'white', }}>
           
           <Grid item xs={12}>

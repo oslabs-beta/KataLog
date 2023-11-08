@@ -5,6 +5,7 @@ import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import { mainListItems, secondaryListItems } from '../components/listItems';
 import { CssBaseline, Drawer as MuiDrawer, Box, Toolbar, List, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link } from '@mui/material'
 import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, Notifications as NotificationsIcon, Logout as LogoutIcon } from '@mui/icons-material'
+import SidebarAndHeader from '../components/HeaderAndSidebar';
 
 function Copyright(props: any) {
   return (
@@ -257,81 +258,9 @@ const FluentdConfigGenerator: React.FC = () => {
     return (
       <ThemeProvider theme={defaultTheme}>
         <Box sx={{ display: 'flex'}}>
-          <CssBaseline />
-          <AppBar position="absolute" open={open}>
-            <Toolbar
-              sx={{
-               pr: '24px', // keep right padding when drawer closed
-               backgroundColor: '#316CE6',
-             }}
-            >
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                onClick={toggleDrawer}
-                sx={{
-                  marginRight: '36px',
-                  ...(open && { display: 'none' }),
-                }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography
-                component="h1"
-                variant="h4"
-                color="inherit"
-                noWrap
-                sx={{ flexGrow: 1 }}
-              >
-                KataLog
-              </Typography>
-              <IconButton color="inherit">
-                <Badge badgeContent={0} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <IconButton color="inherit">
-                <LogoutIcon></LogoutIcon>
-              </IconButton> 
-            </Toolbar>
-          </AppBar>
-          <Drawer variant="permanent" open={open} >
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            {/* <Typography style={{ textAlign: 'left' }}>Main Menu</Typography> */}
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav" sx={{}}>
-            {mainListItems}
-            <Divider sx={{ my: 1,  }} />
-            {secondaryListItems}
-          </List>
-        </Drawer >
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'dark'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          <Toolbar />
 
-          </Box>
+        <SidebarAndHeader/>
+
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4, display: "flex", flexDirection: "column", color: 'white', }}>
               <Grid item xs={12} >
                 <Paper
