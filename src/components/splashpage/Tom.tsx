@@ -12,14 +12,20 @@ import {
   Stack,
   Button,
   useColorModeValue,
+  Icon,
 } from '@chakra-ui/react'
+
+import { 
+    SiLinkedin,
+    SiGithub
+} from "react-icons/si";
 
 export default function Tom () {
   return (
     <Center py={6}>
       <Box
         maxW={'270px'}
-        w={'full'}
+        w={'270px'}
         bg={useColorModeValue('white', 'gray.800')}
         boxShadow={'2xl'}
         rounded={'md'}
@@ -27,11 +33,8 @@ export default function Tom () {
         <Image
           h={'120px'}
           w={'full'}
-          src={
-            'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
-          }
-          objectFit="cover"
-          alt="#"
+          bg={"#316CE6"}
+          
         />
         <Flex justify={'center'} mt={-12}>
           <Avatar
@@ -50,36 +53,22 @@ export default function Tom () {
             <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
               Tom Pappas
             </Heading>
-            <Text color={'gray.500'}>Frontend Developer</Text>
+            <Text color={'gray.500'}>Software Engineer</Text>
           </Stack>
 
           <Stack direction={'row'} justify={'center'} spacing={6}>
-            <Stack spacing={0} align={'center'}>
-              <Text fontWeight={600}>23k</Text>
-              <Text fontSize={'sm'} color={'gray.500'}>
-                Followers
-              </Text>
+            <Stack  spacing={0} align={'center'}>
+              <a href="https://www.linkedin.com/in/thomaskpappas/" target="_blank" rel="noopener noreferrer">
+                <Icon as={SiLinkedin} w={10} h={10} />
+              </a>
             </Stack>
             <Stack spacing={0} align={'center'}>
-              <Text fontWeight={600}>23k</Text>
-              <Text fontSize={'sm'} color={'gray.500'}>
-                Followers
-              </Text>
+              <a href="https://github.com/tkpaps" target="_blank" rel="noopener noreferrer">
+                <Icon as={SiGithub} w={10} h={10} />
+              </a>
             </Stack>
           </Stack>
 
-          <Button
-            w={'full'}
-            mt={8}
-            bg={useColorModeValue('#151f21', 'gray.900')}
-            color={'white'}
-            rounded={'md'}
-            _hover={{
-              transform: 'translateY(-2px)',
-              boxShadow: 'lg',
-            }}>
-            Follow
-          </Button>
         </Box>
       </Box>
     </Center>

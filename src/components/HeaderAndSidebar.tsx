@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import { mainListItems, secondaryListItems } from './listItems';
-import { CssBaseline, Drawer as MuiDrawer, Box, Toolbar, List, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link } from '@mui/material';
+import { CssBaseline, Drawer as MuiDrawer, Box, Toolbar, List, FormControl, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link, MenuItem } from '@mui/material';
 import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, Notifications as NotificationsIcon, Logout as LogoutIcon, DisabledByDefault } from '@mui/icons-material';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import test from './assets/Logo.png';
 
 interface Project {
   projectName: string;
@@ -116,7 +118,7 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
       // remove token from local storage
       localStorage.removeItem('token');
       // navigate to login page after 1.5 seconds
-      setTimeout(() => {navigate('/login')}, 1500);
+      setTimeout(() => {navigate('/')}, 1500);
     // else (i.e. JWT token does not exist)
     } else {
       // no token in local storage
@@ -153,6 +155,12 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
 
 
   
+  // const handleProjectChange = (event: SelectChangeEvent<typeof selectedProject>) => {
+  //   const projectName = event.target.value;
+  //   setSelectedProject(event.target.value);
+  //   onProjectSelect(projectName);
+  // }
+
   const handleProjectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const projectName = event.target.value;
     setSelectedProject(event.target.value);
@@ -164,6 +172,7 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
   const toggleDrawer = () => {
       setOpen(!open);
   };
+  
     
   return (   
     <ThemeProvider theme={defaultTheme}>
@@ -173,7 +182,7 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
             <Toolbar
               sx={{
               pr: '24px', // keep right padding when drawer closed
-              backgroundColor: '#316CE6',
+              backgroundColor: '#181923',
             }}
             >
               <IconButton
@@ -188,17 +197,48 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
               >
                 <MenuIcon />
               </IconButton>
+              <img src={test} alt="Your Image" width="65" height="65"/>
               <Typography
                 component="h1"
                 variant="h4"
                 color="inherit"
                 noWrap
                 sx={{ flexGrow: 1 }}
+                text-align='center'
+                marginLeft='45px'
+                fontWeight={600}
+                fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+                lineHeight={'110%'}
               >
-                KataLog
+                
               </Typography>
 
-              <Grid item xs={12}>
+              <Grid item xs={12} >
+                {/* <Paper sx={{ width: '100%', p: 2, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent'}}> */}
+                  {/* <FormControl sx={{ m: 1, width: 200, height: 20, color: 'white' }}>
+                  <Select 
+                  onChange={handleProjectChange}
+                  sx={{
+                    height: 30,
+                    color: 'white', // Set the text color to white
+                    backgroundColor: 'transparent', // Set the background color to transparent
+                    '& option': {
+                      color: 'white', // Set the option text color to the desired color (e.g., black)
+                    },
+                    '&:before': {
+                      borderColor: 'white', // Set the outline color to white
+                    },
+                    '&:after': {
+                      borderColor: 'white', // Set the arrow color to white
+                    },
+                  }}
+                >
+                    {projects?.map(project => (
+                      <MenuItem key={project._id} value={project.projectName}>{project.projectName} </MenuItem>
+                      ))}
+                  </Select>
+                      </FormControl> */}
+                {/* </Paper> */}
                 <Paper sx={{ width: '100%', p: 2, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent'}}>
                   <select onChange={handleProjectChange}>
                     <option value="" >Select a project</option>
@@ -242,10 +282,11 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
           <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'dark'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+            // backgroundColor: (theme) =>
+            //   theme.palette.mode === 'dark'
+            //     ? theme.palette.grey[100]
+            //     : theme.palette.grey[900],
+            backgroundColor: '#1A202C',
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',

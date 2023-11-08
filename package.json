@@ -15,6 +15,7 @@
     "@mui/icons-material": "^5.14.7",
     "@mui/lab": "5.0.0-alpha.120",
     "@mui/material": "^5.14.17",
+    "@mui/styles": "^5.14.17",
     "@mui/system": "5.11.9",
     "@mui/x-date-pickers": "5.0.19",
     "@testing-library/jest-dom": "^5.17.0",

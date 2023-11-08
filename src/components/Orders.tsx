@@ -177,16 +177,28 @@ export default function Orders(props) {
       </TableBody>
    
     </Table>
-    <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+    {/* <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
       See more Logs
-    </Link>
-    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#424242' }}>
+    </Link> */}
+    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#181923' }}>
       <Stack spacing={2} sx={{ justifyContent: 'center' }}>
           <Pagination
             count={Math.ceil(returnedLogs.length / itemsPerPage)} // set this according to search type
             page={page}
             onChange={handleChangePage}
             color="primary"
+            sx={{
+              '& .MuiPaginationItem-page, & .MuiPaginationItem-ellipsis': {
+                color: 'white', // Change text color to white
+              },
+              '& .MuiSvgIcon-root': {
+                fill: 'white', // Change the color of the arrows to white
+              },
+              '&.MuiPaginationItem-page.Mui-selected': {
+                color: 'green',
+                backgroundColor: 'green', // Change the color of the selected page circle
+              },
+            }}
           />
       </Stack>
     </Paper>

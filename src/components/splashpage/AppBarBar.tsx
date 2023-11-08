@@ -92,7 +92,7 @@ export default function AppBarBar() {
             href={'#'}
             onClick={handleSignup}
             _hover={{
-              bg: 'gray.600',
+              bg: 'gray.500',
             }}>
             Sign Up
           </Button>

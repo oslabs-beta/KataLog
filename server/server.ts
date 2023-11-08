@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import router from './routes/routes';
+import path from 'express';
 
 dotenv.config();
 
@@ -14,6 +15,9 @@ app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 // parse URL encoded data requests into req.body
 app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static('../src/components/assets'));
+
 
 const mongoURI : any = process.env.MONGO_URI;
 
