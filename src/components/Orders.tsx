@@ -20,8 +20,6 @@ function preventDefault(event: React.MouseEvent) {
 
 export default function Orders(props) {
 
-  console.log('props in orders', props);
-
   interface Log {
     timestamp: string;
     sourceInfo: string;
@@ -61,7 +59,6 @@ export default function Orders(props) {
     // if logdata includes filtertypes
     setFilteredLogs(props.logData.filter((log) => filterTypes.includes(log.type)));
   };
-  // console.log(displayedItems, startIndex, endIndex)
 
   const handleSearchLogs = (e: { target: { value: string; }; }) => {
 
@@ -76,7 +73,7 @@ export default function Orders(props) {
         const currentObj = logsToSearch[i];
         for (let key in currentObj) {
           if (key === 'logObject') {
-            if (currentObj.logObject.log.includes(searchTerm) || currentObj.logObject.stream.includes(searchTerm)){
+            if (currentObj.logObject.log.log.includes(searchTerm) || currentObj.logObject.stream.includes(searchTerm)){
               temp.push(currentObj);
               break;
             }
@@ -87,6 +84,7 @@ export default function Orders(props) {
             }
           } else {
             if (key !== 'podInfo' ) {
+              if (typeof currentObj[key]  === 'string')
               if (currentObj[key].includes(searchTerm)) {
                 temp.push(currentObj);
                 break;

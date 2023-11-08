@@ -180,7 +180,6 @@ export default function Projects() {
       })
       .then(response => response.json())
       .then(data => setProjects(data))
-      .then(data => console.log('projects', projects))
       .catch(err => console.error('An error occurred in getting logs: ', err));
   }, []);
 
@@ -189,11 +188,9 @@ export default function Projects() {
         fetch(`/api/logs/${selectedProject}`, {
             headers: {
                 'Content-Type': 'application/json',
-                // 'Authorization': `Bearer ${token}`
             }
         })
         .then(response => response.json())
-        // .then(response => console.log('response,', response))
         .then(data => setLogs(data))
         .catch(err => console.error('An error occurred in getting logs: ', err));
     }
