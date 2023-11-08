@@ -53,8 +53,8 @@ const Signup = () => {
         });
         setSuccessMessage(data.message);
         setErrorMessage('');
-        // render Login page after 1.5 seconds
-        setTimeout(() => {navigate('/')}, 1500); // Navigate to the Login page
+        // render Dashboard page after 1.5 seconds
+        setTimeout(() => {navigate('/dashboard')}, 1500);
       } else if (data && data.err) {
         // Error message in the expected format
         setErrorMessage(data.err);
