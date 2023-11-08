@@ -104,8 +104,8 @@ export default function Dashboard() {
     if (token) {
       // remove token from local storage
       localStorage.removeItem('token');
-      // navigate to login page after 1.5 seconds
-      setTimeout(() => {navigate('/login')}, 1500);
+      // navigate to splash page after 1.5 seconds
+      setTimeout(() => {navigate('/')}, 1500);
     // else (i.e. JWT token does not exist)
     } else {
       // no token in local storage
