@@ -1,7 +1,26 @@
 import * as React from 'react';
-import { useState, } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline,  Box, Toolbar,  Container, Grid, Paper } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+// import CssBaseline from '@mui/material/CssBaseline';
+import MuiDrawer from '@mui/material/Drawer';
+// import Box from '@mui/material/Box';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import { CssBaseline,  Box, Toolbar, List, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link } from '@mui/material';
+// import Toolbar from '@mui/material/Toolbar';
+// import List from '@mui/material/List';
+// import Typography from '@mui/material/Typography';
+// import Divider from '@mui/material/Divider';
+// import IconButton from '@mui/material/IconButton';
+// import Badge from '@mui/material/Badge';
+// import Container from '@mui/material/Container';
+// import Grid from '@mui/material/Grid';
+// import Paper from '@mui/material/Paper';
+// import Link from '@mui/material/Link';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { mainListItems, secondaryListItems } from '../components/listItems';
 import Chart from '../components/Chart';
 import Deposits from '../components/Deposits';
 import Metrics from '../components/Metrics';
@@ -12,6 +31,30 @@ import HeaderAndSidebar from '../components/HeaderAndSidebar';
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+  // logout functionality:
+  const navigate = useNavigate();
+  // define a function handleLogout, no params
+  const handleLogout = () => {
+    // grab JWT token from local storage
+    const token = localStorage.getItem('token');
+    // if JWT token exists in local storage
+    if (token) {
+      // remove token from local storage
+      localStorage.removeItem('token');
+      // navigate to login page after 1.5 seconds
+      setTimeout(() => {navigate('/login')}, 1500);
+    // else (i.e. JWT token does not exist)
+    } else {
+      // no token in local storage
+      console.log('No token found in local storage');
+    }
+  }
+
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
 
   interface Log {
     timestamp: string;
@@ -55,7 +98,65 @@ export default function Dashboard() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <HeaderAndSidebar/>
+        <AppBar position="absolute" open={open}>
+          <Toolbar
+            sx={{
+              pr: '24px', // keep right padding when drawer closed
+              backgroundColor: '#316CE6',
+            }}
+          >
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer}
+              sx={{
+                marginRight: '36px',
+                ...(open && { display: 'none' }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component="h1"
+              variant="h4"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1 }}
+            >
+              KataLog
+            </Typography>
+            <IconButton color="inherit">
+              <Badge badgeContent={0} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton color="inherit">
+              <LogoutIcon onClick={handleLogout}></LogoutIcon>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <Drawer variant="permanent" open={open} >
+          <Toolbar
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              px: [1],
+            }}
+          >
+            {/* <Typography style={{ textAlign: 'left' }}>Main Menu</Typography> */}
+            <IconButton onClick={toggleDrawer}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </Toolbar>
+          <Divider />
+          <List component="nav" sx={{}}>
+            {mainListItems}
+            <Divider sx={{ my: 1,  }} />
+            {secondaryListItems}
+          </List>
+        </Drawer >
         <Box
           component="main"
           sx={{
