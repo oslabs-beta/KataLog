@@ -28,7 +28,9 @@ Click on the link below that corresponds to your use case:
 
 <a href="https://docs.fluentd.org/installation/install-by-deb">Install Fluentd by Deb package (Ubuntu/Debian Linux)</a> 
 
-<a href="https://docs.fluentd.org/installation/install-by-msi">Install Fluentd by DMG package (Mac OS X)</a> 
+<a href="https://docs.fluentd.org/installation/install-by-dmg">Install Fluentd by DMG package (Mac OS X)</a> 
+
+<a href="https://docs.fluentd.org/installation/install-by-msi">Install Fluentd by MSI installer (Windows)</a>  
 
 <a href="https://docs.fluentd.org/installation/install-by-gem">Install Fluentd by Ruby Gem</a> 
 
