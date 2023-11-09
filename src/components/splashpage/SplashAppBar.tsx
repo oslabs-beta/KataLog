@@ -61,8 +61,8 @@ const NavLink = (props: Props) => {
 }
 
 export default function Nav() {
-  const { colorMode, toggleColorMode } = useColorMode()
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { colorMode, toggleColorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   
   const navigate = useNavigate();
