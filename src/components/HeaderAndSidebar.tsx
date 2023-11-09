@@ -242,7 +242,7 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
                 <Paper sx={{ width: '100%', p: 2, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent'}}>
                   <select onChange={handleProjectChange}>
                     <option value="" >Select a project</option>
-                    {projects?.map(project => (
+                    {projects && projects.map(project => (
                       <option key={project._id} value={project._id}>{project.projectName}</option>
                     ))}
                   </select>
