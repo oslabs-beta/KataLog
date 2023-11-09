@@ -61,23 +61,8 @@ const Login = () => {
           username: '',
           password: ''
         });
-<<<<<<< HEAD
-        setSuccessMessage(data.message);
-        setErrorMessage('');
-        // render Dashboard page after 1.5 seconds
-        setTimeout(() => {navigate('/projects')}, 1500); // Navigate to the Dashboard page
-      } else {
-        // Login failed, display the error message
-        if (data && data.err) {
-          // Error message in the expected format
-          setErrorMessage(data.err);
-        } else {
-        // Handle other error formats or set a default error message
-        setErrorMessage('An error occurred');
-=======
         // render Dashboard page
         navigate('/dashboard');
->>>>>>> 201015a6b6546cea9d4d3be5fdc4e0a567d55203
       }
     } catch (error) {
       console.error('Error:', error);
