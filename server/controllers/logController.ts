@@ -1,4 +1,6 @@
-const fs = require('fs');
+import fs from 'fs';
+import Log from '../models/logModel';
+import Project from '../models/projectModel'
 
 // non-pod log types
 const sourceTypes = ['apiserver', 'etcd', 'controller-manager', 'proxy', 'scheduler', 'coredns', 'storage-provisioner'];
@@ -7,12 +9,16 @@ const logController : any = { sourceTypes: sourceTypes };
 
 logController.parseLogs = (req, res, next) => {
   const pods = {};
+  let parsedUsername;
+  let parsedProjectName;
 
-  fs.readFile('/Users/tkpaps/CodeSmithPTRI/OSP/Katalog/logs/my-app-copy.19700101.log.txt_26.log', 'utf-8', (err, readData) => {
+  const LOG_DIR = "/fluentd/logs";
+
+  fs.readFile('/Users/charlesfrancofranco/Codesmith/OSP/KataLog/logs/Example.log', 'utf-8', (err, readData) => {
     if (err) {
         return res.status(500).json({ error: 'Failed to read log file' });
     }
-    // split readData into indivdual lines
+    // split readData into individual lines
     let logData = readData.split('\n');
   
     const logEntries = logData.map(line => {
@@ -34,7 +40,18 @@ logController.parseLogs = (req, res, next) => {
             type = logController.sourceTypes[i];
             break;
           } 
-        } 
+        }
+        
+        // Define a regular expression pattern to match the username and project name
+        const usernameProjectPattern = /\.username\.(\w+)\.projectName\.(\w+)/;
+        const userProjectMatch = sourceInfo.match(usernameProjectPattern);
+        
+        
+        // Store the username and project name in order to store logs in the database later on
+        if (userProjectMatch) {
+            parsedUsername = userProjectMatch[1];
+            parsedProjectName = userProjectMatch[2];
+        };
         
         if (!type) {
           type = "pod";
@@ -54,14 +71,25 @@ logController.parseLogs = (req, res, next) => {
           };
         };
 
+        const logDataObject = {
+          timestamp,
+          sourceInfo,
+          type,
+          podInfo: {
+              podName: podInfo.podName || null,
+              namespace: podInfo.namespace || null,
+              containerName: podInfo.containerName || null
+          },
+          username: parsedUsername, 
+          projectName: parsedProjectName,
+          logObject: null  // This will be populated later
+      };
+
         try {
-            const logObject = JSON.parse(logData);
+            logDataObject.logObject = JSON.parse(logData);
+            
             return {
-                timestamp,
-                sourceInfo,
-                type,
-                podInfo,
-                logObject
+              logDataObject
             };
         } catch (e) {
             console.error('Error parsing log JSON:', e);
@@ -74,9 +102,21 @@ logController.parseLogs = (req, res, next) => {
     });
     // assign res.locals.data to logEntries
     res.locals.data = logEntries;
+    res.locals.username = parsedUsername;
+    res.locals.projectName = parsedProjectName;
     // return invocation of next
     return next();
   });
 };
 
-module.exports = logController;
+logController.getLogs = async (req, res, next) => {
+
+  const logs = await Log.find({project_id: req.params.selectedProject});
+
+  res.locals.logs = logs;
+
+  return next();
+};
+
+
+export default logController;

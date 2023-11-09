@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { Link, Route, Routes, useParams, Outlet, useNavigate } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
-import Title from './Title';
+// import { Link, Route, Routes, useParams, Outlet, useNavigate } from 'react-router-dom';
+// import { useTheme } from '@mui/material/styles';
+// import Title from './Title';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import image from './assets/Kubernetes.png';
-import { Paper, makeStyles, Theme } from '@mui/material';
-import { Grid } from '@mui/material';
-import ControlPlane from './ControlPlane';
+// import image from './assets/Kubernetes.png';
+// import { Paper, makeStyles, Theme } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
+// import ControlPlane from './ControlPlane';
 import Node from './Node';
-import Hexagon from './Hexagon';
+// import Hexagon from './Hexagon';
 import API from './API';
 import ControlManager from './ControlManager';
 import Scheduler from './Scheduler';
@@ -19,28 +19,30 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import '../style.css';
 
-
+// for the search functionality I need to make it so that the nodes get reset if there is no search term. Also figure out why the search term only updates 1 search term later.
 export default function Chart(props): JSX.Element {
-  const theme = useTheme();
-  
+
+
   // initializing example nodes
-  const [myNodes, setMyNodes] = useState<string[]>(['1', '2', '3', '4', '5',]);
-  const [cluster, showCluster] = useState(true);
-  const [controllerManagerLogs, setControllerManagerLogs] = useState([]);
-  const [etcdLogs, setEtcdLogs] = useState([]);
-  const [schedulerLogs, setSchedulerLogs] = useState([]);
-  const [cloudControllerLogs, setCloudControllerLogs] = useState([]);
-  const [proxyLogs, setProxyLogs] = useState([]);
+  const exampleNodes = ['Node 1', 'Node 2', 'Node 3', 'Node 4', 'Node 5',];
+  const [myNodes, setMyNodes] = useState<string[]>(exampleNodes);
+  const [cluster, showCluster] = useState<boolean>(true);
+  const [controllerManagerLogs, setControllerManagerLogs] = useState<string[]>([]);
+  const [etcdLogs, setEtcdLogs] = useState<string[]>([]);
+  const [schedulerLogs, setSchedulerLogs] = useState<string[]>([]);
+  const [cloudControllerLogs, setCloudControllerLogs] = useState<string[]>([]);
+  const [proxyLogs, setProxyLogs] = useState<string[]>([]);
+  const [nodeSearch] = useState<string>('')
 
   useEffect(() => {
-    const controllerManagerLogs = props.logData.filter(log => log.type === 'controller-manager');
+    const controllerManagerLogs= props.logData.filter(log => log.type === 'controller-manager');
     const etcdLogs = props.logData.filter(log => log.type === 'etcd');
     const schedulerLogs = props.logData.filter(log => log.type === 'scheduler');
     const cloudControllerLogs = props.logData.filter(log => log.type === 'cloud-controller-manager');
     const proxyLogs = props.logData.filter(log => log.type === 'proxy');
     // Create a Set to store unique sourceInfo values
     const uniqueNodes = new Set(myNodes);
-  
+
     const UniqueNodeParsing = props.logData.filter(log => {
       if (log.type === 'proxy' && !uniqueNodes.has(log.sourceInfo)) {
         uniqueNodes.add(log.sourceInfo);
@@ -48,19 +50,19 @@ export default function Chart(props): JSX.Element {
       }
       return true;
     });
-  
+    
     // Convert the Set back to an array
     const updatedMyNodes = [...uniqueNodes];
-  
+    
     setControllerManagerLogs(controllerManagerLogs);
     setEtcdLogs(etcdLogs);
     setSchedulerLogs(schedulerLogs);
     setCloudControllerLogs(cloudControllerLogs);
     setProxyLogs(proxyLogs);
     setMyNodes(updatedMyNodes);
-  }, [props.logData]);
-  
-  
+  }, [props]);
+
+
 
 
   function hexagonClick() {
@@ -70,6 +72,23 @@ export default function Chart(props): JSX.Element {
 
   function backButtonClick() {
     showCluster(true);
+  }
+  const handleSearchLogs = (e: { target: { value: string; }; }) => {
+
+    // console.log('my nodes: ', nodeSearch)
+    let search = e.target.value
+    let filteredNodes: string[] = [];
+    if (search === "") {setMyNodes(exampleNodes)
+    } else {
+      // search filtered logs if they exist, otherwise search through all logs. (passed in log data)
+      filteredNodes = exampleNodes.filter(node => node.includes(search))
+      // set the filtered nodes in the myNodes state variable
+      setMyNodes(filteredNodes);
+    }
+
+
+
+      // console.log('my nodes: ', myNodes, search)
   }
 
   const lineStyle = {
@@ -151,6 +170,28 @@ export default function Chart(props): JSX.Element {
         </div>
       ) : (
         <div>
+           <Grid item>
+            <TextField id="standard-basic"
+              onChange={handleSearchLogs}
+              label="Search"
+              variant="standard"
+              sx={{
+                width: '300px',
+                '& .MuiInputBase-root': {
+                  color: 'white',          // Text color
+                  borderColor: 'white',   // Border color
+                  '&:focus': {
+                    borderColor: 'white', // Border color when focused
+                  },
+                },
+                '& .MuiInputLabel-root': {
+                  color: 'white',          // Label color
+                  '&.Mui-focused': {
+                    color: 'white',        // Label color when focused
+                  },
+                },
+              }}/>
+          </Grid>
         <Button sx={{
             '&:hover': {
             backgroundColor: 'gray', // Change this to the desired gray color
@@ -174,10 +215,10 @@ export default function Chart(props): JSX.Element {
           ))}
         </div>
       </div>
-      
 
-      )} 
-  
+
+      )}
+
     </React.Fragment>
   );
 }

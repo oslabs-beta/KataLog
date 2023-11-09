@@ -9,6 +9,7 @@ var forEach = require('for-each');
 var debug = require('object-inspect');
 var v = require('es-value-fixtures');
 var hasSymbols = require('has-symbols/shams')();
+var generators = require('make-generator-function')();
 
 var index = require('../Iterator.prototype.map');
 var impl = require('../Iterator.prototype.map/implementation');
@@ -101,6 +102,17 @@ module.exports = {
 			testIterator(iterator(), [1, 2, 3], st, 'original');
 			testIterator(map(iterator(), function (x) { return x; }), [1, 2, 3], st, 'identity mapper');
 			testIterator(map(iterator(), function (x) { return 2 * x; }), [2, 4, 6], st, 'doubler mapper');
+
+			st.test('generators', { skip: generators.length === 0 }, function (s2t) {
+				forEach(generators, function (gen) {
+					s2t.doesNotThrow(
+						function () { map(gen(), function () {}); },
+						'generator function ' + debug(gen) + ' does not need to be from-wrapped first'
+					);
+				});
+
+				s2t.end();
+			});
 
 			st.end();
 		});

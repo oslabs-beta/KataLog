@@ -1,60 +1,94 @@
 import * as React from 'react';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import { Check, Dashboard, People, BarChart, Layers, GitHub, Login, WebStories, Coffee } from '@mui/icons-material';
+import { Link } from 'react-router-dom'
+
+// Define a shared style object
+const linkStyle = {
+  textDecoration: 'none',
+  color: 'black',
+};
 
 export const mainListItems = (
   <React.Fragment >
-    <ListItemButton>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItemButton>
+
+    {/* Dashboard Link */}
+    <Link to='/dashboard' style={linkStyle}>
+      <ListItemButton>
+        <ListItemIcon>
+          <Dashboard />
+        </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+      </ListItemButton>
+    </Link>
+
+    {/* Logs Link */}
+    <Link to='/api/logs' style={linkStyle}>
+      <ListItemButton>
+        <ListItemIcon>
+          <BarChart />
+        </ListItemIcon>
+          <ListItemText primary="Logs" />
+      </ListItemButton>
+    </Link>
+
+      <Link to="/configuration" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <ListItemButton>
+          <ListItemIcon>
+            <Layers />
+          </ListItemIcon>
+          <ListItemText primary="Configuration" />
+        </ListItemButton>
+      </Link>
+    {/* GitHub Link */}
     <a href="https://github.com/oslabs-beta/Katalog"
-  target="_blank"
-  rel="noopener noreferrer"
-  style={{
-    textDecoration: 'none', // Remove underline
-    color: 'black',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s',
-  }}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        textDecoration: 'none', // Remove underline
+        color: 'black',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s',
+      }}
   >
   <ListItemButton>
     <ListItemIcon>
-      <GitHubIcon />
+      <GitHub />
     </ListItemIcon>
     <ListItemText primary="GitHub" />
   </ListItemButton>
-</a>
+    </a>
 
-    <ListItemButton>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Team" />
-    </ListItemButton>
-    {/* <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItemButton> */}
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItemButton>
+
+
+
+    {/* <Link to="/login" style={{ textDecoration: 'none', color: 'inherit'}}>
+      <ListItemButton>
+        <ListItemIcon>
+          <Login />
+        </ListItemIcon>
+        <ListItemText primary="Login" />
+      </ListItemButton>
+    </Link>
+
+    <Link to="/signup" style={{ textDecoration: 'none', color: 'inherit'}}>
+      <ListItemButton>
+        <ListItemIcon>
+          <Coffee />
+        </ListItemIcon>
+        <ListItemText primary="Sign Up" />
+      </ListItemButton>
+    </Link> */}
+
+    {/* <Link to="/projects" style={{ textDecoration: 'none', color: 'inherit'}}>
+      <ListItemButton>
+        <ListItemIcon>
+          <Check />
+        </ListItemIcon>
+        <ListItemText primary="Projects" />
+      </ListItemButton>
+    </Link> */}
+
   </React.Fragment>
 );
 

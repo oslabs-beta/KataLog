@@ -3,7 +3,7 @@
 var define = require('define-properties');
 var getPolyfill = require('./polyfill');
 
-var $IteratorPrototype = require('iterator.prototype');
+var $IteratorPrototype = require('../Iterator.prototype/implementation');
 
 var $Iterator = require('./implementation');
 

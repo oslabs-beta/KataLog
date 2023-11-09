@@ -2,7 +2,7 @@
 
 var setToStringTag = require('es-set-tostringtag');
 var hasProto = require('has-proto')();
-var iterProto = require('iterator.prototype');
+var iterProto = require('../Iterator.prototype/implementation');
 var SLOT = require('internal-slot');
 
 var CompletionRecord = require('es-abstract/2023/CompletionRecord');

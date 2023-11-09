@@ -21,6 +21,7 @@ import NestedRowData from './NestedRowData';
 import HexagonIcon from '@mui/icons-material/Hexagon';
 import CloseIcon from '@mui/icons-material/Close';
 
+
 export default function ControlPlaneDialog(props) {
 
     interface Log {
@@ -57,7 +58,7 @@ export default function ControlPlaneDialog(props) {
         const currentObj = logsToSearch[i];
         for (let key in currentObj) {
           if (key === 'logObject') {
-            if (currentObj.logObject.log.includes(searchTerm) || currentObj.logObject.stream.includes(searchTerm)){
+            if (currentObj.logObject.log.log.includes(searchTerm) || currentObj.logObject.stream.includes(searchTerm)){
               temp.push(currentObj);
               break;
             }
@@ -67,7 +68,8 @@ export default function ControlPlaneDialog(props) {
               break;
             } 
           } else {
-            if (key !== 'podInfo' ) {
+            if (key !== 'podInfo') {
+              if (typeof currentObj[key]  === 'string')
               if (currentObj[key].includes(searchTerm)) {
                 temp.push(currentObj);
                 break;
@@ -124,7 +126,7 @@ export default function ControlPlaneDialog(props) {
       >
         <DialogTitle
   sx={{
-    backgroundColor: '#303030',
+    backgroundColor: '#1A202C',
     display: 'flex',
     alignItems: 'center',
   }}
@@ -161,7 +163,7 @@ export default function ControlPlaneDialog(props) {
 
 
                 
-        <DialogContent dividers={scroll === 'paper'} sx={{backgroundColor: '#303030', }}>
+        <DialogContent dividers={scroll === 'paper'} sx={{backgroundColor: '#1A202C', }}>
           <DialogContentText
             id="scroll-dialog-description"
             ref={descriptionElementRef}
@@ -213,7 +215,7 @@ export default function ControlPlaneDialog(props) {
     </Table>
           </DialogContentText>
         </DialogContent>
-        <DialogActions sx={{backgroundColor: '#303030', }}>
+        <DialogActions sx={{backgroundColor: '#1A202C', }}>
           {/* <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleClose}>Subscribe</Button> */}
         </DialogActions>

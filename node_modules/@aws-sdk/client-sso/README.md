@@ -9,16 +9,13 @@ AWS SDK for JavaScript SSO Client for Node.js, Browser and React Native.
 <p>AWS IAM Identity Center (successor to AWS Single Sign-On) Portal is a web service that makes it easy for you to assign user access to
 IAM Identity Center resources such as the AWS access portal. Users can get AWS account applications and roles
 assigned to them and get federated into the application.</p>
-
 <note>
 <p>Although AWS Single Sign-On was renamed, the <code>sso</code> and
 <code>identitystore</code> API namespaces will continue to retain their original name for
 backward compatibility purposes. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html#renamed">IAM Identity Center rename</a>.</p>
 </note>
-
 <p>This reference guide describes the IAM Identity Center Portal operations that you can call
 programatically and includes detailed information on data types and errors.</p>
-
 <note>
 <p>AWS provides SDKs that consist of libraries and sample code for various programming
 languages and platforms, such as Java, Ruby, .Net, iOS, or Android. The SDKs provide a
@@ -41,16 +38,16 @@ using your favorite package manager:
 
 The AWS SDK is modulized by clients and commands.
 To send a request, you only need to import the `SSOClient` and
-the commands you need, for example `GetRoleCredentialsCommand`:
+the commands you need, for example `ListAccountsCommand`:
 
 ```js
 // ES5 example
-const { SSOClient, GetRoleCredentialsCommand } = require("@aws-sdk/client-sso");
+const { SSOClient, ListAccountsCommand } = require("@aws-sdk/client-sso");
 ```
 
 ```ts
 // ES6+ example
-import { SSOClient, GetRoleCredentialsCommand } from "@aws-sdk/client-sso";
+import { SSOClient, ListAccountsCommand } from "@aws-sdk/client-sso";
 ```
 
 ### Usage
@@ -69,7 +66,7 @@ const client = new SSOClient({ region: "REGION" });
 const params = {
   /** input parameters */
 };
-const command = new GetRoleCredentialsCommand(params);
+const command = new ListAccountsCommand(params);
 ```
 
 #### Async/await
@@ -148,7 +145,7 @@ const client = new AWS.SSO({ region: "REGION" });
 
 // async/await.
 try {
-  const data = await client.getRoleCredentials(params);
+  const data = await client.listAccounts(params);
   // process data.
 } catch (error) {
   // error handling.
@@ -156,7 +153,7 @@ try {
 
 // Promises.
 client
-  .getRoleCredentials(params)
+  .listAccounts(params)
   .then((data) => {
     // process data.
   })
@@ -165,7 +162,7 @@ client
   });
 
 // callbacks.
-client.getRoleCredentials(params, (err, data) => {
+client.listAccounts(params, (err, data) => {
   // process err and data.
 });
 ```
