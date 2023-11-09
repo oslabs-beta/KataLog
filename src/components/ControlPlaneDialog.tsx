@@ -68,7 +68,8 @@ export default function ControlPlaneDialog(props) {
               break;
             } 
           } else {
-            if (key !== 'podInfo' ) {
+            if (key !== 'podInfo') {
+              if (typeof currentObj[key]  === 'string')
               if (currentObj[key].includes(searchTerm)) {
                 temp.push(currentObj);
                 break;

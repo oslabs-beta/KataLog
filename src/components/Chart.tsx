@@ -43,9 +43,17 @@ export default function Chart(props): JSX.Element {
     // Create a Set to store unique sourceInfo values
     const uniqueNodes = new Set(myNodes);
 
+    const UniqueNodeParsing = props.logData.filter(log => {
+      if (log.type === 'proxy' && !uniqueNodes.has(log.sourceInfo)) {
+        uniqueNodes.add(log.sourceInfo);
+        return false;
+      }
+      return true;
+    });
+    
     // Convert the Set back to an array
     const updatedMyNodes = [...uniqueNodes];
-
+    
     setControllerManagerLogs(controllerManagerLogs);
     setEtcdLogs(etcdLogs);
     setSchedulerLogs(schedulerLogs);

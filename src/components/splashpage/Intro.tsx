@@ -35,7 +35,7 @@ export default function Intro() {
             </Text>
           </Heading>
           <Text color={'gray.500'}>
-            Centralized and visualized logs straight from your Kubernetes Clusters. Automatic log updating and real-time metrics.
+            Centralized and visualized logs built on top of Fluentd straight from your Kubernetes Clusters. Automatic log updating and real-time metrics.
           </Text>
           <Stack
             direction={'column'}

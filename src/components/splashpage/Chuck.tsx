@@ -62,7 +62,7 @@ export default function Chuck() {
               </a>
             </Stack>
             <Stack spacing={0} align={'center'}>
-              <a href="https://github.com/tkpaps" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/chuckfranco" target="_blank" rel="noopener noreferrer">
                 <Icon as={SiGithub} w={10} h={10} />
               </a>
             </Stack>
