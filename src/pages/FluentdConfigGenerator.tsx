@@ -1,13 +1,47 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ace, { Ace } from 'ace-builds';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import { mainListItems, secondaryListItems } from '../components/listItems';
-import { CssBaseline, Drawer as MuiDrawer, Box, Toolbar, List, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link } from '@mui/material'
-import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, Notifications as NotificationsIcon, Logout as LogoutIcon } from '@mui/icons-material'
+import 'ace-builds/src-noconflict/theme-dreamweaver';
+import 'ace-builds/src-noconflict/theme-chaos'
+import 'ace-builds/src-noconflict/theme-dracula'
+import { createTheme, CssBaseline, Toolbar, ThemeProvider, Container, Box, Grid, Paper, TextField, Button, FormControl, InputLabel, Select, MenuItem, Typography } from '@mui/material';
 import HeaderAndSidebar from '../components/HeaderAndSidebar';
 
-const defaultTheme = createTheme();
+
+const token = localStorage.getItem('token');
+
+const defaultTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#316CE6', // Set the primary color to the focus color
+    },
+  },
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: 'white', // default
+            },
+            '&:hover fieldset': {
+              borderColor: 'white', // hover
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#316CE6', // focused
+            },
+            '& input': {
+              color: 'white', // text color
+            },
+            '& label': {
+              color: 'white', // label color
+            },
+          },
+        },
+      },
+    },
+  },
+});
 
 interface AceEditorProps {
     mode: string;
@@ -52,6 +86,7 @@ const FluentdConfigGenerator: React.FC = () => {
     const [configMap, setConfigMap] = useState<string>('');
     const [confFile, setConfFile] = useState<string>('');
     const [daemonset, setDaemonset] = useState<string>('');
+    const [fluentdImage, setFluentdImage] = useState<string>('fluent/fluentd:v1.16.2-debian-1.0');
 
 
     interface Log {
@@ -80,6 +115,15 @@ const FluentdConfigGenerator: React.FC = () => {
   
     const [selectedProject, setSelectedProject] = useState<String>('');
 
+    const fluentdImages = [
+      { label: 'Alpine (x86_64)', value: 'fluent/fluentd:v1.16.2-1.0' },
+      { label: 'Debian (multiarch: arm64, amd64)', value: 'fluent/fluentd:v1.16.2-debian-1.0' },
+      { label: 'Debian (arm64)', value: 'fluent/fluentd:v1.16.2-debian-arm64-1.0' },
+      { label: 'Debian (armhf)', value: 'fluent/fluentd:v1.16.2-debian-armhf-1.0' },
+      { label: 'Windows 2019 (ltsc2019)', value: 'fluent/fluentd:v1.16.2-windows-ltsc2019-1.0' },
+      { label: 'Windows 2022 (ltsc2022)', value: 'fluent/fluentd:v1.16.2-windows-ltsc2022-1.0' },
+  ];
+
 
     const [open, setOpen] = React.useState(false);
     const toggleDrawer = () => {
@@ -87,7 +131,8 @@ const FluentdConfigGenerator: React.FC = () => {
     };
 
     const handleGenerateConfigMap = () => {
-      const newConfigMap = `
+      const newConfigMap = 
+        `
         apiVersion: v1
         kind: ConfigMap
         metadata:
@@ -128,7 +173,8 @@ const FluentdConfigGenerator: React.FC = () => {
   };
   
     const handleGenerateConfFile = () => {
-      const newConfFile = `
+      const newConfFile = 
+      `
       <source>
         @type tail
         path "/var/log/containers/*.log"
@@ -162,7 +208,8 @@ const FluentdConfigGenerator: React.FC = () => {
     };
 
     const handleGenerateDaemonset = () => {
-      const newDaemonset = `
+      const newDaemonset = 
+      `
       apiVersion: apps/v1
       kind: DaemonSet
       metadata:
@@ -180,7 +227,7 @@ const FluentdConfigGenerator: React.FC = () => {
           spec:
             containers:
             - name: fluentd
-              image: fluent/fluentd:v1.16.2-debian-arm64-1.0
+              image: ${fluentdImage}
               imagePullPolicy: Always
               securityContext:
                 runAsUser: 0
@@ -205,10 +252,49 @@ const FluentdConfigGenerator: React.FC = () => {
       setDaemonset(newDaemonset);
     }
 
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
+
+    const postProject = async () => {
+
+      console.log(projectName);
+      try {
+        // Make the API request to the server
+        const response = await fetch('/api/projects', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({projectName})
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            setSuccessMessage(data.message);
+            setErrorMessage('');
+            // render Login page after 1.5 seconds
+          } else if (data && data.err) {
+            // Error message in the expected format
+            setErrorMessage(data.err);
+          } else {
+            // Handle other error formats or set a default error message
+            setErrorMessage('An error occurred');
+          }
+          setSuccessMessage('');
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+
+
     const generateFiles = () => {
       handleGenerateConfigMap();
       handleGenerateConfFile();
       handleGenerateDaemonset();
+      postProject();
     }
 
     const onProjectSelect = (projectName: string) => {
@@ -236,79 +322,107 @@ const FluentdConfigGenerator: React.FC = () => {
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'dark'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+            backgroundColor: '#1A202C',
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
           }}
         >
           <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4, display: "flex", flexDirection: "column", color: 'white', }}>
-              <Grid item xs={12} >
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 600,
-                    marginBottom: "20px",
-                    backgroundColor: '#424242',
-                  }}
+          <Container maxWidth="lg" sx={{ backgroundColor:'#1A202C', mt: 4, mb: 4 }}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={8} lg={9}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#181923', }}>
+                  <FormControl fullWidth margin="normal">
+                    <TextField
+                      label="Username"
+                      variant="outlined"
+                      value={username}
+                      onChange={e => setUsername(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl fullWidth margin="normal">
+                    <TextField
+                      label="Project Name"
+                      variant="outlined"
+                      value={projectName}
+                      onChange={e => setProjectName(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl fullWidth margin="normal">
+                    <InputLabel id="fluentd-image-label">Fluentd Image</InputLabel>
+                    <Select
+                      labelId="fluentd-image-label"
+                      value={fluentdImage}
+                      label="Fluentd Image"
+                      onChange={e => setFluentdImage(e.target.value as string)}
+                    >
+                      {fluentdImages.map((image) => (
+                        <MenuItem key={image.value} value={image.value}>
+                          {image.label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={generateFiles}
+                    sx={{ mt: 2, backgroundColor: '#316CE6' }}
                   >
-                    <div>
-                        <label>
-                            Username:   
-                            <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-                        </label>
-                        <br />
-                        <label>
-                            Project Name: 
-                            <input type="text" value={projectName} onChange={e => setProjectName(e.target.value)} />
-                        </label>
-                        <br />
-                        <button onClick={generateFiles}>Generate ConfigMap</button>
-                        <AceEditor
-                            mode="yaml"
-                            theme="monokai"
-                            value={confFile}
-                            readOnly={true}
-                            height="300px"
-                            width="100%"
-                            setOptions={{
-                              showLineNumbers: true,
-                              tabSize: 4
-                            }}
-                            />
-                            <AceEditor
-                            mode="yaml"
-                            theme="monokai"
-                            value={configMap}
-                            readOnly={true}
-                            height="300px"
-                            width="100%"
-                            setOptions={{
-                              showLineNumbers: true,
-                              tabSize: 4
-                            }}
-                            />
-                            <AceEditor
-                            mode="yaml"
-                            theme="monokai"
-                            value={daemonset}
-                            readOnly={true}
-                            height="300px"
-                            width="100%"
-                            setOptions={{
-                              showLineNumbers: true,
-                              tabSize: 4
-                            }}
-                            />
-                    </div>
+                    Generate Fluentd Configuration Files
+                  </Button>
+                  <br></br>
+                  <Typography variant="subtitle1" gutterBottom>
+                    File name: default.conf
+                  </Typography>
+                  <AceEditor
+                    mode="yaml"
+                    theme="dracula"
+                    value={confFile}
+                    readOnly={true}
+                    height="400px"
+                    width="100%"
+                    setOptions={{
+                      showLineNumbers: true,
+                      tabSize: 2
+                    }}
+                  />
+                  <br></br>
+                  <Typography variant="subtitle1" gutterBottom>
+                    File name: fluentd-configmap.yaml
+                  </Typography>
+                    <AceEditor
+                    mode="yaml"
+                    theme="dracula"
+                    value={configMap}
+                    readOnly={true}
+                    height="400px"
+                    width="100%"
+                    setOptions={{
+                      showLineNumbers: true,
+                      tabSize: 2
+                    }}
+                    />
+                    <br></br>
+                    <Typography variant="subtitle1" gutterBottom>
+                    File name: fluentd-daemonset.yaml
+                  </Typography>
+                    <AceEditor
+                    mode="yaml"
+                    theme="dracula"
+                    value={daemonset}
+                    readOnly={true}
+                    height="400px"
+                    width="100%"
+                    setOptions={{
+                      showLineNumbers: true,
+                      tabSize: 2
+                    }}
+                    />
                 </Paper>
               </Grid>
+            </Grid>
           </Container>
           </Box>
         </Box>
@@ -317,3 +431,6 @@ const FluentdConfigGenerator: React.FC = () => {
 };
 
 export default FluentdConfigGenerator;
+
+
+
