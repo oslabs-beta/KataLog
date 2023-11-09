@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
-import AppBarBar from '../components/splashpage/AppBarBar';
-import Nav from '../components/splashpage/newAppBar';
+import SplashAppBar from '../components/splashpage/SplashAppBar';
 import Intro from '../components/splashpage/Intro';
 import Features from '../components/splashpage/Features';
 import Demo from '../components/splashpage/Demo';
@@ -16,8 +15,7 @@ function SplashPage() {
   return (
     <ChakraProvider>
       <React.Fragment >
-        {/* <AppBarBar /> */}
-        <Nav />
+        <SplashAppBar />
         <Intro />
         <Features />
         <Demo />

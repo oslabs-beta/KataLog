@@ -13,9 +13,7 @@ const projectController : any = {};
 // getProjects middleware - view all projects a user can view logs for
 projectController.getProjects = async (req, res, next) => {
   // grab existing user projects, searching using user id from jwt token
-  console.log('inside project controller', req.user.id);
   const projects = await Project.find({ user_id: req.user.id });
-  console.log('projects within controller ', projects)
   // return status of 200 and user projects
   return res.status(200).json(projects);
 }
@@ -23,6 +21,7 @@ projectController.getProjects = async (req, res, next) => {
 // createProject middleware - create a new project to view logs for
 projectController.createProject = async (req, res, next) => {
   // deconstuct request body
+  console.log('user_id', req.user.id);
   const { projectName } = req.body;
   // if projectName not provided
   if (!projectName){
@@ -39,7 +38,6 @@ projectController.createProject = async (req, res, next) => {
   const hashedToken = await bcrypt.hash(token, SALT_WORK_FACTOR);
 
   // create project in database, using user id from jwt token as user_id field
-  console.log('req user id ', req.user.id);
   // !! authToken not currently being sent !!
   const newProject = await Project.create({ projectName, user_id: req.user.id });
   // return status of 200 and new project
@@ -48,7 +46,6 @@ projectController.createProject = async (req, res, next) => {
 
 // deleteProject middleware - delete a project
 projectController.deleteProject = async (req, res, next) => {
-  console.log('req.params.id', req.params.id);
   // delete project in database - search using req.params (to match project id) and req.user (to match user id)
   const deletedProject = await Project.findOneAndDelete({_id: req.params.id, user_id: req.user.id });
   // if project to delete is not in database or doesn't match user info(i.e. deletedProject is null)

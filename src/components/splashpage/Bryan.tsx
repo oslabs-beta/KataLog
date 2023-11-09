@@ -58,12 +58,12 @@ export default function Bryan() {
 
           <Stack direction={'row'} justify={'center'} spacing={6}>
             <Stack  spacing={0} align={'center'}>
-              <a href="https://www.linkedin.com/in/thomaskpappas/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/bryan-luna-b34011134/" target="_blank" rel="noopener noreferrer">
                 <Icon as={SiLinkedin} w={10} h={10} />
               </a>
             </Stack>
             <Stack spacing={0} align={'center'}>
-              <a href="https://github.com/tkpaps" target="_blank" rel="noopener noreferrer">
+              <a href="github.com/bluna301" target="_blank" rel="noopener noreferrer">
                 <Icon as={SiGithub} w={10} h={10} />
               </a>
             </Stack>

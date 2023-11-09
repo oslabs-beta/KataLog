@@ -123,7 +123,7 @@ export default function Dashboard() {
                     marginBottom: '30px'
                   }}
                 >
-                  <Deposits numberOfLogs={numberOfLogs}/>
+                  <Deposits numberOfLogs={numberOfLogs} logData={logData}/>
                 </Paper>
                 <Paper
                   sx={{

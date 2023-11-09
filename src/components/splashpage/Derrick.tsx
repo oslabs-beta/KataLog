@@ -57,12 +57,12 @@ export default function Derrick() {
 
           <Stack direction={'row'} justify={'center'} spacing={6}>
             <Stack  spacing={0} align={'center'}>
-              <a href="https://www.linkedin.com/in/thomaskpappas/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/derrickdevairakkam/" target="_blank" rel="noopener noreferrer">
                 <Icon as={SiLinkedin} w={10} h={10} />
               </a>
             </Stack>
             <Stack spacing={0} align={'center'}>
-              <a href="https://github.com/tkpaps" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/derrick-devairakkam" target="_blank" rel="noopener noreferrer">
                 <Icon as={SiGithub} w={10} h={10} />
               </a>
             </Stack>
