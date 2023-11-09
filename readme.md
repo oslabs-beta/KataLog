@@ -3,16 +3,16 @@
 </div>
 
 ## Sections
-- [About] (#about)
-- [Installing Fluentd] (#installing-fluentd)
-- [Utilizing KataLog] (#utilizing-katalog)
-- [Demo] (#demo)
-- [License] (#license)
-- [Contribute] (#contribute)
-- [Authors] (#authors)
+
+- [About](#about)
+- [Installing Fluentd](#installing-fluentd)
+- [Utilizing KataLog](#utilizing-katalog)
+- [Demo](#demo)
+- [License](#license)
+- [Contribute](#contribute)
+- [Authors](#authors)
 
 ## About:
-
 
 KataLog is a log visualization tool that makes reading Kubernetes logs that are collected by Fluentd much simpler.  At this time, KataLog receives Fluentd logs via HTTP; however, work is being done to allow for a user to store Fluentd logs locally and send them to KataLog’s database via a backend service.
 
@@ -24,11 +24,15 @@ In short, Katalog’s dashboard will display high-level cluster information, whi
 
 Click on the link below that corresponds to your use case:
 
-<a href="https://docs.fluentd.org/installation/install-by-rpm">Install Fluentd by RPM package (Redhat Linux)</a>
-<a href="https://docs.fluentd.org/installation/install-by-deb">Install Fluentd by Deb package (Ubuntu/Debian Linux)</a>
-<a href="https://docs.fluentd.org/installation/install-by-msi">Install Fluentd by DMG package (Mac OS X)</a>
-<a href="https://docs.fluentd.org/installation/install-by-gem">Install Fluentd by Ruby Gem</a>
-<a href="https://docs.fluentd.org/installation/install-from-source">Install Fluentd from source</a>
+<a href="https://docs.fluentd.org/installation/install-by-rpm">Install Fluentd by RPM package (Redhat Linux)</a> 
+
+<a href="https://docs.fluentd.org/installation/install-by-deb">Install Fluentd by Deb package (Ubuntu/Debian Linux)</a> 
+
+<a href="https://docs.fluentd.org/installation/install-by-msi">Install Fluentd by DMG package (Mac OS X)</a> 
+
+<a href="https://docs.fluentd.org/installation/install-by-gem">Install Fluentd by Ruby Gem</a> 
+
+<a href="https://docs.fluentd.org/installation/install-from-source">Install Fluentd from source</a> 
 
 Don’t worry about configuring your Fluentd files for now–we’ll handle this in the next step.
 
@@ -94,7 +98,7 @@ We welcome contributions to KataLog from the open source community. Feel free to
 
 ## Authors
 
-**Thomas Pappas** [GitHub](https://github.com/tkpaps) | [LinkedIn](https://www.linkedin.com/in/thomaskpappas/)
-**Bryan Luna** [GitHub](https://github.com/bluna301) | [LinkedIn](https://www.linkedin.com/in/bryan-luna-b34011134/)
-**Derrick Devairakkam** [GitHub](https://github.com/derrick-devairakkam) | [LinkedIn](https://www.linkedin.com/in/derrickdevairakkam/)
-**Chuck Franco** [GitHub](https://github.com/chuckfranco) | [LinkedIn]
+**Tom Pappas** [GitHub](https://github.com/tkpaps) | [LinkedIn](https://www.linkedin.com/in/thomaskpappas/)  
+**Bryan Luna** [GitHub](https://github.com/bluna301) | [LinkedIn](https://www.linkedin.com/in/bryan-luna-b34011134/)  
+**Derrick Devairakkam** [GitHub](https://github.com/derrick-devairakkam) | [LinkedIn](https://www.linkedin.com/in/derrickdevairakkam/)  
+**Chuck Franco** [GitHub](https://github.com/chuckfranco) | [LinkedIn]  
