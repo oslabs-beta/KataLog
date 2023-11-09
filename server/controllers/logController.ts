@@ -113,7 +113,7 @@ logController.getLogs = async (req, res, next) => {
   const logs = await Log.find({project_id: req.params.selectedProject});
 
   res.locals.logs = logs;
-  console.log('logs: ', logs);
+  // console.log('logs: ', logs);
 
   return next();
 };

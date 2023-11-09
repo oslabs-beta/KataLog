@@ -52,7 +52,7 @@ const Login = () => {
         setSuccessMessage(data.message);
         setErrorMessage('');
         // render Dashboard page after 1.5 seconds
-        setTimeout(() => {navigate('/dashboard')}, 1500); // Navigate to the Dashboard page
+        setTimeout(() => {navigate('/projects')}, 1500); // Navigate to the Dashboard page
       } else {
         // Login failed, display the error message
         if (data && data.err) {

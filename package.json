@@ -7,6 +7,7 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.1",
+    "@cubejs-client/core": "^0.31.0",
     "@emotion/cache": "11.10.5",
     "@emotion/react": "^11.10.6",
     "@emotion/server": "11.10.0",
@@ -15,6 +16,7 @@
     "@mui/icons-material": "^5.14.7",
     "@mui/lab": "5.0.0-alpha.120",
     "@mui/material": "^5.14.17",
+    "@mui/styles": "^5.14.17",
     "@mui/system": "5.11.9",
     "@mui/x-date-pickers": "5.0.19",
     "@testing-library/jest-dom": "^5.17.0",
@@ -106,6 +108,7 @@
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
     "nodemon": "^2.0.22",
+    "parcel": "^2.6.2",
     "postcss-loader": "^7.3.3",
     "resolve-url-loader": "^5.0.0",
     "sass-loader": "^13.3.2",

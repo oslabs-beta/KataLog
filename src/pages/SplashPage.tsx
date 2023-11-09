@@ -1,36 +1,40 @@
 import * as React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
-// import ProductCategories from './modules/views/ProductCategories';
-// import ProductSmokingHero from './modules/views/ProductSmokingHero';
-// import AppFooter from './modules/views/AppFooter';
-// import ProductHero from './modules/views/ProductHero';
-// import ProductValues from './modules/views/ProductValues';
-// import ProductHowItWorks from './modules/views/ProductHowItWorks';
-// import ProductCTA from './modules/views/ProductCTA';
 import AppBarBar from '../components/splashpage/AppBarBar';
+import Nav from '../components/splashpage/newAppBar';
 import Intro from '../components/splashpage/Intro';
 import Features from '../components/splashpage/Features';
-import Team from '../components/splashpage/Team';
-import Bryan from '../components/splashpage/Team';
-import Chuck from '../components/splashpage/Team';
-import Derrick from '../components/splashpage/Team';
-import Tom from '../components/splashpage/Team';
-import { Stack } from '@chakra-ui/react';
-// import withRoot from './modules/withRoot';
+import Demo from '../components/splashpage/Demo';
+import Bryan from '../components/splashpage/Bryan';
+import Chuck from '../components/splashpage/Chuck';
+import Derrick from '../components/splashpage/Derrick';
+import Tom from '../components/splashpage/Tom';
+import { Stack, Heading, Text, Container } from '@chakra-ui/react';
 
 function SplashPage() {
+
   return (
     <ChakraProvider>
-      <React.Fragment>
-        <AppBarBar />
+      <React.Fragment >
+        {/* <AppBarBar /> */}
+        <Nav />
         <Intro />
         <Features />
-        <Stack direction="row" spacing={4} align='center' justify='center'>
-          <Chuck />
+        <Demo />
+        <Stack marginTop={150} spacing={4} as={Container} maxW={'3xl'} textAlign={'center'} >
+          <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight={'bold'}>
+            Meet the Team
+          </Heading>
+          <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'lg' }}>
+            The KataLog Team consisting of Bryan Luna, Chuck Franco, Derrick Devairakkam, and Tom Pappas.
+          </Text>
+        </Stack>
+        <Stack marginBottom={150} direction="row" spacing={4} align='center' justify='center'>
           <Bryan />
+          <Chuck />
           <Derrick />
           <Tom />
-      </Stack>
+        </Stack>
       </React.Fragment>
     </ChakraProvider>
   );

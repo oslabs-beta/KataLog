@@ -1,125 +1,109 @@
-import React, { useEffect, useRef } from 'react';
-import { useTheme } from '@mui/material/styles';
+import React, { useEffect, useRef, useState } from 'react';
+// import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import '../style.css';
-import * as d3 from 'd3';
+import BarChart from './BarChart';
+
+
 
 
 export default function Metrics (props): JSX.Element {
-  const theme = useTheme(); // Look into what this does.
 
   // Regular expression to match logs as warn, info, and error
-  const infoRegex = /\[info\]|\[INFO\]|\[information\]|\[INFORMATION\]/;
-  const warnRegex = /\[warning\]|\[WARNING\]|\[warn\]|\[WARN\]/;
-  const errorRegex = /\[error\]|\[ERROR\]|\[err\]|\[ERR\]/;
+  const infoRegex = /info|INFO|information|INFORMATION/;
+  const warnRegex = /warn|WARN|warning|WARNING/;
+  const errorRegex = /err|ERR|error|ERROR/;
+
+
+  interface Log {
+    timestamp: string;
+    sourceInfo: string;
+    logObject: LogObject;
+    podInfo: PodObject;
+    type: string;
+  }
+
+  interface LogObject {
+    log: string;
+    stream: string;
+  }
+
+  interface PodObject {
+    containerName: string;
+    namespace: string;
+    podName: string;
+  }
+
+  // const [page, setPage] = useState(1);
+
+  const initialLogData: Log[] = [];
+  const [logData, setLogData] = useState<Log[]>(initialLogData);
 
   // Initialize counters for each log level
-  let infoCount = 0;
-  let warnCount = 0;
-  let errorCount = 0;
-  let okCount = 0;
+  const [infoCount, setInfoCount] = useState(0);
+  const [warnCount, setWarnCount] = useState(0);
+  const [errorCount, setErrorCount] = useState(0);
+  const [okCount, setOkCount] = useState(0);
+
 
   // Categorize and prase a single log entry
   function parseEntry(logEntry) {
-    const [timestamp, source, jsonData] = logEntry.split('/t');
-    const logData = JSON.parse(jsonData);
 
-    // Extract the log message
-    const logMessage = logData.log;
+    // console.log('logs: ', typeof logEntry.logObject.log.log);
+    const logMessage: string = logEntry.logObject.log.log;
 
     // Categorize log message into warn info error and ok
-    if (infoRegex.test(logMessage)) {
-      infoCount++;
+    if (errorRegex.test(logMessage)) {
+      // console.log('error')
+      setErrorCount((prevCount) => prevCount + 1);
     } else if (warnRegex.test(logMessage)) {
-      warnCount++;
-    } else if (errorRegex.test(logMessage)) {
-      errorCount++;
-    } else okCount++;
+      // console.log('warn')
+      setWarnCount((prevCount) => prevCount + 1);
+    } else if (infoRegex.test(logMessage)) {
+      // console.log('info')
+      setInfoCount((prevCount) => prevCount + 1);
+    } else setOkCount((prevCount) => prevCount + 1);
+
+    return { errorCount, warnCount, infoCount, okCount };
   }
 
   // Parse Logs
   const logs = props.logData;
-  for (const logEntry of logs) {
-    parseEntry(logEntry)
-  }
 
-  // The graph
-  const svgRef = useRef<SVGSVGElement | null>(null); // no clue what this does but basiclly needed for the custom svg tag
+
+
   useEffect(() => {
-    const svg = d3.select(svgRef.current);
 
-    // Set up chart dimensions
-    const width = 400;
-    const height = 200;
-    const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+    // Ensure logData is up to date
+    setLogData(props.logData);
 
-    // Calculate the data for the bar chart
-    const data = [
-      { level: 'INFO', count: infoCount },
-      { level: 'WARNING', count: warnCount },
-      { level: 'ERROR', count: errorCount },
-    ];
+    // Reset counts before parsing
+    setInfoCount(0);
+    setWarnCount(0);
+    setErrorCount(0);
+    setOkCount(0);
 
-    // Create a scale for the x-axis
-    const xScale = d3
-      .scaleBand()
-      .domain(data.map((d) => d.level))
-      .range([margin.left, width - margin.right])
-      .padding(0.1);
+    // Parse log data and get the counts
+    for (let i = 0; i < logs.length; i++) {
+      parseEntry(logs[i]);
+    }
+    // const chartLabels = ['INFO', 'WARNING', 'ERROR', 'OK']
+    // const chartData = [infoCount, warnCount, errorCount, okCount]
 
-    // Create a scale for the y-axis
-    const yScale = d3
-      .scaleLinear()
-      .domain([0, d3.max(data, (d) => d.count)])
-      .nice()
-      .range([height - margin.bottom, margin.top]);
 
-    // Create the bars
-    svg
-      .selectAll('rect')
-      .data(data)
-      .enter()
-      .append('rect')
-      .attr('x', (d) => xScale(d.level))
-      .attr('y', (d) => yScale(d.count))
-      .attr('width', xScale.bandwidth())
-      .attr('height', (d) => yScale(0) - yScale(d.count))
-      .attr('fill', (d) => (d.level === 'INFO' ? 'blue' : d.level === 'WARNING' ? 'orange' : 'red'));
 
-    // Create the x-axis
-    svg
-      .append('g')
-      .attr('class', 'x-axis')
-      .attr('transform', `translate(0, ${height - margin.bottom})`)
-      .call(d3.axisBottom(xScale));
-
-    // Create the y-axis
-    svg
-      .append('g')
-      .attr('class', 'y-axis')
-      .attr('transform', `translate(${margin.left}, 0)`)
-      .call(d3.axisLeft(yScale));
-
-    // Add labels
-    svg
-      .selectAll('text')
-      .data(data)
-      .enter()
-      .append('text')
-      .text((d) => d.count)
-      .attr('x', (d) => xScale(d.level) + xScale.bandwidth() / 2)
-      .attr('y', (d) => yScale(d.count) - 5)
-      .attr('text-anchor', 'middle')
-      .style('font-size', '12px');
-
-  }, [infoCount, warnCount, errorCount, okCount]);
+  }, [props.logData,logs]);
 
   return (
     <React.Fragment>
           <Typography variant="h6" color="white" fontWeight="bold" marginBottom={3}>
             Your Kubernetes Cluster Metrics:
+            {/* <div> Information logs: {infoCount}  Error logs: {errorCount} Okaay logs: {okCount}  Warning logs: {warnCount}</div> */}
           </Typography>
-          <svg ref={svgRef}></svg>
+          <div>
+            {/* <svg ref={svgRef}></svg> */}
+            <BarChart data={[infoCount, warnCount, errorCount, okCount]}></BarChart>
+          </div>
     </React.Fragment>
   );
 }

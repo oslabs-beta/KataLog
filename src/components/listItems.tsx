@@ -13,7 +13,7 @@ export const mainListItems = (
   <React.Fragment >
 
     {/* Dashboard Link */}
-    <Link to='/' style={linkStyle}>
+    <Link to='/dashboard' style={linkStyle}>
       <ListItemButton>
         <ListItemIcon>
           <Dashboard />
@@ -22,6 +22,24 @@ export const mainListItems = (
       </ListItemButton>
     </Link>
 
+    {/* Logs Link */}
+    <Link to='/api/logs' style={linkStyle}>
+      <ListItemButton>
+        <ListItemIcon>
+          <BarChart />
+        </ListItemIcon>
+          <ListItemText primary="Logs" />
+      </ListItemButton>
+    </Link>
+
+      <Link to="/configuration" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <ListItemButton>
+          <ListItemIcon>
+            <Layers />
+          </ListItemIcon>
+          <ListItemText primary="Configuration" />
+        </ListItemButton>
+      </Link>
     {/* GitHub Link */}
     <a href="https://github.com/oslabs-beta/Katalog"
       target="_blank"
@@ -41,34 +59,10 @@ export const mainListItems = (
   </ListItemButton>
     </a>
 
-    {/* Team Link */}
-    <ListItemButton>
-      <ListItemIcon>
-        <People />
-      </ListItemIcon>
-      <ListItemText primary="Team" />
-    </ListItemButton>
 
-    {/* Logs Link */}
-    <Link to='/api/logs' style={linkStyle}>
-      <ListItemButton>
-        <ListItemIcon>
-          <BarChart />
-        </ListItemIcon>
-          <ListItemText primary="Logs" />
-      </ListItemButton>
-    </Link>
 
-    <Link to="/configuration" style={{ textDecoration: 'none', color: 'inherit' }}>
-      <ListItemButton>
-        <ListItemIcon>
-          <Layers />
-        </ListItemIcon>
-        <ListItemText primary="Configuration" />
-      </ListItemButton>
-    </Link>
 
-    <Link to="/login" style={{ textDecoration: 'none', color: 'inherit'}}>
+    {/* <Link to="/login" style={{ textDecoration: 'none', color: 'inherit'}}>
       <ListItemButton>
         <ListItemIcon>
           <Login />
@@ -84,16 +78,16 @@ export const mainListItems = (
         </ListItemIcon>
         <ListItemText primary="Sign Up" />
       </ListItemButton>
-    </Link>
+    </Link> */}
 
-    <Link to="/projects" style={{ textDecoration: 'none', color: 'inherit'}}>
+    {/* <Link to="/projects" style={{ textDecoration: 'none', color: 'inherit'}}>
       <ListItemButton>
         <ListItemIcon>
           <Check />
         </ListItemIcon>
         <ListItemText primary="Projects" />
       </ListItemButton>
-    </Link>
+    </Link> */}
 
   </React.Fragment>
 );
