@@ -1,6 +1,5 @@
 import fs from 'fs';
 import Log from '../models/logModel';
-import Project from '../models/projectModel'
 
 // non-pod log types
 const sourceTypes = ['apiserver', 'etcd', 'controller-manager', 'proxy', 'scheduler', 'coredns', 'storage-provisioner'];
@@ -12,7 +11,7 @@ logController.parseLogs = (req, res, next) => {
   let parsedUsername;
   let parsedProjectName;
 
-  const LOG_DIR = "/fluentd/logs";
+  // const LOG_DIR = "/fluentd/logs";
 
   fs.readFile('/Users/charlesfrancofranco/Codesmith/OSP/KataLog/logs/Example.log', 'utf-8', (err, readData) => {
     if (err) {
@@ -20,12 +19,12 @@ logController.parseLogs = (req, res, next) => {
     }
     // split readData into individual lines
     let logData = readData.split('\n');
-  
+
     const logEntries = logData.map(line => {
       // Define a regular expression pattern to match the components
       const logEntryPattern = /^(\S+)\s+(\S+)\s+(.*$)/;
       const match = line.match(logEntryPattern);
-  
+
       if (match) {
         const timestamp = match[1];
         const sourceInfo = match[2];
@@ -39,28 +38,28 @@ logController.parseLogs = (req, res, next) => {
           if (sourceInfo.includes(logController.sourceTypes[i])) {
             type = logController.sourceTypes[i];
             break;
-          } 
+          }
         }
-        
+
         // Define a regular expression pattern to match the username and project name
         const usernameProjectPattern = /\.username\.(\w+)\.projectName\.(\w+)/;
         const userProjectMatch = sourceInfo.match(usernameProjectPattern);
-        
-        
+
+
         // Store the username and project name in order to store logs in the database later on
         if (userProjectMatch) {
             parsedUsername = userProjectMatch[1];
             parsedProjectName = userProjectMatch[2];
         };
-        
+
         if (!type) {
           type = "pod";
           const sourceInfoPattern = /kubernetes\.var\.log\.containers\.([^_]+)_([^_]+)_([^\.]+)\.log/;
           const match = sourceInfo.match(sourceInfoPattern);
-      
+
           if (match) {
             podInfo.podName = match[1];
-            
+
             // Populates pods obj with the podName, which might need to be converted to a count down the road of functionality calls for it
             if (!pods.hasOwnProperty(match[1])){
               pods[match[1]] = match[1];
@@ -80,14 +79,14 @@ logController.parseLogs = (req, res, next) => {
               namespace: podInfo.namespace || null,
               containerName: podInfo.containerName || null
           },
-          username: parsedUsername, 
+          username: parsedUsername,
           projectName: parsedProjectName,
           logObject: null  // This will be populated later
       };
 
         try {
             logDataObject.logObject = JSON.parse(logData);
-            
+
             return {
               logDataObject
             };
@@ -114,6 +113,7 @@ logController.getLogs = async (req, res, next) => {
   const logs = await Log.find({project_id: req.params.selectedProject});
 
   res.locals.logs = logs;
+  // console.log('logs: ', logs);
 
   return next();
 };

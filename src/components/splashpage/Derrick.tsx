@@ -20,6 +20,8 @@ import {
       SiGithub
   } from "react-icons/si";
 
+  import derrick from '../assets/Derrick.png';
+
 export default function Derrick() {
   return (
     <Center py={6}>
@@ -39,7 +41,7 @@ export default function Derrick() {
           <Avatar
             size={'xl'}
             src={
-              'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+              derrick
             }
             css={{
               border: '2px solid white',

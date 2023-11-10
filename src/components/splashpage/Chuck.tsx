@@ -20,6 +20,8 @@ import {
       SiGithub
   } from "react-icons/si";
 
+  import chuck from '../assets/Chuck.png';
+
 export default function Chuck() {
   return (
     <Center py={6}>
@@ -39,7 +41,7 @@ export default function Chuck() {
           <Avatar
             size={'xl'}
             src={
-              'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+              chuck
             }
             css={{
               border: '2px solid white',
