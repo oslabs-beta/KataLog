@@ -43,16 +43,16 @@ Don’t worry about configuring your Fluentd files for now–we’ll handle this
 Head to KataLog and create an account.  After being redirected to the Dashboard, click on the Fluentd Configuration page.  On this screen, you’ll be prompted to input your username, the project’s name for which you wish to centralize and visualize your logs for, and your machine’s architecture.  (Not sure about your machine’s architecture? Just follow the steps at the end of this section of the Readme).
 
 <div align="center">
-  <img src="./src/components/assets/DemoGif1.gif" alt="KataLog" width="300px"/>
+  <img src="./src/components/assets/DemoGif1.gif" alt="KataLog" width="500px"/>
 </div>
 <div align="center">
-  <img src="./src/components/assets/DemoGif2.gif" alt="KataLog" width="300px"/>
+  <img src="./src/components/assets/DemoGif2.gif" alt="KataLog" width="500px"/>
 </div>
 
 After inputting your information, you’ll be given three separate files: `default.conf`, `fluentd-configmap.yaml`, and `fluentd-daemonset.yaml`.  Your job now is to create these respective files in your project’s workspace–all you need to do is copy and paste the generated text into each respective file.  We recommend creating a `monitoring/` directory at the top level of your project to store all three files within.
 
 <div align="center">
-  <img src="./src/components/assets/DemoGif3.gif" alt="KataLog" width="300px"/>
+  <img src="./src/components/assets/DemoGif3.gif" alt="KataLog" width="500px"/>
 </div>
 
 Once you’ve generated the text configurations and copied them into the files you’ve created, navigate to the directory in which they live via the Terminal/Command Line.  You will then need to apply the `.yaml` files using the following commands:
@@ -99,7 +99,7 @@ wmic os get osarchitecture
 Once you have Fluentd integrated into your project, return to KataLog’s UI and select your project from the dropdown menu in the top right corner of the header.  If you are on the Dashboard, you’ll be presented with a visual representation of your cluster.  Each hexagon that renders corresponds to a component of your cluster.  You can click on a respective hexagon to view the logs collected for each of these components.  Note the high-level statistics regarding your cluster, such as logs collected and nodes running.
 
 <div align="center">
-  <img src="./src/components/assets/DemoGif4.gif" alt="KataLog" width="300px"/>
+  <img src="./src/components/assets/DemoGif4.gif" alt="KataLog" width="500px"/>
 </div>
 
 After you’ve viewed your cluster’s Dashboard, visit the Logs page to view all logs that Fluentd has collected so far.  You will need to select your project from the same header dropdown on the Logs page.  Once selected, you can use the Filter or Search functions on this page, and can clear the Filters by clicking the icon.
