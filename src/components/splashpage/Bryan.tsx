@@ -63,7 +63,7 @@ export default function Bryan() {
               </a>
             </Stack>
             <Stack spacing={0} align={'center'}>
-              <a href="github.com/bluna301" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/bluna301" target="_blank" rel="noopener noreferrer">
                 <Icon as={SiGithub} w={10} h={10} />
               </a>
             </Stack>
