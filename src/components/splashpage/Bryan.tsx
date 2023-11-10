@@ -21,6 +21,8 @@ import {
       SiGithub
   } from "react-icons/si";
 
+  import bryan from '../assets/Bryan.png'
+
 export default function Bryan() {
   return (
     <Center py={6}>
@@ -40,7 +42,7 @@ export default function Bryan() {
           <Avatar
             size={'xl'}
             src={
-                'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+                bryan
             }
             css={{
                 border: '2px solid white',
