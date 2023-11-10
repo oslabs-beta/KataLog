@@ -65,7 +65,7 @@
     "start": "node server/server.ts",
     "start-frontend": "react-scripts start",
     "dev": "NODE_ENV=development concurrently \"nodemon --watch server ./server/server.ts\" \"webpack serve --open\"",
-    "build": "NODE_ENV=production webpack",
+    "build": "create-react-app build --output public",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
