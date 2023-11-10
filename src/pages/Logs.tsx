@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Drawer as MuiDrawer, Box, Toolbar, List, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link } from '@mui/material'
+import { useState } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { CssBaseline, Box, Toolbar, Container, Grid, Paper } from '@mui/material'
 import Orders from '../components/Orders';
 import HeaderAndSidebar from '../components/HeaderAndSidebar';
 
@@ -34,7 +34,7 @@ export default function Logs() {
 
     const initialLogData: Log[] = [];
     const [logData, setLogData] = useState<Log[]>(initialLogData);
-    const [numberOfLogs, setNumberOfLogs] = useState(0)
+    const [,setNumberOfLogs] = useState(0)
 
     const onProjectSelect = (projectName : string) => {
 
@@ -87,5 +87,3 @@ export default function Logs() {
     </ThemeProvider>
   );
 }
-
-
