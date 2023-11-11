@@ -9,8 +9,6 @@ dotenv.config();
 
 const app = express();
 
-
-app.use(cors()); // Enable CORS for all routes
 // parse body requests from JSON to JS
 
 const corsOptions = {
