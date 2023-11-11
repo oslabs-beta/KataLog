@@ -39,6 +39,12 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).send(errorObj.message);
 });
 
+
+app.all('*', (req, res) => {
+  res.status(404).send('Endpoint not found');
+});
+
+
 app.listen(3000, () => {
     console.log('Server running on port 3000');
 });
