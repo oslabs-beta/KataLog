@@ -6,7 +6,7 @@ module.exports = {
   mode: "development",
   entry: isDockerBuild ? "./App.tsx" : "./src/App.tsx",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "build"),
     filename: "bundle.js",
   },
   module: {
