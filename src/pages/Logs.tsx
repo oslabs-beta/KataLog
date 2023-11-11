@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Box, Toolbar, Container, Grid, Paper } from '@mui/material'
 import Orders from '../components/Orders';
 import HeaderAndSidebar from '../components/HeaderAndSidebar';
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme()
+// const defaultTheme = createTheme()
 
 export default function Logs() {
 
@@ -55,7 +55,7 @@ export default function Logs() {
 
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    // <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <HeaderAndSidebar onProjectSelect={onProjectSelect}/>
@@ -84,6 +84,6 @@ export default function Logs() {
           </Container>
         </Box>
       </Box>
-    </ThemeProvider>
+    // </ThemeProvider>
   );
 }

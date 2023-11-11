@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Theme, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -30,17 +29,17 @@ const names = [
 'pod'
 ]
 
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
+// function getStyles(name: string, personName: readonly string[], theme: Theme) {
+//   return {
+//     fontWeight:
+//       personName.indexOf(name) === -1
+//         ? theme.typography.fontWeightRegular
+//         : theme.typography.fontWeightMedium,
+//   };
+// }
 
 export default function MultipleSelectChip(props) {
-    const theme = useTheme();
+    // const theme = useTheme();
     const [personName, setPersonName] = React.useState<string[]>(props.filterTypes);
     
     const handleChange = (event: SelectChangeEvent<typeof personName>) => {
@@ -83,7 +82,7 @@ export default function MultipleSelectChip(props) {
             <MenuItem
               key={name}
               value={name}
-              style={getStyles(name, personName, theme)}
+              // style={getStyles(name, personName, theme)}
             >
               {name}
             </MenuItem>

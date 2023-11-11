@@ -301,3 +301,268 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
 }
 
 export default HeaderAndSidebar;
+
+
+// import React, { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import {
+//   Box,
+//   Flex,
+//   IconButton,
+//   Avatar,
+//   Text,
+//   Menu,
+//   MenuButton,
+//   MenuList,
+//   MenuItem,
+//   MenuDivider,
+//   useDisclosure,
+//   useColorModeValue,
+//   HStack,
+//   VStack,
+//   Drawer,
+//   DrawerContent,
+//   DrawerOverlay,
+//   DrawerCloseButton,
+//   Icon,
+//   Badge,
+//   Button,
+//   Divider,
+//   Container,
+// } from '@chakra-ui/react';
+// import {
+//   FiMenu,
+//   FiChevronDown,
+//   FiBell,
+//   FiHome,
+//   FiTrendingUp,
+//   FiCompass,
+//   FiStar,
+//   FiSettings,
+//   FiChevronLeft,
+// } from 'react-icons/fi';
+// import { IconType } from 'react-icons'
+
+// interface Project {
+//   projectName: string;
+//   _id: string;
+// }
+
+// interface Log {
+//   timestamp: string;
+//   sourceInfo: string;
+//   logObject: LogObject;
+//   podInfo: PodObject;
+//   type: string;
+// }
+
+// interface LogObject {
+//   log: string;
+//   stream: string;
+// }
+
+// interface PodObject {
+//   containerName: string;
+//   namespace: string;
+//   podName: string;
+// }
+
+// interface HeaderAndSidebarProps {
+//   onProjectSelect: (projectName: string) => void;
+// }
+
+// const token = localStorage.getItem('token');
+
+// interface LinkItemProps {
+//   name: string;
+//   icon: IconType;
+// }
+
+// interface NavItemProps {
+//   icon: IconType;
+//   children: React.ReactNode;
+// }
+
+// const LinkItems: Array<LinkItemProps> = [
+//   { name: 'Home', icon: FiHome },
+//   { name: 'Trending', icon: FiTrendingUp },
+//   { name: 'Explore', icon: FiCompass },
+//   { name: 'Favourites', icon: FiStar },
+//   { name: 'Settings', icon: FiSettings },
+// ];
+
+// const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) => {
+//   const [projects, setProjects] = useState<Project[]>([]);
+//   const [selectedProject, setSelectedProject] = useState("");
+//   const navigate = useNavigate();
+//   const { isOpen, onOpen, onClose } = useDisclosure();
+//   const [open, setOpen] = useState(false);
+
+//   useEffect(() => {
+//     fetch('/api/projects', {
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${token}`
+//       }
+//     })
+//     .then(response => response.json())
+//     .then(data => setProjects(data))
+//     .catch(err => console.error('An error occurred in getting logs: ', err));
+//   }, []);
+
+//   useEffect(() => {
+//     if (selectedProject) {
+//       fetch(`/api/logs/${selectedProject}`, {
+//         headers: {
+//           'Content-Type': 'application/json',
+//         }
+//       })
+//       .then(response => response.json())
+//       .catch(err => console.error('An error occurred in getting logs: ', err));
+//     }
+//   }, [selectedProject]);
+
+//   const handleLogout = () => {
+//     if (token) {
+//       localStorage.removeItem('token');
+//       navigate('/');
+//     } else {
+//       console.log('No token found in local storage');
+//     }
+//   }
+
+//   const handleProjectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+//     const projectName = event.target.value;
+//     setSelectedProject(projectName);
+//     onProjectSelect(projectName);
+//   }
+
+//   const toggleDrawer = () => {
+//     setOpen(!isOpen);
+//   };
+
+//   const SidebarContent = ({ onClose, ...rest }) => {
+//     return (
+//       <Box
+//         transition="3s ease"
+//         bg={useColorModeValue('white', 'gray.900')}
+//         borderRight="1px"
+//         borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+//         w={{ base: 'full', md: 60 }}
+//         pos="fixed"
+//         h="full"
+//         {...rest}>
+//         <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+//           <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+//             Logo
+//           </Text>
+//           <DrawerCloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+//         </Flex>
+//         {LinkItems.map((link) => (
+//           <NavItem key={link.name} icon={link.icon}>
+//             {link.name}
+//           </NavItem>
+//         ))}
+//       </Box>
+//     )
+//   }
+
+//   const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+//     return (
+//       <Box
+//         as="a"
+//         href="#"
+//         style={{ textDecoration: 'none' }}
+//         _focus={{ boxShadow: 'none' }}>
+//         <Flex
+//           align="center"
+//           p="4"
+//           mx="4"
+//           borderRadius="lg"
+//           role="group"
+//           cursor="pointer"
+//           _hover={{
+//             bg: 'cyan.400',
+//             color: 'white',
+//           }}
+//           {...rest}>
+//           {icon && (
+//             <Icon
+//               mr="4"
+//               fontSize="16"
+//               _groupHover={{
+//                 color: 'white',
+//               }}
+//               as={icon}
+//             />
+//           )}
+//           {children}
+//         </Flex>
+//       </Box>
+//     )
+//   }
+
+//   return (
+//     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+//       <Flex
+//         as="header"
+//         align="center"
+//         justify="space-between"
+//         wrap="wrap"
+//         padding="1rem"
+//         bg={useColorModeValue('white', 'gray.900')}
+//         borderBottomWidth="1px"
+//         borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+//       >
+//         <IconButton
+//           icon={<FiMenu />}
+//           aria-label="Open Menu"
+//           display={{ base: 'flex', md: 'none' }}
+//           onClick={onOpen}
+//         />
+//         <Text
+//           display={{ base: 'flex', md: 'none' }}
+//           fontSize="2xl"
+//           fontFamily="monospace"
+//           fontWeight="bold">
+//           Logo
+//         </Text>
+//         <Box display={{ base: 'none', md: 'flex' }} alignItems="center">
+//           <IconButton
+//             size="lg"
+//             variant="ghost"
+//             aria-label="open menu"
+//             icon={<FiBell />}
+//           />
+//           <Menu>
+//             <MenuButton as={Button} rightIcon={<FiChevronDown />}>
+//             </MenuButton>
+//             <MenuList>
+//               <MenuItem>Profile</MenuItem>
+//               <MenuItem>Settings</MenuItem>
+//               <MenuItem>Billing</MenuItem>
+//               <MenuDivider />
+//               <MenuItem onClick={handleLogout}>Sign out</MenuItem>
+//             </MenuList>
+//           </Menu>
+//         </Box>
+//       </Flex>
+//       <Drawer
+//         isOpen={isOpen}
+//         placement="left"
+//         onClose={onClose}
+//         returnFocusOnClose={false}
+//         onOverlayClick={onClose}
+//         size="full">
+//         <DrawerContent>
+//           <SidebarContent onClose={onClose} />
+//         </DrawerContent>
+//       </Drawer>
+//       <Box ml={{ base: 0, md: 60 }} p="4">
+//         {/* Main content goes here */}
+//       </Box>
+//     </Box>
+//   );
+// };
+
+// export default HeaderAndSidebar;

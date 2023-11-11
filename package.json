@@ -5,8 +5,6 @@
   "main": "index.js",
   "private": true,
   "dependencies": {
-    "@chakra-ui/icons": "^2.1.1",
-    "@chakra-ui/react": "^2.8.1",
     "@cubejs-client/core": "^0.31.0",
     "@emotion/cache": "11.10.5",
     "@emotion/react": "^11.10.6",

@@ -6,7 +6,6 @@ const authController : any = {};
 authController.protect = async (req, res, next) => {
   // initialize a variable token
   let token;
-
   // check if authorization object on HTTP headers exists and that is starts with 'Bearer' (format of auth header is 'Bearer token')
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
     try {
