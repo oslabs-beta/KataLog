@@ -65,7 +65,8 @@
     "dev": "NODE_ENV=development concurrently \"nodemon --watch server ./server/server.ts\" \"webpack serve --open\"",
     "build": "NODE_ENV=production webpack",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "vercel-build": "NODE_ENV=production webpack"
   },
   "eslintConfig": {
     "extends": [
