@@ -12,6 +12,14 @@ const app = express();
 
 app.use(cors()); // Enable CORS for all routes
 // parse body requests from JSON to JS
+
+const corsOptions = {
+  origin: 'https://katalog-mocha.vercel.app', // or use '*' to allow all origins
+};
+
+app.use(cors(corsOptions));
+
+
 app.use(express.json());
 // parse URL encoded data requests into req.body
 app.use(express.urlencoded({ extended: true }));
@@ -26,7 +34,12 @@ mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
 
+
+
+
 app.use('/api', router);
+
+
 
 app.use((err, req, res, next) => {
   const defaultErr = {
