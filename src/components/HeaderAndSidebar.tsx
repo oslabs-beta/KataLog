@@ -87,8 +87,6 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
           }
       })
       .then(response => response.json())
-      // .then(data => onProjectSelect(data))
-      // .then(data => setLogs(data))
       .catch(err => console.error('An error occurred in getting logs: ', err));
   }
   }, [selectedProject]);
@@ -146,31 +144,7 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
               </Typography>
 
               <Grid item xs={12} >
-                {/* <Paper sx={{ width: '100%', p: 2, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent'}}> */}
-                  {/* <FormControl sx={{ m: 1, width: 200, height: 20, color: 'white' }}>
-                  <Select 
-                  onChange={handleProjectChange}
-                  sx={{
-                    height: 30,
-                    color: 'white', // Set the text color to white
-                    backgroundColor: 'transparent', // Set the background color to transparent
-                    '& option': {
-                      color: 'white', // Set the option text color to the desired color (e.g., black)
-                    },
-                    '&:before': {
-                      borderColor: 'white', // Set the outline color to white
-                    },
-                    '&:after': {
-                      borderColor: 'white', // Set the arrow color to white
-                    },
-                  }}
-                >
-                    {projects?.map(project => (
-                      <MenuItem key={project._id} value={project.projectName}>{project.projectName} </MenuItem>
-                      ))}
-                  </Select>
-                      </FormControl> */}
-                {/* </Paper> */}
+               
 
                 <Paper sx={{ width: '100%', p: 2, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent'}}>
                   <select onChange={handleProjectChange}>
@@ -213,10 +187,6 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
           <Box
           component="main"
           sx={{
-            // backgroundColor: (theme) =>
-            //   theme.palette.mode === 'dark'
-            //     ? theme.palette.grey[100]
-            //     : theme.palette.grey[900],
             backgroundColor: '#1A202C',
             flexGrow: 1,
             height: '100vh',

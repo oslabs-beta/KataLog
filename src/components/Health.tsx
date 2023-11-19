@@ -1,7 +1,5 @@
 import * as React from 'react';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import Title from './Title';
 import CheckIcon from '@mui/icons-material/Check';
 import WarningIcon from '@mui/icons-material/Warning';
 import DangerousIcon from '@mui/icons-material/Dangerous';

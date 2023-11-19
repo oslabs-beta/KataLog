@@ -1,6 +1,5 @@
 import jwt, { Secret } from 'jsonwebtoken';
 import User from '../models/userModel';
-import { Request, Response, NextFunction } from 'express';
 
 const authController: any = {};
 

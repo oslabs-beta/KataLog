@@ -33,11 +33,6 @@ router.delete('/projects/:id', authController.protect, projectController.deleteP
 
 // log routes:
 
-// router.get('/logs', logController.parseLogs, (req, res) => {
-//     console.log('/logs GET request has fired!');
-//     res.status(200).json(res.locals.data);
-// });
-
 router.get('/logs/:selectedProject', logController.getLogs, (req, res) => {
   console.log('getting logs...');
 

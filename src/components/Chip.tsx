@@ -29,17 +29,9 @@ const names = [
 'pod'
 ]
 
-// function getStyles(name: string, personName: readonly string[], theme: Theme) {
-//   return {
-//     fontWeight:
-//       personName.indexOf(name) === -1
-//         ? theme.typography.fontWeightRegular
-//         : theme.typography.fontWeightMedium,
-//   };
-// }
 
 export default function MultipleSelectChip(props) {
-    // const theme = useTheme();
+  
     const [personName, setPersonName] = React.useState<string[]>(props.filterTypes);
     
     const handleChange = (event: SelectChangeEvent<typeof personName>) => {

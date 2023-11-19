@@ -57,10 +57,6 @@ export default function Logs() {
         <Box
           component="main"
           sx={{
-            // backgroundColor: (theme) =>
-            //   theme.palette.mode === 'dark'
-            //     ? theme.palette.grey[100]
-            //     : theme.palette.grey[900],
             backgroundColor: '#1A202C',
             flexGrow: 1,
             height: '100vh',

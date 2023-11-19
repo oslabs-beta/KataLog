@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { CssBaseline,  Box, Toolbar, Container, Grid, Paper, } from '@mui/material';
 import Chart from '../components/Chart';
 import Deposits from '../components/Deposits';
@@ -9,24 +8,6 @@ import Health from '../components/Health';
 import HeaderAndSidebar from '../components/HeaderAndSidebar';
 
 export default function Dashboard() {
-  // logout functionality:
-  const navigate = useNavigate();
-  // define a function handleLogout, no params
-  const handleLogout = () => {
-    // grab JWT token from local storage
-    const token = localStorage.getItem('token');
-    // if JWT token exists in local storage
-    if (token) {
-      // remove token from local storage
-      localStorage.removeItem('token');
-      // navigate to splash page after 1.5 seconds
-      setTimeout(() => {navigate('/')}, 1500);
-    // else (i.e. JWT token does not exist)
-    } else {
-      // no token in local storage
-      console.log('No token found in local storage');
-    }
-  }
 
   interface Log {
     timestamp: string;
@@ -89,10 +70,6 @@ export default function Dashboard() {
         <Box
           component="main"
           sx={{
-            // backgroundColor: (theme) =>
-            //   theme.palette.mode === 'dark'
-            //     ? theme.palette.grey[100]
-            //     : theme.palette.grey[900],
             backgroundColor: '#1A202C',
             flexGrow: 1,
             height: '100vh',

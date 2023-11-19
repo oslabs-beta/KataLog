@@ -13,12 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const projectModel_1 = __importDefault(require("../models/projectModel"));
-const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const crypto_1 = __importDefault(require("crypto"));
-// const crypto = require('crypto');
-function generateToken(length = 32) {
-    return crypto_1.default.randomBytes(length).toString('hex');
-}
 const projectController = {};
 // getProjects middleware - view all projects a user can view logs for
 projectController.getProjects = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -41,9 +35,6 @@ projectController.createProject = (req, res, next) => __awaiter(void 0, void 0, 
             message: { err: 'Please provide project name' },
         });
     }
-    const token = generateToken();
-    const SALT_WORK_FACTOR = 10;
-    const hashedToken = yield bcryptjs_1.default.hash(token, SALT_WORK_FACTOR);
     // create project in database, using user id from jwt token as user_id field
     // !! authToken not currently being sent !!
     const newProject = yield projectModel_1.default.create({ projectName, user_id: req.user.id });

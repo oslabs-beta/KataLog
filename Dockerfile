@@ -1,22 +1,19 @@
+# Use an official Node runtime as a parent image
 FROM node:18.15.0
 
+# Set the working directory
 WORKDIR /usr/src/app
 
-# A wildcard is used to ensure both package.json AND package-lock.json are copied.
-# Copying this separately prevents re-running npm install on every code change.
 COPY package*.json ./
 
-# Install production dependencies.
-RUN npm config set fetch-retry-maxtimeout 300000 # Increase max timeout to 5 minutes
+RUN npm install --only=production
 
-RUN npm install
+# Copy the built directories
+COPY dist/ dist/
+COPY public/ public/
 
-
-COPY . .
-
-RUN npm run build
-
+# Expose the port the app runs on
 EXPOSE 3000
 
-# Run the web service on container startup.
-CMD [ "npm", "run", "start-backend" ]
+# Define the command to run the app
+CMD ["node", "dist/server.js"]

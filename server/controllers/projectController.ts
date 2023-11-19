@@ -1,13 +1,4 @@
 import Project from '../models/projectModel';
-import bcrypt from 'bcryptjs';
-import crypto from 'crypto';
-import { Request, Response, NextFunction } from 'express';
-
-// const crypto = require('crypto');
-
-function generateToken(length = 32) {
-  return crypto.randomBytes(length).toString('hex');
-}
 
 const projectController : any = {};
 
@@ -34,9 +25,6 @@ projectController.createProject = async (req, res, next) => {
     });
   }
 
-  const token = generateToken();
-  const SALT_WORK_FACTOR: number = 10;
-  const hashedToken = await bcrypt.hash(token, SALT_WORK_FACTOR);
 
   // create project in database, using user id from jwt token as user_id field
   // !! authToken not currently being sent !!

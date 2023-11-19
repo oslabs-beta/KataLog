@@ -10,10 +10,9 @@ function ControlManager(props) {
 
   return (
     <React.Fragment>
-      {/* <div id="control-manager" className="hexagon"> */}
-        {/* <p>Controller Manager</p> */}
+
         <ControlPlaneDialog logs={props.controllerManagerLogs} name={name}></ControlPlaneDialog>
-      {/* </div> */}
+
     </React.Fragment>
   );
 }

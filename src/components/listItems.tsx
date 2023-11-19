@@ -62,58 +62,12 @@ export const mainListItems = (
 
 
 
-    {/* <Link to="/login" style={{ textDecoration: 'none', color: 'inherit'}}>
-      <ListItemButton>
-        <ListItemIcon>
-          <Login />
-        </ListItemIcon>
-        <ListItemText primary="Login" />
-      </ListItemButton>
-    </Link>
-
-    <Link to="/signup" style={{ textDecoration: 'none', color: 'inherit'}}>
-      <ListItemButton>
-        <ListItemIcon>
-          <Coffee />
-        </ListItemIcon>
-        <ListItemText primary="Sign Up" />
-      </ListItemButton>
-    </Link> */}
-
-    {/* <Link to="/projects" style={{ textDecoration: 'none', color: 'inherit'}}>
-      <ListItemButton>
-        <ListItemIcon>
-          <Check />
-        </ListItemIcon>
-        <ListItemText primary="Projects" />
-      </ListItemButton>
-    </Link> */}
 
   </React.Fragment>
 );
 
 export const secondaryListItems = (
   <React.Fragment>
-    {/* <ListSubheader component="div" inset>
-      Saved reports
-    </ListSubheader>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current report" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last report" />
-    </ListItemButton> */}
-    {/* <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton> */}
+
   </React.Fragment>
 );

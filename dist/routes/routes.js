@@ -27,10 +27,6 @@ router.delete('/projects/:id', authController_1.default.protect, projectControll
     res.status(200).json({ message: 'Project Deleted' });
 });
 // log routes:
-// router.get('/logs', logController.parseLogs, (req, res) => {
-//     console.log('/logs GET request has fired!');
-//     res.status(200).json(res.locals.data);
-// });
 router.get('/logs/:selectedProject', logController_1.default.getLogs, (req, res) => {
     console.log('getting logs...');
     res.status(200).json(res.locals.logs);
