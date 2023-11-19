@@ -339,6 +339,23 @@ const FluentdConfigGenerator: React.FC = () => {
                       variant="outlined"
                       value={username}
                       onChange={e => setUsername(e.target.value)}
+                      InputProps={{
+                        style: { color: 'white' },
+                        classes: {
+                        notchedOutline: 'customOutline',
+                        },
+                    }}
+                    InputLabelProps={{
+                        style: { color: 'white' },
+                    }}
+                    sx={{
+                        '& .customOutline': {
+                        borderColor: '#316CE6',
+                        },
+                        '& .Mui-focused .customOutline': {
+                        borderColor: '#316CE6',
+                        },
+                    }}
                     />
                   </FormControl>
                   <FormControl fullWidth margin="normal">
@@ -347,15 +364,61 @@ const FluentdConfigGenerator: React.FC = () => {
                       variant="outlined"
                       value={projectName}
                       onChange={e => setProjectName(e.target.value)}
+                      InputProps={{
+                        style: { color: 'white' },
+                        classes: {
+                        notchedOutline: 'customOutline',
+                        },
+                    }}
+                    InputLabelProps={{
+                        style: { color: 'white' },
+                    }}
+                    sx={{
+                        '& .customOutline': {
+                        borderColor: '#316CE6',
+                        },
+                        '& .Mui-focused .customOutline': {
+                        borderColor: '#316CE6',
+                        },
+                    }}
                     />
                   </FormControl>
-                  <FormControl fullWidth margin="normal">
-                    <InputLabel id="fluentd-image-label">Fluentd Image</InputLabel>
+                  <FormControl style={{ color: 'white' }} fullWidth margin="normal">
+                    <InputLabel id="fluentd-image-label"
+                      sx={{
+                        color: 'white',
+                        '&.Mui-focused': {
+                          color: '#316CE6',
+                        },
+                      }}>Fluentd Image
+                    </InputLabel>
                     <Select
                       labelId="fluentd-image-label"
                       value={fluentdImage}
                       label="Fluentd Image"
                       onChange={e => setFluentdImage(e.target.value as string)}
+                      inputProps={{
+                        style: { color: 'white' }, // Changing the color of the text inside the Select box
+                      }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          '& fieldset': {
+                            borderColor: 'white',
+                          },
+                          '&:hover fieldset': {
+                            borderColor: 'white',
+                          },
+                          '&.Mui-focused fieldset': {
+                            borderColor: '#316CE6',
+                          },
+                          '& input': {
+                            color: 'white', // Changing the color of the input text in the Select box
+                          },
+                        },
+                        '& .MuiInputLabel-root': {
+                          color: 'white',
+                        },
+                      }}
                     >
                       {fluentdImages.map((image) => (
                         <MenuItem key={image.value} value={image.value}>
@@ -373,7 +436,7 @@ const FluentdConfigGenerator: React.FC = () => {
                     Generate Fluentd Configuration Files
                   </Button>
                   <br></br>
-                  <Typography variant="subtitle1" gutterBottom>
+                  <Typography color="white" variant="subtitle1" gutterBottom>
                     File name: default.conf
                   </Typography>
                   <AceEditor
@@ -389,7 +452,7 @@ const FluentdConfigGenerator: React.FC = () => {
                     }}
                   />
                   <br></br>
-                  <Typography variant="subtitle1" gutterBottom>
+                  <Typography color="white" variant="subtitle1" gutterBottom>
                     File name: fluentd-configmap.yaml
                   </Typography>
                     <AceEditor
@@ -405,7 +468,7 @@ const FluentdConfigGenerator: React.FC = () => {
                     }}
                     />
                     <br></br>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography color="white" variant="subtitle1" gutterBottom>
                     File name: fluentd-daemonset.yaml
                   </Typography>
                     <AceEditor

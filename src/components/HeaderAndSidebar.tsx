@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-// import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import { mainListItems, secondaryListItems } from './listItems';
 import { CssBaseline, Drawer as MuiDrawer, Box, Toolbar, List, FormControl, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link, MenuItem } from '@mui/material';
 import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, Notifications as NotificationsIcon, Logout as LogoutIcon, DisabledByDefault } from '@mui/icons-material';
@@ -55,49 +54,6 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
-// const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open',
-// })<AppBarProps>(({ theme, open }) => ({
-//   zIndex: theme.zIndex.drawer + 1,
-//   transition: theme.transitions.create(['width', 'margin'], {
-//     easing: theme.transitions.easing.sharp,
-//     duration: theme.transitions.duration.leavingScreen,
-//   }),
-//   ...(open && {
-//     marginLeft: drawerWidth,
-//     width: `calc(100% - ${drawerWidth}px)`,
-//     transition: theme.transitions.create(['width', 'margin'], {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//   }),
-// }));
-
-// const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-//   ({ theme, open }) => ({
-//     '& .MuiDrawer-paper': {
-//       position: 'relative',
-//       whiteSpace: 'nowrap',
-//       width: drawerWidth,
-//       transition: theme.transitions.create('width', {
-//         easing: theme.transitions.easing.sharp,
-//         duration: theme.transitions.duration.enteringScreen,
-//       }),
-//       boxSizing: 'border-box',
-//       ...(!open && {
-//         overflowX: 'hidden',
-//         transition: theme.transitions.create('width', {
-//           easing: theme.transitions.easing.sharp,
-//           duration: theme.transitions.duration.leavingScreen,
-//         }),
-//         width: theme.spacing(7),
-//         [theme.breakpoints.up('sm')]: {
-//           width: theme.spacing(9),
-//         },
-//       }),
-//     },
-//   }),
-//   );
-
 const appBarStyles = {
   zIndex: 1201,
   transition: 'width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms',
@@ -142,14 +98,20 @@ const Drawer = (props) => (
   />
 );
   
-// const defaultTheme = createTheme();
-  
   
 const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) => { 
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState("");
   const [logs, setLogs] = useState<Log[]>([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   // logout functionality:
   const navigate = useNavigate();
@@ -161,6 +123,7 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
     if (token) {
       // remove token from local storage
       localStorage.removeItem('token');
+      setIsAuthenticated(false);
       // navigate to splash page
       navigate('/');
     // else (i.e. JWT token does not exist)
@@ -171,17 +134,30 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
   }
 
   useEffect(() => {
-    fetch('/api/projects', {
-        headers: {
+    if (isAuthenticated) {
+      // Retrieve token inside useEffect
+      const token = localStorage.getItem('token');
+  
+      if (token) {
+        fetch('/api/projects', {
+          headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
-        },
-        // body: JSON.stringify({ user_id: '653dd3cb077bca1fb79856cf' }) // Replace 'user123' with the actual username
-    })
-    .then(response => response.json())
-    .then(data => setProjects(data))
-    .catch(err => console.error('An error occurred in getting logs: ', err));
-  }, []);
+          },
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (Array.isArray(data)) {
+            setProjects(data);
+          } else {
+            // Handle the case where data is not an array
+            console.error('Expected an array of projects, but received:', data);
+          }
+        })
+        .catch(err => console.error('An error occurred in getting projects: ', err));
+      }
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
   if (selectedProject) {
@@ -196,14 +172,6 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
       .catch(err => console.error('An error occurred in getting logs: ', err));
   }
   }, [selectedProject]);
-
-
-  
-  // const handleProjectChange = (event: SelectChangeEvent<typeof selectedProject>) => {
-  //   const projectName = event.target.value;
-  //   setSelectedProject(event.target.value);
-  //   onProjectSelect(projectName);
-  // }
 
   const handleProjectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const projectName = event.target.value;

@@ -3,20 +3,18 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import router from './routes/routes';
-// const path = require('path');
+import path from 'path';
+import { Server as WebSocketServer } from 'ws';
 
 dotenv.config();
 
 const app = express();
 
+app.use(cors());
 
-app.use(cors()); // Enable CORS for all routes
-// parse body requests from JSON to JS
 app.use(express.json());
-// parse URL encoded data requests into req.body
 app.use(express.urlencoded({ extended: true }));
-
-// app.use(express.static(path.join(__dirname, 'src')));
+app.use(express.static(path.resolve(__dirname, '../public')));
 
 
 const mongoURI : any = process.env.MONGO_URI;
@@ -26,7 +24,15 @@ mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
 
+
+
+
 app.use('/api', router);
+
+app.get('*', (req, res) => {
+  return res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
 
 app.use((err, req, res, next) => {
   const defaultErr = {
@@ -39,6 +45,21 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).send(errorObj.message);
 });
 
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
+const server = app.listen(3000, () => {
+  console.log('Server running on port 3000');
 });
+
+
+const wss = new WebSocketServer({ server });
+
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(message) {
+    console.log('received: %s', message);
+  });
+
+  // Send a JSON stringified message
+  const data = { message: 'something' };
+  ws.send(JSON.stringify(data));
+});
+
+export default app;

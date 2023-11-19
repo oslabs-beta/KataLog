@@ -1,7 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 import Login2 from './pages/Login2';
 import Signup2 from './pages/SignUp2';
 import Dashboard from './pages/Dashboard';
@@ -11,17 +9,17 @@ import HomePage from './pages/HomePage';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/dashboard' element={<Dashboard/>}></Route>
-        <Route path='/login' element={<Login2/>}></Route>
-        <Route path='/signup' element={<Signup2/>}></Route>
-        <Route path='/configuration' element={<FluentdConfigGenerator/>}></Route>
-        <Route path='/api/logs' element={<Logs/>}></Route>
-        <Route path='/' element={<HomePage/>}></Route>
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+          <Routes>
+            <Route path='/dashboard' element={<Dashboard/>} />
+            <Route path='/login' element={<Login2/>} />
+            <Route path='/signup' element={<Signup2/>} />
+            <Route path='/configuration' element={<FluentdConfigGenerator/>} />
+            <Route path='/api/logs' element={<Logs/>} />
+            <Route path='/' element={<HomePage/>} />
+          </Routes>
+      </BrowserRouter>
   );
 };
 
-render(<App />, document.querySelector('#app'));
+export default App;
