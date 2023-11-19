@@ -97,13 +97,13 @@ const featuresRef = useRef(null);
           <Card
             heading={'Visualization'}
             icon={<Icon as={MdRemoveRedEye} w={10} h={10} />}
-            description={'Visualization of logs appearing in a seemless user interface.'}
+            description={'Visualization of logs appearing in a seemless user interface. \n'}
             href={'#'}
           />
           <Card
             heading={'Filtering'}
             icon={<Icon as={MdFilterAlt} w={10} h={10} />}
-            description={'Ability to filter logs by source with integrated visualization.'}
+            description={'Ability to filter logs by source with integrated visualization. \n'}
             href={'#'}
           />
           <Card

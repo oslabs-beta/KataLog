@@ -239,6 +239,7 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
                   </Select>
                       </FormControl> */}
                 {/* </Paper> */}
+
                 <Paper sx={{ width: '100%', p: 2, display: 'flex', flexDirection: 'column', backgroundColor: 'transparent'}}>
                   <select onChange={handleProjectChange}>
                     <option value="" >Select a project</option>

@@ -20,6 +20,8 @@ import {
     SiGithub
 } from "react-icons/si";
 
+import tom from '../assets/Tom.png';
+
 export default function Tom () {
   return (
     <Center py={6}>
@@ -40,7 +42,7 @@ export default function Tom () {
           <Avatar
             size={'xl'}
             src={
-              'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+              tom
             }
             css={{
               border: '2px solid white',

@@ -3,7 +3,7 @@ import userController from "../controllers/userController";
 import projectController from "../controllers/projectController";
 import authController from "../controllers/authController";
 import express from 'express';
-import { log } from "console";
+
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.post('/signup', userController.createUser, (req, res) => {
 });
 
 router.post('/login', userController.loginUser, (req, res) => {
-  res.status(200).json({ message: 'Loggged In' })
+  res.status(200).json({ message: 'Logged In' })
 });
 
 // project routes:
@@ -40,6 +40,7 @@ router.delete('/projects/:id', authController.protect, projectController.deleteP
 
 router.get('/logs/:selectedProject', logController.getLogs, (req, res) => {
   console.log('getting logs...');
+
   res.status(200).json(res.locals.logs);
 });
 

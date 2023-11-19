@@ -106,5 +106,5 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "allowSyntheticDefaultImports": true,
-  "include": ["src/**/*", "assets/**/*"]
+  "include": ["./src/**/*", "assets/**/*"]
 }

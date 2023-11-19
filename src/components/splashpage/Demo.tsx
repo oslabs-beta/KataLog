@@ -15,6 +15,10 @@ import {
 } from '@chakra-ui/react'
 import { IoAnalyticsSharp, IoLogoBitcoin, IoSearchSharp, IoCheckmarkCircleSharp } from 'react-icons/io5'
 import { ReactElement } from 'react'
+import Demo1 from '../assets/DemoGif1.gif';
+import Demo2 from '../assets/DemoGif2.gif';
+import Demo3 from '../assets/DemoGif3.gif';
+import Demo4 from '../assets/DemoGif4.gif';
 
 interface FeatureProps {
   text: string
@@ -89,7 +93,7 @@ export default function Demo() {
             rounded={'md'}
             alt={'feature image'}
             src={
-              'https://images.unsplash.com/photo-1554200876-56c2f25224fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+              Demo1
             }
             objectFit={'cover'}
           />
@@ -101,7 +105,7 @@ export default function Demo() {
                 rounded={'md'}
                 alt={'feature image'}
                 src={
-                  'https://images.unsplash.com/photo-1554200876-56c2f25224fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+                  Demo2
                 }
                 objectFit={'cover'}
               />
@@ -189,7 +193,7 @@ export default function Demo() {
             rounded={'md'}
             alt={'feature image'}
             src={
-              'https://images.unsplash.com/photo-1554200876-56c2f25224fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+              Demo3
             }
             objectFit={'cover'}
           />
@@ -201,7 +205,7 @@ export default function Demo() {
                 rounded={'md'}
                 alt={'feature image'}
                 src={
-                  'https://images.unsplash.com/photo-1554200876-56c2f25224fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+                  Demo4
                 }
                 objectFit={'cover'}
               />

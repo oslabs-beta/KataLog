@@ -53,7 +53,6 @@ export default function Dashboard() {
   const initialLogData: Log[] = [];
 
   const [logData, setLogData] = useState<Log[]>(initialLogData);
-  const [logs, setLogs] = useState([]);
   const [numberOfLogs, setNumberOfLogs] = useState(0)
 
   const onProjectSelect = (projectName : string) => {
@@ -149,7 +148,7 @@ export default function Dashboard() {
                     backgroundColor: '#181923',
                   }}
                 >
-                  <Metrics></Metrics>
+                  <Metrics logData={logData} setLogData={setLogData}></Metrics>
                 </Paper>
               </Grid>
             </Grid>
