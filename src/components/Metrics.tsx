@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import '../style.css';
 import BarChart from './BarChart';

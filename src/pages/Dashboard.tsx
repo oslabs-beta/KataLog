@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline,  Box, Toolbar, Container, Grid, Paper, } from '@mui/material';
 import Chart from '../components/Chart';
 import Deposits from '../components/Deposits';
 import Metrics from '../components/Metrics';
 import Health from '../components/Health';
 import HeaderAndSidebar from '../components/HeaderAndSidebar';
-
-const defaultTheme = createTheme();
 
 export default function Dashboard() {
   // logout functionality:
@@ -86,7 +83,6 @@ export default function Dashboard() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <HeaderAndSidebar onProjectSelect={onProjectSelect}/>
@@ -155,6 +151,5 @@ export default function Dashboard() {
           </Container>
         </Box>
       </Box>
-    </ThemeProvider>
   );
 }

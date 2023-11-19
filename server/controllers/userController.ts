@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { Secret } from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/userModel';
 
@@ -43,7 +43,7 @@ userController.createUser = async (req, res, next) => {
       _id: createdUser.id, 
       username: createdUser.username, 
       email: createdUser.email,
-      token: generateToken(createdUser._id)
+      token: generateToken(createdUser._id.toString())
     });
   // else (i.e. user creation failed)
   } else {
@@ -79,7 +79,7 @@ userController.loginUser = async (req, res, next) => {
       _id: userExists.id,
       username: userExists.username,
       email: userExists.email,
-      token: generateToken(userExists._id) 
+      token: generateToken(userExists._id.toString()) 
     });
   // else (i.e. user login unsuccessful - could be due to incorrect username or non-matching password)
   } else {
@@ -93,9 +93,16 @@ userController.loginUser = async (req, res, next) => {
 }
 
 // generate JWT - define a function generateToken that has 1 param - id
-const generateToken = id => {
-  // return invocation of jwt.sign, passing in id, JWT_SECRET, and expiresIn (30 minutes)
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30m' });
+const generateToken = (id: string) => {
+  // Ensure the JWT_SECRET is defined or throw an error
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT secret not defined');
+  }
+
+  const jwtSecret: Secret = process.env.JWT_SECRET;
+
+  return jwt.sign({ id }, jwtSecret, { expiresIn: '30m' });
 }
+
 
 export default userController;

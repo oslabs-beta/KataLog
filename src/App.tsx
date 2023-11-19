@@ -1,7 +1,6 @@
+// App.tsx
 import React from 'react';
-import { render } from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 // import Projects from './pages/Projects';
@@ -13,16 +12,16 @@ const App = () => {
   return (
       <BrowserRouter>
           <Routes>
-            <Route path='/dashboard' element={<Dashboard/>}></Route>
-            <Route path='/login' element={<Login/>}></Route>
-            <Route path='/signup' element={<Signup/>}></Route>
-            {/* <Route path='/projects' element={<Projects/>}></Route> */}
-            <Route path='/configuration' element={<FluentdConfigGenerator/>}></Route>
-            <Route path='/api/logs' element={<Logs/>}></Route>
-            <Route path='/' element={<Login/>}></Route>
+            <Route path='/dashboard' element={<Dashboard/>} />
+            <Route path='/login' element={<Login/>} />
+            <Route path='/signup' element={<Signup/>} />
+            {/* <Route path='/projects' element={<Projects/>} /> */}
+            <Route path='/configuration' element={<FluentdConfigGenerator/>} />
+            <Route path='/api/logs' element={<Logs/>} />
+            <Route path='/' element={<Login/>} />
           </Routes>
       </BrowserRouter>
   );
 };
 
-render(<App />, document.querySelector('#app'));
+export default App;

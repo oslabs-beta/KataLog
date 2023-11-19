@@ -1,6 +1,7 @@
 import Project from '../models/projectModel';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
+import { Request, Response, NextFunction } from 'express';
 
 // const crypto = require('crypto');
 

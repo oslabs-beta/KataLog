@@ -3,45 +3,12 @@ import ace, { Ace } from 'ace-builds';
 import 'ace-builds/src-noconflict/theme-dreamweaver';
 import 'ace-builds/src-noconflict/theme-chaos'
 import 'ace-builds/src-noconflict/theme-dracula'
-import { createTheme, CssBaseline, Toolbar, ThemeProvider, Container, Box, Grid, Paper, TextField, Button, FormControl, InputLabel, Select, MenuItem, Typography } from '@mui/material';
+import { CssBaseline, Toolbar, Container, Box, Grid, Paper, TextField, Button, FormControl, InputLabel, Select, MenuItem, Typography } from '@mui/material';
 import HeaderAndSidebar from '../components/HeaderAndSidebar';
 
 
 const token = localStorage.getItem('token');
 
-const defaultTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#316CE6', // Set the primary color to the focus color
-    },
-  },
-  components: {
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: 'white', // default
-            },
-            '&:hover fieldset': {
-              borderColor: 'white', // hover
-            },
-            '&.Mui-focused fieldset': {
-              borderColor: '#316CE6', // focused
-            },
-            '& input': {
-              color: 'white', // text color
-            },
-            '& label': {
-              color: 'white', // label color
-            },
-          },
-        },
-      },
-    },
-  },
-});
 
 interface AceEditorProps {
     mode: string;
@@ -315,7 +282,6 @@ const FluentdConfigGenerator: React.FC = () => {
   
 
     return (
-      <ThemeProvider theme={defaultTheme}>
         <Box sx={{ display: 'flex'}}>
         <CssBaseline/>
         <HeaderAndSidebar onProjectSelect={onProjectSelect}/>
@@ -426,7 +392,6 @@ const FluentdConfigGenerator: React.FC = () => {
           </Container>
           </Box>
         </Box>
-      </ThemeProvider>
     );
 };
 

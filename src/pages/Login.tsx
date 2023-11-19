@@ -30,7 +30,7 @@ const Login = () => {
 
     try {
       // Make the API request to the server
-      const response = await fetch('https://katalog-mocha.vercel.app/api/login', {
+      const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
