@@ -12,11 +12,6 @@ export default function NestedRowData(props) {
     setExpanded(!expanded);
   }
 
-
-
-
-
-
   return (
     <>
       <TableRow>
@@ -51,7 +46,7 @@ export default function NestedRowData(props) {
 
 // Uncomment and move section below to read local logs
 
- {/* <TableRow>
+{/* <TableRow>
       <TableCell sx={{ color: 'white' }}>{props.row.logDataObject.timestamp}</TableCell>
       <TableCell sx={{ color: 'white' }}>{props.row.logDataObject.type}</TableCell>
       <TableCell sx={{ color: 'white', maxWidth: "400px", wordWrap: 'break-word', overflowWrap: "break-word" }}>

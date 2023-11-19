@@ -11,6 +11,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+// this could be problematic????
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -19,7 +20,7 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import { Grid, Avatar, Paper } from '@mui/material';
 import { IoCheckmarkCircleSharp } from 'react-icons/io5';
-import { LinkedIn, GitHub } from '@mui/icons-material';
+import { LinkedIn, GitHub, } from '@mui/icons-material';
 import { ReactElement } from 'react';
 import logo from '../components/assets/Logo.png';
 import Demo1 from '../components/assets/DemoGif1.gif';

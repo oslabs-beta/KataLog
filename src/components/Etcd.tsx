@@ -9,7 +9,7 @@ function Etcd(props) {
 
   return (
     <React.Fragment>
-        <ControlPlaneDialog logs={props.etcdLogs} name={name}></ControlPlaneDialog>
+      <ControlPlaneDialog logs={props.etcdLogs} name={name}></ControlPlaneDialog>
     </React.Fragment>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+// import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import { mainListItems, secondaryListItems } from './listItems';
 import { CssBaseline, Drawer as MuiDrawer, Box, Toolbar, List, FormControl, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link, MenuItem } from '@mui/material';
 import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, Notifications as NotificationsIcon, Logout as LogoutIcon, DisabledByDefault } from '@mui/icons-material';
@@ -48,57 +48,101 @@ const paperStyle = {
   marginBottom: '20px',
   backgroundColor: '#424242',
   overflowX: 'auto',
-  position: 'relative',
+  position: 'center',
 };
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
-const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+// const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open',
+// })<AppBarProps>(({ theme, open }) => ({
+//   zIndex: theme.zIndex.drawer + 1,
+//   transition: theme.transitions.create(['width', 'margin'], {
+//     easing: theme.transitions.easing.sharp,
+//     duration: theme.transitions.duration.leavingScreen,
+//   }),
+//   ...(open && {
+//     marginLeft: drawerWidth,
+//     width: `calc(100% - ${drawerWidth}px)`,
+//     transition: theme.transitions.create(['width', 'margin'], {
+//       easing: theme.transitions.easing.sharp,
+//       duration: theme.transitions.duration.enteringScreen,
+//     }),
+//   }),
+// }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
+// const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+//   ({ theme, open }) => ({
+//     '& .MuiDrawer-paper': {
+//       position: 'relative',
+//       whiteSpace: 'nowrap',
+//       width: drawerWidth,
+//       transition: theme.transitions.create('width', {
+//         easing: theme.transitions.easing.sharp,
+//         duration: theme.transitions.duration.enteringScreen,
+//       }),
+//       boxSizing: 'border-box',
+//       ...(!open && {
+//         overflowX: 'hidden',
+//         transition: theme.transitions.create('width', {
+//           easing: theme.transitions.easing.sharp,
+//           duration: theme.transitions.duration.leavingScreen,
+//         }),
+//         width: theme.spacing(7),
+//         [theme.breakpoints.up('sm')]: {
+//           width: theme.spacing(9),
+//         },
+//       }),
+//     },
+//   }),
+//   );
+
+const appBarStyles = {
+  zIndex: 1201,
+  transition: 'width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms',
+};
+
+const drawerStyles = {
+  position: 'relative',
+  whiteSpace: 'nowrap',
+  width: drawerWidth,
+  transition: 'width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms',
+  boxSizing: 'border-box',
+};
+
+const AppBar = (props) => (
+  <MuiAppBar
+    style={{
+      ...appBarStyles,
+      ...(props.open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: 'width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms',
       }),
-      boxSizing: 'border-box',
-      ...(!open && {
+    }}
+    {...props}
+  />
+);
+
+const Drawer = (props) => (
+  <MuiDrawer
+    classes={{
+      paper: 'MuiDrawer-paper', // Assuming you have a class name 'MuiDrawer-paper' in your styles
+    }}
+    style={{
+      ...drawerStyles,
+      ...(!props.open && {
         overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
+        transition: 'width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms',
+        width: 20, // Default width when closed (You can adjust this)
       }),
-    },
-  }),
-  );
+    }}
+    {...props}
+  />
+);
   
-const defaultTheme = createTheme();
+// const defaultTheme = createTheme();
   
   
 const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) => { 
@@ -175,13 +219,14 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
   
     
   return (   
-    <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex'}}>
         <CssBaseline />
           <AppBar position="absolute" open={open}>
             <Toolbar
               sx={{
-              pr: '24px', // keep right padding when drawer closed
+              pr: '20px', // keep right padding when drawer closed
+              textAlign: 'center',
+              justifyContent: 'center',
               backgroundColor: '#181923',
             }}
             >
@@ -189,7 +234,7 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
                 edge="start"
                 color="inherit"
                 aria-label="open drawer"
-                onClick={toggleDrawer}
+                // onClick={toggleDrawer}
                 sx={{
                   marginRight: '36px',
                   ...(open && { display: 'none' }),
@@ -265,7 +310,7 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
             sx={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'flex-end',
+              justifyContent: 'center',
               px: [1],
             }}
           >
@@ -283,10 +328,6 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
           <Box
           component="main"
           sx={{
-            // backgroundColor: (theme) =>
-            //   theme.palette.mode === 'dark'
-            //     ? theme.palette.grey[100]
-            //     : theme.palette.grey[900],
             backgroundColor: '#1A202C',
             flexGrow: 1,
             height: '100vh',
@@ -296,7 +337,6 @@ const HeaderAndSidebar: React.FC<HeaderAndSidebarProps> = ({ onProjectSelect }) 
           <Toolbar />
         </Box>
       </Box>
-    </ThemeProvider>
   )
 }
 

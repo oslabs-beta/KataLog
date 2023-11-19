@@ -10,8 +10,8 @@ import DangerousIcon from '@mui/icons-material/Dangerous';
 export default function Health() {
   return (
     <React.Fragment>
-     <Typography variant="h6" color="white" fontWeight="bold" marginBottom={3}>Your Cluster Health Status is: </Typography>
-     <Typography variant="h4" style={{ textAlign: 'center', fontWeight: 'bold', color: '#00FF00', textTransform: 'uppercase', marginTop: '20px' }}>
+      <Typography variant="h6" color="white" fontWeight="bold" marginBottom={3}>Your Cluster Health Status is: </Typography>
+      <Typography variant="h4" style={{ textAlign: 'center', fontWeight: 'bold', color: '#00FF00', textTransform: 'uppercase', marginTop: '20px' }}>
         good
       </Typography>
       <CheckIcon

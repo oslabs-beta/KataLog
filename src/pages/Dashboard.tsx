@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+// import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline,  Box, Toolbar, Container, Grid, Paper, } from '@mui/material';
 import Chart from '../components/Chart';
 import Deposits from '../components/Deposits';
 import Metrics from '../components/Metrics';
 import Health from '../components/Health';
 import HeaderAndSidebar from '../components/HeaderAndSidebar';
-
-const defaultTheme = createTheme();
 
 export default function Dashboard() {
   // logout functionality:
@@ -86,17 +84,12 @@ export default function Dashboard() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <HeaderAndSidebar onProjectSelect={onProjectSelect}/>
         <Box
           component="main"
           sx={{
-            // backgroundColor: (theme) =>
-            //   theme.palette.mode === 'dark'
-            //     ? theme.palette.grey[100]
-            //     : theme.palette.grey[900],
             backgroundColor: '#1A202C',
             flexGrow: 1,
             height: '100vh',
@@ -155,6 +148,5 @@ export default function Dashboard() {
           </Container>
         </Box>
       </Box>
-    </ThemeProvider>
   );
 }

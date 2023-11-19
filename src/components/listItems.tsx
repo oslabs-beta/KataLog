@@ -18,7 +18,7 @@ export const mainListItems = (
         <ListItemIcon>
           <Dashboard />
         </ListItemIcon>
-          <ListItemText primary="Dashboard" />
+        <ListItemText primary="" />
       </ListItemButton>
     </Link>
 
@@ -28,18 +28,18 @@ export const mainListItems = (
         <ListItemIcon>
           <BarChart />
         </ListItemIcon>
-          <ListItemText primary="Logs" />
+        <ListItemText primary="" />
       </ListItemButton>
     </Link>
 
-      <Link to="/configuration" style={{ textDecoration: 'none', color: 'inherit' }}>
-        <ListItemButton>
-          <ListItemIcon>
-            <Layers />
-          </ListItemIcon>
-          <ListItemText primary="Configuration" />
-        </ListItemButton>
-      </Link>
+    <Link to="/configuration" style={{ textDecoration: 'none', color: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <Layers />
+        </ListItemIcon>
+        <ListItemText primary="" />
+      </ListItemButton>
+    </Link>
     {/* GitHub Link */}
     <a href="https://github.com/oslabs-beta/Katalog"
       target="_blank"
@@ -50,13 +50,13 @@ export const mainListItems = (
         cursor: 'pointer',
         transition: 'background-color 0.3s',
       }}
-  >
-  <ListItemButton>
-    <ListItemIcon>
-      <GitHub />
-    </ListItemIcon>
-    <ListItemText primary="GitHub" />
-  </ListItemButton>
+    >
+      <ListItemButton>
+        <ListItemIcon>
+          <GitHub />
+        </ListItemIcon>
+        <ListItemText primary="" />
+      </ListItemButton>
     </a>
 
 

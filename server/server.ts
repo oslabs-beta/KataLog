@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import router from './routes/routes';
-const path = require('path');
+// const path = require('path');
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ app.use(express.json());
 // parse URL encoded data requests into req.body
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, 'src')));
+// app.use(express.static(path.join(__dirname, 'src')));
 
 
 const mongoURI : any = process.env.MONGO_URI;

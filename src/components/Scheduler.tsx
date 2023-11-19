@@ -9,7 +9,7 @@ function Scheduler(props) {
 
   return (
     <React.Fragment>
-        <ControlPlaneDialog logs={props.schedulerLogs} name={name}></ControlPlaneDialog>
+      <ControlPlaneDialog logs={props.schedulerLogs} name={name}></ControlPlaneDialog>
     </React.Fragment>
   );
 }

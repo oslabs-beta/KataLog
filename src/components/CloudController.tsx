@@ -9,7 +9,7 @@ function CloudController(props) {
 
   return (
     <React.Fragment>
-        <ControlPlaneDialog logs={props.cloudControllerLogs} name={name}></ControlPlaneDialog>
+      <ControlPlaneDialog logs={props.cloudControllerLogs} name={name}></ControlPlaneDialog>
     </React.Fragment>
   );
 }
